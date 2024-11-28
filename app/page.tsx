@@ -1,9 +1,11 @@
-import Image from "next/image";
+import { MainLayout } from "@/containers/mainLayout";
 
 export default function Home() {
   return (
-    <div>
-      <h2 className="text-center py-2">hello,I'm mohammad hajifattah</h2>
-    </div>
+    <MainLayout>
+      <div>
+        <h2 className="text-center py-2">hello,I'm mohammad hajifattah</h2>
+      </div>
+    </MainLayout>
   );
 }

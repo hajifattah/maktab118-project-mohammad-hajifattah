@@ -1,4 +1,10 @@
+import { MainLayout } from "@/containers/mainLayout";
+
 const RouteLayout: React.FC = () => {
-  return <h2>route layout page</h2>;
+  return (
+    <MainLayout>
+      <h2>route layout page</h2>
+    </MainLayout>
+  );
 };
 export default RouteLayout;
