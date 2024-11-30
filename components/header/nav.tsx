@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PiUserLight } from "react-icons/pi";
-import { TfiShoppingCart } from "react-icons/tfi";
+import { CardDetails } from "./cardDetails";
+import { UserDetails } from "./user/userDetails";
 export const Nav: React.FC = () => {
   return (
-    <div className="bg-white  mt-3">
-      <div className="px-main_px max-w-screen-2xl mx-auto flex justify-between items-center">
+    <div className="bg-white mt-3">
+      <div className="px-6 sm:px-main_px py1 max-w-screen-2xl mx-auto flex justify-between items-center">
         <Link href={"/"} className="flex gap-x-1 p-1 items-end">
           <div className="relative size-9">
             <Image src={"logo.svg"} alt="logo" fill />
@@ -14,8 +14,8 @@ export const Nav: React.FC = () => {
         </Link>
         <div className="flex gap-x-2">
           <button className="font-semibold">مدیریت</button>
-          <PiUserLight className="size-6" />
-          <TfiShoppingCart className="size-6" />
+          <UserDetails />
+          <CardDetails />
         </div>
       </div>
     </div>

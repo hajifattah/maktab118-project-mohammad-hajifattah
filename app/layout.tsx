@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from 'next/font/google'
 import "./globals.css";
+import { ToastifyProvider } from "@/providers/toastify.provider";
 
 const vazir = Vazirmatn({subsets:['arabic']})
 
@@ -19,7 +20,7 @@ export default function RootLayout({
       <body
         className={`${vazir.className} antialiased`}
       >
-        {children}
+        <ToastifyProvider>{children}</ToastifyProvider>
       </body>
     </html>
   );
