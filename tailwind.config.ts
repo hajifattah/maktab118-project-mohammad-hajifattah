@@ -10,8 +10,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        green_app : "#1ab41e"
+      },
+      padding : {
+        main_px : "4rem"
       },
     },
   },

@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 
 export const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <>
+    <div className="bg-slate-100 min-h-screen pt-1">
       <Nav />
       <NavMenu />
       {children}
@@ -16,6 +16,6 @@ export const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <FooterHelp/>
         <FooterInfo/>
       </div>
-    </>
+    </div>
   );
 };
