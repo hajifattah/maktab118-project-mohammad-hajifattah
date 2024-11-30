@@ -41,13 +41,13 @@ export const Input: React.FC<IInput> = ({
         <FaEye
           onClick={() => setShowPass((prev) => !prev)}
           className={`${
-            type == "password" && showPass === false ? "block" : "hidden"
+            type === "password" && showPass === false ? "block" : "hidden"
           } fill-gray-400 hover:fill-gray-800 cursor-pointer`}
         />
         <IoEyeOffSharp
           onClick={() => setShowPass((prev) => !prev)}
           className={`${
-            type == "password" && showPass === true ? "block" : "hidden"
+            type === "password" && showPass === true ? "block" : "hidden"
           } fill-gray-400 hover:fill-gray-800 cursor-pointer`}
         />
       </div>

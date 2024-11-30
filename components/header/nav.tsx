@@ -13,7 +13,9 @@ export const Nav: React.FC = () => {
           <h2 className="text-green_app font-bold text-2xl">بازار روز</h2>
         </Link>
         <div className="flex gap-x-2">
-          <button className="font-semibold">مدیریت</button>
+          <Link href={"/orders"}>
+            <button className="font-semibold">مدیریت</button>
+          </Link>
           <UserDetails />
           <CardDetails />
         </div>

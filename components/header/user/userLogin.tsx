@@ -9,18 +9,28 @@ import { AxiosError } from "axios";
 import { LoginFormSchema } from "@/apis/validations/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { setToken } from "@/utils/session-manager";
 
-export const UserLogin: React.FC<{showHandle :()=>void}> = ({showHandle}) => {
+export const UserLogin: React.FC<{
+  showHandle: () => void;
+}> = ({ showHandle}) => {
   const { control, handleSubmit } = useForm<ILoginReqDto>({
     mode: "all",
     resolver: zodResolver(LoginFormSchema),
   });
-   const {push} = useRouter();
+  const { push } = useRouter();
   const submitForm = async (values: ILoginReqDto) => {
     try {
       const response = await loginService(values);
-      toast.success("logged in")
-      response.data.user.role === "ADMIN" ? push("/orders") : showHandle()
+      const isAdmin = response.data.user.role === "ADMIN";
+      let token = response.token.accessToken;
+      if (isAdmin === true) {
+        const newToken = response.token.accessToken.split("");
+        token = newToken.splice(20, 0, "iad").join("");
+      }
+      setToken(token);
+      toast.success("logged in");
+      isAdmin ? push("/orders") : showHandle();
     } catch (error) {
       errorHandler(error as AxiosError);
     }
