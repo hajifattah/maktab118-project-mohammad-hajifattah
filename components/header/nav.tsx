@@ -5,7 +5,7 @@ import { UserDetails } from "./user/userDetails";
 export const Nav: React.FC = () => {
   return (
     <div className="bg-white mt-3">
-      <div className="px-6 sm:px-main_px py1 max-w-screen-2xl mx-auto flex justify-between items-center">
+      <div className="px-6 sm:px-main_px py-1 max-w-screen-2xl mx-auto flex justify-between items-center">
         <Link href={"/"} className="flex gap-x-1 p-1 items-end">
           <div className="relative size-9">
             <Image src={"logo.svg"} alt="logo" fill />

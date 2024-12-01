@@ -7,7 +7,7 @@ export const CardDetails: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const [card , setCard] = useState<INavShoppingCard>();
   return (
-    <div className="relative">
+    <div className="relative z-50">
       <TfiShoppingCart
         onClick={() => setShow((prev) => !prev)}
         className="size-6 cursor-pointer"

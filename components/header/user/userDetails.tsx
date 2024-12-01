@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { PiUserLight } from "react-icons/pi";
 import { UserLogin } from "./userLogin";
 import { SubmitButton } from "@/components/submitButton";
@@ -9,9 +9,7 @@ import { deleteToken, getToken } from "@/utils/session-manager";
 export const UserDetails: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const [userToken, setUserToken] = useState<string | null>(null);
-  // const userToken = useMemo(() => {
-  //   return getToken();
-  // }, [show]);
+
   const deleteTokenHandler = () => {
     deleteToken();
     showHandle();
@@ -19,9 +17,11 @@ export const UserDetails: React.FC = () => {
   const showHandle = () => {
     setShow((prev) => !prev);
   };
-  useEffect(()=>{setUserToken(getToken())},[show])
+  useEffect(() => {
+    setUserToken(getToken());
+  }, [show]);
   return (
-    <div className="relative ">
+    <div className="relative z-50">
       <PiUserLight onClick={showHandle} className="size-6 cursor-pointer" />
       <div
         className={`${
@@ -39,7 +39,7 @@ export const UserDetails: React.FC = () => {
             bgColor="bg-red-500"
           />
         </div>
-        <div className={`${userToken && "hidden"}`}>
+        <div className={`${userToken && "hidden"} `}>
           <UserLogin showHandle={showHandle} />
         </div>
       </div>

@@ -10,11 +10,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        green_app : "#1ab41e"
+        green_app : "#1ab41e",
+        black_app: "#3f3f3f"
       },
       padding : {
         main_px : "4rem"
       },
+      screens : {
+        xs_app : "25rem"
+      }
     },
   },
   plugins: [],
