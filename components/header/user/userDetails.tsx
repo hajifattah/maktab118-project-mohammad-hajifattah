@@ -9,9 +9,7 @@ import { deleteToken, getToken } from "@/utils/session-manager";
 export const UserDetails: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const [userToken, setUserToken] = useState<string | null>(null);
-  // const userToken = useMemo(() => {
-  //   return getToken();
-  // }, [show]);
+
   const deleteTokenHandler = () => {
     deleteToken();
     showHandle();
@@ -19,7 +17,9 @@ export const UserDetails: React.FC = () => {
   const showHandle = () => {
     setShow((prev) => !prev);
   };
-  useEffect(()=>{setUserToken(getToken())},[show])
+  useEffect(() => {
+    setUserToken(getToken());
+  }, [show]);
   return (
     <div className="relative ">
       <PiUserLight onClick={showHandle} className="size-6 cursor-pointer" />
