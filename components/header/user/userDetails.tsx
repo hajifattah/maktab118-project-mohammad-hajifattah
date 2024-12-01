@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { PiUserLight } from "react-icons/pi";
 import { UserLogin } from "./userLogin";
 import { SubmitButton } from "@/components/submitButton";
@@ -21,7 +21,7 @@ export const UserDetails: React.FC = () => {
     setUserToken(getToken());
   }, [show]);
   return (
-    <div className="relative ">
+    <div className="relative z-50">
       <PiUserLight onClick={showHandle} className="size-6 cursor-pointer" />
       <div
         className={`${
@@ -39,7 +39,7 @@ export const UserDetails: React.FC = () => {
             bgColor="bg-red-500"
           />
         </div>
-        <div className={`${userToken && "hidden"}`}>
+        <div className={`${userToken && "hidden"} `}>
           <UserLogin showHandle={showHandle} />
         </div>
       </div>

@@ -16,6 +16,9 @@ export default {
       padding : {
         main_px : "4rem"
       },
+      screens : {
+        xs_app : "25rem"
+      }
     },
   },
   plugins: [],
