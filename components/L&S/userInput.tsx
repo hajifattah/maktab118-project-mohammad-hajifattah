@@ -24,7 +24,6 @@ export const UserInput: React.FC<IInput> = ({
   return (
     <div>
       <label
-        htmlFor={label}
         className="text-black/60 font-semibold text-sm md:text-base inline-block min-w-36"
       >
         {label} :{" "}
@@ -36,7 +35,6 @@ export const UserInput: React.FC<IInput> = ({
             type === "text" ? "text" : showPass === true ? "text" : "password"
           }
           name={name}
-          id={label}
           className="outline-none"
         />
         <FaEye
