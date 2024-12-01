@@ -1,4 +1,9 @@
-const AdminLayout: React.FC = () => {
-  return <h2>admin layout</h2>;
+const AdminLayout: React.FC<IChildren> = ({ children }) => {
+  return (
+    <>
+      <h2>admin layout</h2>
+      {children}
+    </>
+  );
 };
 export default AdminLayout;

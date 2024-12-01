@@ -1,3 +1,4 @@
+"use client"
 import { loginService } from "@/apis/services/auth.service";
 import { LoginFormSchema } from "@/apis/validations/auth";
 import { UserInput } from "@/components/L&S/userInput";

@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOffSharp } from "react-icons/io5";

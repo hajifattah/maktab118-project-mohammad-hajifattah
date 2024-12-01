@@ -1,4 +1,3 @@
-import { list } from "postcss";
 
 export const SubCategory: React.FC<{list : string[]}> = ({list}) => {
   return (
