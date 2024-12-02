@@ -23,7 +23,7 @@ export const UserDetails: React.FC = () => {
   };
   useEffect(() => {
     setUserToken(getToken());
-  }, []);
+  }, [show]);
   return (
     <div className="relative z-50">
       <PiUserLight onClick={showHandle} className="size-6 cursor-pointer" />
