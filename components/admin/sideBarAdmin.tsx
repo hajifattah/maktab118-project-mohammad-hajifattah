@@ -16,7 +16,7 @@ export const SideBarAdmin: React.FC = () => {
   return (
     <>
       <div
-        className={` h-screen w-2/12 min-w-12 sm:min-w-16 relative max-w-44 pt-6 bg-black_app text-white flex flex-col ${isExtend ? "invisible":""} `}
+        className={` h-screen w-0 sm:w-2/12 sm:min-w-16 relative max-w-44 pt-6 bg-black_app text-white flex flex-col ${isExtend ? "invisible":""} `}
       >
         {/* arrow */}
         <div
@@ -28,14 +28,14 @@ export const SideBarAdmin: React.FC = () => {
           <PiArrowFatLineLeftFill className="size-8 fill-black_app" />
         </div>
         {/* avatar */}
-        <div className="relative size-10 sm:size-14 lg:size-16 self-center mb-7">
+        <div className="relative sm:size-16 lg:size-20 self-center mb-7 hidden sm:block">
           <Image src={"admin/avatar.svg"} alt="avatar" fill />
         </div>
         {/* items */}
         <div
           className={`${
             isExtend && "hidden"
-          } px-2 sm:px-3 flex flex-col gap-y-5 items-center`}
+          } px-2 sm:px-3 flex-col gap-y-5 items-center hidden sm:flex`}
         >
           <Link
             href={"/orders"}
@@ -96,6 +96,7 @@ export const SideBarAdmin: React.FC = () => {
         </div>
       </div>
       <ExtendSideBar
+      path={path}
         exitAccount={exitAccount}
         isExtend={isExtend}
         setIsExtend={() => setIsExtend((prev) => !prev)}

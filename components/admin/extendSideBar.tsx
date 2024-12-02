@@ -4,16 +4,15 @@ import { PiArrowFatLineRightFill } from "react-icons/pi";
 
 export const ExtendSideBar: React.FC<{
   isExtend: boolean;
+  path: string;
   setIsExtend: () => void;
   exitAccount: () => void;
-}> = ({ isExtend, setIsExtend, exitAccount }) => {
+}> = ({ isExtend, setIsExtend, exitAccount, path }) => {
   return (
     <main
       className={
         " fixed overflow-hidden z-10 bg-gray-700 bg-opacity-25 inset-0 transform ease-in-out " +
-        (isExtend
-          ? " translate-x-0  "
-          : " translate-x-full")
+        (isExtend ? " translate-x-0  " : " translate-x-full")
       }
     >
       <section
@@ -39,7 +38,9 @@ export const ExtendSideBar: React.FC<{
           <Link
             onClick={setIsExtend}
             href={"/orders"}
-            className="group/item hover:bg-slate-600 p-2 rounded-sm flex flex-col sm:flex-row text-sm gap-2 items-center  cursor-pointer"
+            className={`group/item hover:bg-slate-600 p-2 rounded-sm flex flex-col sm:flex-row text-sm gap-2 items-center  cursor-pointer ${
+              path === "/orders" ? "border-b-2 border-b-white bg-slate-600" : ""
+            }`}
           >
             <div className="relative size-10 group-hover/item:w-12 shrink-0 ">
               <Image src={"admin/shopping-bags.svg"} alt="shopping-card" fill />
@@ -51,7 +52,9 @@ export const ExtendSideBar: React.FC<{
           <Link
             onClick={setIsExtend}
             href={"/stock"}
-            className="group/item hover:bg-slate-600 p-2 flex flex-col sm:flex-row text-sm gap-x-2 items-center  cursor-pointer"
+            className={`group/item hover:bg-slate-600 p-2 flex flex-col sm:flex-row text-sm gap-x-2 items-center  cursor-pointer ${
+              path === "/stock" ? "border-b-2 border-b-white bg-slate-600" : ""
+            }`}
           >
             <div className="relative  size-10 group-hover/item:w-12 shrink-0">
               <Image src={"admin/prices.svg"} alt="shop" fill />
@@ -63,7 +66,9 @@ export const ExtendSideBar: React.FC<{
           <Link
             onClick={setIsExtend}
             href={"/manage-products"}
-            className="group/item hover:bg-slate-600 p-2 flex flex-col sm:flex-row text-sm gap-x-2 items-center  cursor-pointer"
+            className={`group/item hover:bg-slate-600 p-2 flex flex-col sm:flex-row text-sm gap-x-2 items-center  cursor-pointer ${
+              path === "/manage-products" ? "border-b-2 border-b-white bg-slate-600" : ""
+            }`}
           >
             <div className="relative  size-10 group-hover/item:w-12 shrink-0">
               <Image src={"admin/product-management.svg"} alt="shop" fill />

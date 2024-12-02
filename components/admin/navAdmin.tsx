@@ -16,8 +16,8 @@ export const NavAdmin: React.FC = () => {
           <Image
             src={"admin/bg-navbar.svg"}
             alt="bg"
-            objectFit="cover"
-            layout="fill"
+            style={{objectFit:"cover"}}
+            fill
           />
         </div>
       </div>
