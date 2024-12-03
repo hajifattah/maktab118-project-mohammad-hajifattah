@@ -17,7 +17,7 @@ export const ExtendSideBar: React.FC<{
     >
       <section
         className={
-          " pt-6 max-w-96 w-5/12 right-0 absolute flex flex-col bg-black_app text-white h-full shadow-xl delay-400 duration-500  transition-all transform  " +
+          " pt-6 max-w-96 w-5/12 right-0 absolute flex flex-col bg-blue_app_menu text-white h-full shadow-xl delay-400 duration-500  transition-all transform  " +
           (isExtend ? " translate-x-0 " : " translate-x-full ")
         }
       >

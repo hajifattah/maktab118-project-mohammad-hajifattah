@@ -11,7 +11,9 @@ export default {
     extend: {
       colors: {
         green_app : "#1ab41e",
-        black_app: "#3f3f3f"
+        black_app: "#3f3f3f",
+        blue_app: "#384494",
+        blue_app_menu: "#0d1020",
       },
       padding : {
         main_px : "4rem"

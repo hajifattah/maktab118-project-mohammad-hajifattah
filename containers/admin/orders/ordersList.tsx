@@ -1,10 +1,10 @@
-import { OrderCard } from "@/components/admin/orders/orderCard";
+import { OrderListCard } from "@/components/admin/orders/orderListCard";
 
 export const OrdersList: React.FC = () => {
   return (
-    <>
-      <OrderCard />
+    <div className="px-6 py-4">
+      <OrderListCard />
       <h2>order card</h2>
-    </>
+    </div>
   );
 };
