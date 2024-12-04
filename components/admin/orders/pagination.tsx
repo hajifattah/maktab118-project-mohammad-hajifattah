@@ -17,6 +17,7 @@ export const Pagination: React.FC<{
                 ? new URLSearchParams({
                     deliveryStatus: params.deliveryStatus,
                     page: previous,
+                    sort: params.sort,
                   })
                 : new URLSearchParams({ page: previous })
             }`}
@@ -38,6 +39,7 @@ export const Pagination: React.FC<{
                     ? new URLSearchParams({
                         deliveryStatus: params.deliveryStatus,
                         page: (item + 1).toString(),
+                        sort: params.sort,
                       })
                     : new URLSearchParams({ page: (item + 1).toString() })
                 }`}
@@ -60,6 +62,7 @@ export const Pagination: React.FC<{
                 ? new URLSearchParams({
                     deliveryStatus: params.deliveryStatus,
                     page: next,
+                    sort: params.sort,
                   })
                 : new URLSearchParams({ page: next })
             }`}
