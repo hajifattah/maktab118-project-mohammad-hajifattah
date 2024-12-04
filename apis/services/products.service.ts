@@ -5,11 +5,11 @@ type FetchProductsService = ({
   sort,
   page,
 }: {
-  sort?: "price" | "name" | "category" | "createdAt";
+  sort?: string
   page?: number;
 }) => Promise<IProductsDto>;
 export const fetchProductsService: FetchProductsService = async ({
-  sort = "category",
+  sort = "createAt",
   page = 1,
 }) => {
   const instance = axiosInstance();

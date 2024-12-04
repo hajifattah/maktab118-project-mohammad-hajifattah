@@ -19,7 +19,7 @@ export const Pagination: React.FC<{
                     page: previous,
                     sort: params.sort,
                   })
-                : new URLSearchParams({ page: previous })
+                : new URLSearchParams({ page: previous,sort:params.sort })
             }`}
           >
             <button
@@ -41,7 +41,7 @@ export const Pagination: React.FC<{
                         page: (item + 1).toString(),
                         sort: params.sort,
                       })
-                    : new URLSearchParams({ page: (item + 1).toString() })
+                    : new URLSearchParams({ page: (item + 1).toString(),sort:params.sort })
                 }`}
                 className={`flex items-center justify-center px-3 h-8 leading-tight border bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white ${
                   Number(params.page) === item + 1
@@ -64,7 +64,7 @@ export const Pagination: React.FC<{
                     page: next,
                     sort: params.sort,
                   })
-                : new URLSearchParams({ page: next })
+                : new URLSearchParams({ page: next ,sort:params.sort})
             }`}
           >
             <button
