@@ -9,6 +9,7 @@ export const urls = {
     byId: (id: string) => `/api/users/${id}`,
   },
   products: {
+    list : "/api/products",
     image: (title: string) => `/images/products/images/${title}`,
   },
 };

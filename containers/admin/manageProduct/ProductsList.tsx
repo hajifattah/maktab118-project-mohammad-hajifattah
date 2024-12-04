@@ -1,7 +1,9 @@
+import { fetchProductsService } from "@/apis/services/products.service";
 import { ProductListCard } from "@/components/admin/manageProduct/productListCard";
 import { Pagination } from "@/components/admin/orders/pagination";
 
-export const ProductsList: React.FC = () => {
+export const ProductsList: React.FC = async () => {
+  const productsList = await fetchProductsService({});
   return (
     <div className="px-6 py-4 min-h-[calc(100%-5.75rem)] grid content-between">
       <div className="overflow-x-auto shadow-md sm:rounded-lg ">
@@ -15,11 +17,13 @@ export const ProductsList: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            <ProductListCard />
+            {productsList.data.products.map((item) => {
+              return <ProductListCard key={item._id} {...item} />;
+            })}
           </tbody>
         </table>
       </div>
-      <Pagination totalPage={5} params={{ page: "2" }} />
+      <Pagination totalPage={productsList.total_pages} params={{ page: "1",sort: "createdAt"}} />
     </div>
   );
 };

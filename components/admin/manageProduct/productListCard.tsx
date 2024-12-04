@@ -1,15 +1,15 @@
 import { getProductImageSorce } from "@/utils/sorce-image";
 import Image from "next/image";
 
-export const ProductListCard: React.FC = () => {
+export const ProductListCard: React.FC<IProduct> = ({_id,name,images,price}) => {
   return (
-    <tr className=" border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
+    <tr className=" border-b bg-gray-800 border-gray-700 hover:bg-gray-600" >
       <div className=" p-4">
         <div className="relative mx-auto size-full rounded-md max-w-20 aspect-square">
           <Image
             alt="image"
             src={getProductImageSorce(
-              "products-674dff55a3a18d1b356f1991-1733164885066-1.jpeg"
+              images[0]
             )}
             
             className="rounded-md"
@@ -19,11 +19,11 @@ export const ProductListCard: React.FC = () => {
       </div>
       <th
         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white truncate max-w-52"
-        title="شیر پرچرب دامداران مقدار بسبشسبسشسیب 2 کیلو گرم"
+        title={name}
       >
-        شیر پرچرب دامداران مقدار بسبشسبسشسیب 2 کیلو گرم
+        {name}
       </th>
-      <td className="px-6 py-4">258000 تومان</td>
+      <td className="px-6 py-4">{price} تومان</td>
       <td className="px-6 py-4">
         <div className="flex gap-x-4">
           <button className="font-medium text-blue-500 hover:text-blue-300">

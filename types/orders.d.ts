@@ -20,6 +20,7 @@ interface IOrdersResDto extends IResDto {
 }
 
 interface ISearchParams {
+  sort: "price" | "name" | "category" | "createdAt";
   deliveryStatus?: "true" | "false" | "all";
   page: string | undefined;
 }
