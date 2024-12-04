@@ -2,15 +2,20 @@ import { ordersService } from "@/apis/services/orders.service";
 import { OrderListCard } from "@/components/admin/orders/orderListCard";
 import { Pagination } from "@/components/admin/orders/pagination";
 
-
-export const OrdersList: React.FC = async () => {
-  let response = await ordersService({deliveryStatus:false});
-  // try {
-  // response = await ordersService({deliveryStatus:false});
-  //   console.log(response.data.orders)
-  // } catch (error) {
-  //   throw new Error("bad request")
-  // }
+export const OrdersList: React.FC<ISearchParams> = async ({
+  deliveryStatus,
+  page,
+}) => {
+  const params = {
+    deliveryStatus:
+      deliveryStatus === "true"
+        ? true
+        : deliveryStatus === "false"
+        ? false
+        : undefined,
+    page: Number(page) || 1,
+  };
+  let response = await ordersService(params);
   return (
     <div className="px-6 py-4 min-h-[calc(100%-5.75rem)] grid content-between">
       <div className="overflow-x-auto shadow-md sm:rounded-lg ">
@@ -30,7 +35,10 @@ export const OrdersList: React.FC = async () => {
           </tbody>
         </table>
       </div>
-      <Pagination totalPage={response.total_pages} />
+      <Pagination
+        totalPage={response.total_pages}
+        params={{ deliveryStatus: deliveryStatus || "all", page: page || "1" }}
+      />
     </div>
   );
 };

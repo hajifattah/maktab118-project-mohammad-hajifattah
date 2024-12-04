@@ -18,3 +18,11 @@ interface IOrder {
 interface IOrdersResDto extends IResDto {
   data: { orders: IOrder[] };
 }
+
+interface ISearchParams {
+  deliveryStatus?: "true" | "false" | "all";
+  page: string | undefined;
+}
+interface INextSearchParams {
+  searchParams: Promise<OrdersParams>;
+}

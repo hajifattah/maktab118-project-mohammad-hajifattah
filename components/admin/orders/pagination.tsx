@@ -1,37 +1,76 @@
 import Link from "next/link";
 
-export const Pagination: React.FC<{ totalPage: number }> = ({ totalPage }) => {
+export const Pagination: React.FC<{
+  totalPage: number;
+  params: ISearchParams;
+}> = ({ totalPage, params }) => {
+  const previous = (Number(params.page) - 1).toString();
+  const next = (Number(params.page) + 1).toString();
+
   return (
     <div className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 min-h-full">
       <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
         <li>
           <Link
-            href=""
-            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight  border rounded-s-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white"
+            href={`?${
+              params.deliveryStatus
+                ? new URLSearchParams({
+                    deliveryStatus: params.deliveryStatus,
+                    page: previous,
+                  })
+                : new URLSearchParams({ page: previous })
+            }`}
           >
-            قبلی
+            <button
+              disabled={params.page === "1"}
+              className="flex items-center justify-center px-3 h-8 ms-0 leading-tight  border rounded-s-lg  bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white disabled:bg-gray-950 disabled:text-gray-400"
+            >
+              قبلی
+            </button>
           </Link>
         </li>
         {[...Array(totalPage).keys()].map((item, index) => {
           return (
             <li key={index}>
-              <a
-                href="#"
-                className="flex items-center justify-center px-3 h-8 leading-tight border bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white"
+              <Link
+                href={`?${
+                  params.deliveryStatus
+                    ? new URLSearchParams({
+                        deliveryStatus: params.deliveryStatus,
+                        page: (item + 1).toString(),
+                      })
+                    : new URLSearchParams({ page: (item + 1).toString() })
+                }`}
+                className={`flex items-center justify-center px-3 h-8 leading-tight border bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white ${
+                  Number(params.page) === item + 1
+                    ? "text-white bg-gray-700"
+                    : "text-gray-400 bg-gray-800"
+                }`}
               >
                 {item + 1}
-              </a>
+              </Link>
             </li>
           );
         })}
 
         <li>
-          <a
-            href="#"
-            className="flex items-center justify-center px-3 h-8 leading-tight border rounded-e-lg bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white"
+          <Link
+            href={`?${
+              params.deliveryStatus
+                ? new URLSearchParams({
+                    deliveryStatus: params.deliveryStatus,
+                    page: next,
+                  })
+                : new URLSearchParams({ page: next })
+            }`}
           >
-            بعدی
-          </a>
+            <button
+              disabled={params.page === String(totalPage)}
+              className={`flex items-center justify-center px-3 h-8 leading-tight border rounded-e-lg bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white disabled:bg-gray-950 disabled:text-gray-400`}
+            >
+              بعدی
+            </button>
+          </Link>
         </li>
       </ul>
     </div>

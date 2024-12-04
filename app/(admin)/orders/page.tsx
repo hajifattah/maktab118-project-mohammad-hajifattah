@@ -1,11 +1,16 @@
 import { OrderMenu } from "@/components/admin/orders/orderMenu";
 import { OrdersList } from "@/containers/admin/orders/ordersList";
+import { Suspense } from "react";
 
-const OrdersPage: React.FC = () => {
+const OrdersPage: React.FC<INextSearchParams> = async ({ searchParams }) => {
+  const params = await searchParams;
+
   return (
     <div className="bg-blue_app h-[calc(100vh-7.75rem)] overflow-y-auto rounded-md">
-        <OrderMenu/>
-      <OrdersList />
+      <OrderMenu />
+      <Suspense fallback={<h2>is loading...</h2>}>
+        <OrdersList {...params} />
+      </Suspense>
     </div>
   );
 };
