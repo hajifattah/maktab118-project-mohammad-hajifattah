@@ -16,7 +16,7 @@ export const SideBarAdmin: React.FC = () => {
   return (
     <>
       <div
-        className={` h-screen w-0 sm:w-2/12 sm:min-w-16 relative max-w-44 pt-6 bg-black_app text-white flex flex-col ${isExtend ? "invisible":""} `}
+        className={` h-screen w-0 sm:w-2/12 sm:min-w-16 relative max-w-44 pt-6 bg-blue_app_menu text-white flex flex-col ${isExtend ? "invisible":""} `}
       >
         {/* arrow */}
         <div
@@ -25,7 +25,7 @@ export const SideBarAdmin: React.FC = () => {
             isExtend && "hidden"
           } absolute -left-8  hover:w-6 top-8 cursor-pointer`}
         >
-          <PiArrowFatLineLeftFill className="size-8 fill-black_app" />
+          <PiArrowFatLineLeftFill className="size-8 fill-white" />
         </div>
         {/* avatar */}
         <div className="relative sm:size-16 lg:size-20 self-center mb-7 hidden sm:block">
