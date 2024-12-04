@@ -1,0 +1,8 @@
+import { urls } from "@/apis/urls";
+
+type IGetProductImageSorce = (title: string) => string;
+export const getProductImageSorce: IGetProductImageSorce = (title) => {
+  const ImageSrc =
+    process.env.NEXT_PUBLIC_BASE_URL + urls.products.image(title);
+  return ImageSrc;
+};

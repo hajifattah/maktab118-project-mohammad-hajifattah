@@ -9,7 +9,7 @@ const AdminLayout: React.FC<IChildren> = ({ children }) => {
         <SideBarAdmin />
         <div className="w-full ">
           <NavAdmin />
-          <div className="px-3 sm:px-8 py-4 mx-auto max-w-screen-2xl text-white">
+          <div className="px-3 md:px-8 py-4 mx-auto max-w-screen-2xl text-white">
             {children}
           </div>
         </div>

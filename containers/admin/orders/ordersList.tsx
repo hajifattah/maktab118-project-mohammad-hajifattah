@@ -9,7 +9,6 @@ export const OrdersList: React.FC<ISearchParams> = async ({
   page,
   sort,
 }) => {
-  console.log(sort)
   const params = {
     deliveryStatus:
       deliveryStatus === "true"
