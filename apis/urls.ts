@@ -4,5 +4,8 @@ export const urls ={
     },
     orders:{
         list: "/api/orders"
+    },
+    users:{
+        byId: (id:string)=>`/api/users/${id}`
     }
 }

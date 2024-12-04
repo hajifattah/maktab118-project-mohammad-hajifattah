@@ -12,9 +12,8 @@ export const ordersService: OrdersService = async ({
   deliveryStatus,
   page = 1,
 }) => {
-  const params = deliveryStatus ? { deliveryStatus, page } : { page };
+  const params = deliveryStatus !== undefined ? { deliveryStatus, page } : { page };
   const instance = axiosInstance();
   const response = await instance.get(urls.orders.list, { params });
-  console.log(response.data);
   return response.data;
 };

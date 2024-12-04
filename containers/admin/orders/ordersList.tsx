@@ -1,7 +1,16 @@
+import { ordersService } from "@/apis/services/orders.service";
 import { OrderListCard } from "@/components/admin/orders/orderListCard";
 import { Pagination } from "@/components/admin/orders/pagination";
 
-export const OrdersList: React.FC = () => {
+
+export const OrdersList: React.FC = async () => {
+  let response = await ordersService({deliveryStatus:false});
+  // try {
+  // response = await ordersService({deliveryStatus:false});
+  //   console.log(response.data.orders)
+  // } catch (error) {
+  //   throw new Error("bad request")
+  // }
   return (
     <div className="px-6 py-4 min-h-[calc(100%-5.75rem)] grid content-between">
       <div className="overflow-x-auto shadow-md sm:rounded-lg ">
@@ -15,13 +24,13 @@ export const OrdersList: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            <OrderListCard />
-            <OrderListCard />
-            <OrderListCard />
+            {response.data.orders.map((item) => (
+              <OrderListCard key={item._id} {...item} />
+            ))}
           </tbody>
         </table>
       </div>
-        <Pagination />
+      <Pagination totalPage={response.total_pages} />
     </div>
   );
 };
