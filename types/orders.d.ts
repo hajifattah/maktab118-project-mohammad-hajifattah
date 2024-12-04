@@ -18,9 +18,10 @@ interface IOrder {
 interface IOrdersResDto extends IResDto {
   data: { orders: IOrder[] };
 }
-
+// totalPrice, createdAt for orders page
+// price, createAt, name, category for products_manager page
 interface ISearchParams {
-  sort: "price" | "name" | "category" | "createdAt";
+  sort: "price" | "totalPrice" | "createdAt" | "name" | "category";
   deliveryStatus?: "true" | "false" | "all";
   page: string | undefined;
 }

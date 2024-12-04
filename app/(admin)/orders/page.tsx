@@ -8,7 +8,7 @@ const OrdersPage: React.FC<INextSearchParams> = async ({ searchParams }) => {
   return (
     <div className="bg-blue_app h-[calc(100vh-7.75rem)] overflow-y-auto rounded-md">
       <OrderMenu />
-      <Suspense fallback={<h2>is loading...</h2>}>
+      <Suspense fallback={<h2 className="p-6">is loading...</h2>}>
         <OrdersList {...params} />
       </Suspense>
     </div>
