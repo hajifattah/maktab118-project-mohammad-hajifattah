@@ -20,7 +20,6 @@ export const OrdersList: React.FC<ISearchParams> = async ({
     sort: sort || "createdAt",
   };
   let response = await ordersService(params);
-  console.log(params)
   return (
     <div className="px-3 xs_app:px-6 py-4 min-h-[calc(100%-5.75rem)] grid content-between">
       <div className="overflow-x-auto shadow-md sm:rounded-lg ">

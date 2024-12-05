@@ -15,6 +15,11 @@ export const urls = {
     image: (title: string) => `/images/products/images/${title}`,
   },
   subCategory:{
-    byId: (id:string)=> `/api/subcategories/${id}`
+    byId: (id:string)=> `/api/subcategories/${id}`,
+    list : `/api/subcategories`
+  },
+  category:{
+    list : `/api/categories`,
+    image: (title: string) => `/images/categories/icons/${title}`,
   }
 };
