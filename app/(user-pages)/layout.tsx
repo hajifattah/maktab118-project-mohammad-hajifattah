@@ -1,11 +1,11 @@
 import { PageRoute } from "@/components/header/pageRoute";
 import { MainLayout } from "@/containers/mainLayout";
 
-const RouteLayout: React.FC = () => {
+const RouteLayout: React.FC<IChildren> = ({children}) => {
   return (
     <MainLayout>
-      <PageRoute/>
-      <h2>route layout page</h2>
+      {/* <PageRoute/> */}
+      {children}
     </MainLayout>
   );
 };
