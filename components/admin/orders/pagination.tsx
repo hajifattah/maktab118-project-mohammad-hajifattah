@@ -8,7 +8,7 @@ export const Pagination: React.FC<{
   const next = (Number(params.page) + 1).toString();
 
   return (
-    <div className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4 min-h-full">
+    <div className="flex items-center flex-column flex-wrap md:flex-row justify-between min-h-full">
       <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
         <li>
           <Link
@@ -18,8 +18,13 @@ export const Pagination: React.FC<{
                     deliveryStatus: params.deliveryStatus,
                     page: previous,
                     sort: params.sort,
+                    limit: params.limit,
                   })
-                : new URLSearchParams({ page: previous,sort:params.sort })
+                : new URLSearchParams({
+                    page: previous,
+                    sort: params.sort,
+                    limit: params.limit,
+                  })
             }`}
           >
             <button
@@ -40,8 +45,13 @@ export const Pagination: React.FC<{
                         deliveryStatus: params.deliveryStatus,
                         page: (item + 1).toString(),
                         sort: params.sort,
+                        limit: params.limit,
                       })
-                    : new URLSearchParams({ page: (item + 1).toString(),sort:params.sort })
+                    : new URLSearchParams({
+                        page: (item + 1).toString(),
+                        sort: params.sort,
+                        limit: params.limit,
+                      })
                 }`}
                 className={`flex items-center justify-center px-3 h-8 leading-tight border bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white ${
                   Number(params.page) === item + 1
@@ -63,8 +73,13 @@ export const Pagination: React.FC<{
                     deliveryStatus: params.deliveryStatus,
                     page: next,
                     sort: params.sort,
+                    limit: params.limit,
                   })
-                : new URLSearchParams({ page: next ,sort:params.sort})
+                : new URLSearchParams({
+                    page: next,
+                    sort: params.sort,
+                    limit: params.limit,
+                  })
             }`}
           >
             <button

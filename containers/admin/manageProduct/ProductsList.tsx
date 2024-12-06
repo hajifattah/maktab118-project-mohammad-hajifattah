@@ -8,7 +8,7 @@ export const ProductsList: React.FC<ISearchParams> = async ({ page, sort }) => {
   const params = { page: Number(page) || 1, sort: sort || "createdAt" };
   const productsList = await fetchProductsService(params);
   return (
-    <div className="px-3 xs_app:px-6 py-4 min-h-[calc(100%-5.75rem)] grid content-between">
+    <div className="px-3 xs_app:px-6 py-4 min-h-[calc(100%-5.75rem)] h-[calc(100vh-12rem)] grid content-between">
       <div className="overflow-x-auto shadow-md sm:rounded-lg ">
         <table className="w-full text-sm text-left rtl:text-right text-gray-400">
           <thead className="text-xs bg-gray-700 text-gray-400">

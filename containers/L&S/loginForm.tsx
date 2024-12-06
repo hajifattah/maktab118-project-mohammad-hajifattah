@@ -33,12 +33,12 @@ export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
       console.log(token)
       //when user login from managment
       if (!isAdmin && !showHandle) {
-        toast.error("you are not admin");
+        toast.error("شماادمین نیستید لطفا از صفحه اصلی اقدام کنید");
         return push("/");
       }
       //login from nav for user or admin
       setToken(token);
-      toast.success("logged in");
+      toast.success("ورود موفقیت آمیز بود");
       if (isAdmin) {
         push("/orders");
       } else {
