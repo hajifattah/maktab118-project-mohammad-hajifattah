@@ -29,5 +29,5 @@ interface ISearchParams {
   page: string | undefined;
 }
 interface INextSearchParams {
-  searchParams: Promise<OrdersParams>;
+  searchParams: Promise<ISearchParams>;
 }

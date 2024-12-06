@@ -8,8 +8,8 @@ export const Pagination: React.FC<{
   const next = (Number(params.page) + 1).toString();
 
   return (
-    <div className="flex items-center flex-column flex-wrap md:flex-row justify-between min-h-full">
-      <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+    <div className="flex items-center flex-column flex-wrap md:flex-row justify-between overflow-x-auto ">
+      <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8 ">
         <li>
           <Link
             href={`?${

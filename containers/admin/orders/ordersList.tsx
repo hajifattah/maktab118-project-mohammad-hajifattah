@@ -20,7 +20,7 @@ export const OrdersList: React.FC<ISearchParams> = async ({
         : undefined,
     page: Number(page) || 1,
     sort: sort || "createdAt",
-    limit: limit || "10",
+    limit: limit || "5",
   };
   let response = await ordersService(params);
   return (
@@ -35,6 +35,7 @@ export const OrdersList: React.FC<ISearchParams> = async ({
                   href={`?${new URLSearchParams({
                     deliveryStatus: deliveryStatus || "all",
                     sort: "totalPrice",
+                    limit: limit || "5",
                   })}`}
                   className="flex gap-x-3 items-center hover:text-white"
                 >
@@ -47,6 +48,7 @@ export const OrdersList: React.FC<ISearchParams> = async ({
                   href={`?${new URLSearchParams({
                     deliveryStatus: deliveryStatus || "all",
                     sort: "createdAt",
+                    limit: limit || "5",
                   })}`}
                   className="flex gap-x-3 items-center hover:text-white"
                 >
@@ -64,7 +66,7 @@ export const OrdersList: React.FC<ISearchParams> = async ({
           </tbody>
         </table>
       </div>
-      <div className="flex flex-wrap items-start xs_app:items-end gap-x-4 b-2 ">
+      <div className="flex flex-wrap items-start xs_app:items-end gap-x-3 gap-y-2 b-2 overflow-x-auto">
         <Pagination
           totalPage={response.total_pages}
           params={{
@@ -73,7 +75,13 @@ export const OrdersList: React.FC<ISearchParams> = async ({
             page: page || "1",
           }}
         />
-        <LimitInPage />
+        <LimitInPage
+          params={{
+            ...params,
+            deliveryStatus: deliveryStatus || "all",
+            page: page || "1",
+          }}
+        />
       </div>
     </div>
   );
