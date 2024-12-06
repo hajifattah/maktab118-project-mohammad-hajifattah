@@ -13,7 +13,7 @@ export const UserDetails: React.FC = () => {
   const [userToken, setUserToken] = useState<string | null>(null);
   const {push} = useRouter();
   const deleteTokenHandler = () => {
-    toast.success("logged out")
+    toast.success("خروج موفقیت آمیز بود")
     deleteToken();
     showHandle();
     push("/")
