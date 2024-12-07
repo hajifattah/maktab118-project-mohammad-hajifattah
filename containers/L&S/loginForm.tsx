@@ -1,6 +1,6 @@
 "use client";
 import { loginService } from "@/apis/services/auth.service";
-import { LoginFormSchema } from "@/apis/validations/auth";
+import { LoginFormSchema } from "@/apis/validations/auth.validation";
 import { UserInput } from "@/components/L&S/userInput";
 import { SubmitButton } from "@/components/submitButton";
 import { errorHandler } from "@/utils/error-handler";

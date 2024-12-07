@@ -4,26 +4,24 @@ interface IInput
     HTMLInputElement
   > {
   label: string;
-  name: string;
   error?: string;
 }
-export const InputProduct: React.FC<IInput> = ({ label, name,error ,...props}) => {
+export const ProductInput: React.FC<IInput> = ({ label, error, ...props }) => {
   return (
     <div>
       <label
-        htmlFor={label}
+        htmlFor={props.name}
         className="text-black/60 font-semibold text-sm md:text-base inline-block min-w-36"
       >
         {label} :{" "}
       </label>
       <input
-      {...props}
+        {...props}
         type="text"
-        name={name}
-        id={label}
-        className="rounded-md text-black px-2 border py-1 w-full focus:outline focus:outline-green-300"
+        id={props.name}
+        className="rounded-md text-black bg-slate-100 px-2 border py-1 w-full focus:outline focus:outline-2 focus:outline-blue_app/70"
       />
-     {error &&  <p className="text-sm font-semibold text-red-500">{error}</p>}
+      {error && <p className="text-sm font-semibold text-red-900 mt-1">{error}</p>}
     </div>
   );
 };

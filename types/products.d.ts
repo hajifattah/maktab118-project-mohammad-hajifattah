@@ -15,3 +15,12 @@ interface IProduct {
   interface IProductsDto extends IResDto {
     data: { products: IProduct[] };
   }
+
+  interface IProductForm{
+    name : string;
+    category : string;
+    subCategory : string;
+    description : string;
+    quantity : number;
+    price : number;
+  }

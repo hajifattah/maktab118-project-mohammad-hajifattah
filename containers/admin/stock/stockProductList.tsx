@@ -17,7 +17,7 @@ export const StockProductList: React.FC<ISearchParams> = async ({
   };
   const productsList = await fetchProductsService(params);
   return (
-    <div className="px-3 xs_app:px-6 py-4 min-h-[calc(100%-5.75rem)] h-[calc(100vh-12rem)] grid content-between">
+    <div className="px-3 xs_app:px-6 py-4 xs_app:h-[calc(100vh-12.5rem)] min-h-[calc(100vh-15rem)] grid gap-y-3 content-between">
       <div className="overflow-x-auto shadow-md sm:rounded-lg ">
         <table className="w-full text-sm text-left rtl:text-right text-gray-400">
           <thead className="text-xs bg-gray-700 text-gray-400">
