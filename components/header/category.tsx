@@ -1,15 +1,10 @@
 import Image from "next/image";
 import { SubCategory } from "./subCategory";
-import { fetchSubCatListService } from "@/apis/services/subCategory.service";
-import { fetchCategoryListService } from "@/apis/services/category.service";
 import { getCategoryImageSorce } from "@/utils/sorce-image";
+import { GetSubCatAndCat } from "@/utils/fetch-cat-subCat";
 
 export const Category: React.FC = async () => {
-  const response = await fetchSubCatListService();
-  const subCatlist = [...response[0], ...response[1]];
-  const responseTwo = await fetchCategoryListService();
-  const catList = responseTwo.data.categories;
-
+  const {catList,subCatList} = await GetSubCatAndCat();
   return (
     <div className=" group-hover:visible absolute invisible shadow-xl top-11 sm:top-[3rem] right-0 bg-white rounded-br-md text-black w-44 ">
       <ul>
@@ -32,7 +27,7 @@ export const Category: React.FC = async () => {
                 {cat.name}{" "}
               </h2>
               <div className="group-hover/item:visible invisible grid p-2 min-h-[212px] xs_app:rounded-br-none rounded-br-md shadow-xl rounded-l-md sm:w-[calc(100vw-17rem)] w-[calc(100vw-13rem)] px-2 sm:px-4 bg-black_app absolute right-44 top-[0.2rem] text-white max-w-screen-xl z-30">
-                <SubCategory catId={cat._id} subCatList={subCatlist} />
+                <SubCategory catId={cat._id} subCatList={subCatList} />
               </div>
             </li>
           );
