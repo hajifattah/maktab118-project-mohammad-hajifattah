@@ -9,18 +9,33 @@ import { ProductSchema } from "@/apis/validations/product.validation";
 import { ProductInput } from "@/components/admin/manageProduct/inputs/productInput";
 
 import { CategoryAndSubCategory } from "@/components/admin/manageProduct/inputs/categoryAndSubcategory";
+import { FileInput } from "@/components/admin/manageProduct/inputs/fileInput";
+import { TinyMce } from "@/components/admin/manageProduct/mceEditor";
 export const AddProductForm: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const {
     handleSubmit,
     control,
+    setValue,
+    watch,
     reset,
     formState: { isValid, isDirty },
   } = useForm<IProductForm>({
     mode: "all",
     resolver: zodResolver(ProductSchema),
+    defaultValues: {
+      category: "",
+      subCategory: "",
+      description: "",
+      name: "",
+      price: "",
+      quantity: "",
+      images: [],
+    },
   });
-  const submitForm = () => {};
+  const submitForm = (e: IProductForm) => {
+    console.log(e);
+  };
   return (
     <div>
       <button
@@ -46,7 +61,7 @@ export const AddProductForm: React.FC = () => {
             <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
               <form
                 onSubmit={handleSubmit(submitForm)}
-                className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl"
+                className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all mx-2 sm:m-20 sm:w-full sm:max-w-screen-lg"
               >
                 <div className="bg-sky-500 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:flex-col  sm:gap-y-5 ">
@@ -61,7 +76,7 @@ export const AddProductForm: React.FC = () => {
                         افزودن کالا جدید
                       </h3>
                     </div>
-                    <div className="flex flex-col gap-y-3 mt-3 text-center sm:ml-4 sm:mt-0 sm:text-start">
+                    <div className="flex flex-col gap-y-3 mt-3 text-center sm:mt-0 sm:text-start">
                       <Controller
                         control={control}
                         name="name"
@@ -75,7 +90,10 @@ export const AddProductForm: React.FC = () => {
                           );
                         }}
                       />
-                      <CategoryAndSubCategory control={control} />
+                      <CategoryAndSubCategory
+                        setValue={setValue}
+                        control={control}
+                      />
                       <div className="flex flex-col sm:flex-row gap-x-4 gap-y-3">
                         <Controller
                           control={control}
@@ -109,7 +127,7 @@ export const AddProductForm: React.FC = () => {
                         name="description"
                         render={({ field, fieldState }) => {
                           return (
-                            <ProductInput
+                            <TinyMce
                               {...field}
                               label="توضیحات"
                               error={fieldState.error?.message}
@@ -117,6 +135,7 @@ export const AddProductForm: React.FC = () => {
                           );
                         }}
                       />
+                      <FileInput name="images" control={control} />
                     </div>
                   </div>
                 </div>
@@ -132,7 +151,7 @@ export const AddProductForm: React.FC = () => {
                     <CancelButton
                       showMoadl={() => {
                         setShowModal(false);
-                        reset(undefined, { keepDirtyValues: false });
+                        reset();
                       }}
                     />
                   </div>

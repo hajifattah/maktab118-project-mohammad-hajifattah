@@ -42,11 +42,11 @@ export const ProductSelectInput: React.FC<IInput> = ({
         {...props}
         onChange={onchangeHandler}
         id={props.name}
-        className="rounded-md text-black bg-slate-100 px-2 border py-1 w-full focus:outline focus:outline-2 focus:outline-blue_app/70"
+        className="rounded-md text-black bg-slate-100 px-2 border py-1 w-full focus:outline focus:outline-2 cursor-pointer focus:outline-blue_app/70"
       >
         <option value="">یک گزینه انتخاب نمایید</option>
         {list.map((item) => (
-          <option value={item.name}>{item.name}</option>
+          <option key={item._id} value={item.name}>{item.name}</option>
         ))}
       </select>
       {error && (

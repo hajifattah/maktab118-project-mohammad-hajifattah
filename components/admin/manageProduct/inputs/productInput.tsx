@@ -8,7 +8,7 @@ interface IInput
 }
 export const ProductInput: React.FC<IInput> = ({ label, error, ...props }) => {
   return (
-    <div>
+    <div className="w-full">
       <label
         htmlFor={props.name}
         className="text-black/60 font-semibold text-sm md:text-base inline-block min-w-36"

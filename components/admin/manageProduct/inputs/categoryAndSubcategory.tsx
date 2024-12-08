@@ -1,11 +1,17 @@
-import { Control, Controller } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 import { ProductSelectInput } from "./productSelectInput";
 import { useEffect, useState } from "react";
 import { GetSubCatAndCat } from "@/utils/fetch-cat-subCat";
 
 export const CategoryAndSubCategory: React.FC<{
   control: Control<IProductForm, any>;
-}> = ({ control }) => {
+  setValue: UseFormSetValue<IProductForm>;
+}> = ({ control, setValue }) => {
   const [category, setCategory] = useState<string>("");
   const [catAndSubCat, setCatAndSubCat] = useState<{
     subCatList: ISubCategory[];
@@ -13,6 +19,7 @@ export const CategoryAndSubCategory: React.FC<{
   }>();
 
   const setCategoryName = (cat: string) => {
+    setValue("subCategory", "");
     setCategory(cat);
   };
   const categoryAndSubCategory = async () => {

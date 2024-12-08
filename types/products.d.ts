@@ -21,6 +21,7 @@ interface IProduct {
     category : string;
     subCategory : string;
     description : string;
-    quantity : number;
-    price : number;
+    quantity : string;
+    price : string;
+    images : File[];
   }
