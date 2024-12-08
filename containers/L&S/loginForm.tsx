@@ -1,6 +1,6 @@
 "use client";
 import { loginService } from "@/apis/services/auth.service";
-import { LoginFormSchema } from "@/apis/validations/auth";
+import { LoginFormSchema } from "@/apis/validations/auth.validation";
 import { UserInput } from "@/components/L&S/userInput";
 import { SubmitButton } from "@/components/submitButton";
 import { errorHandler } from "@/utils/error-handler";
@@ -26,11 +26,9 @@ export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
       let token = response.token.accessToken;
       if (isAdmin === true) {
         const newToken = response.token.accessToken.split("");
-        console.log(newToken)
         newToken.splice(20, 0,"i","a","d");
         token = newToken.join("")
       }
-      console.log(token)
       //when user login from managment
       if (!isAdmin && !showHandle) {
         toast.error("شماادمین نیستید لطفا از صفحه اصلی اقدام کنید");
