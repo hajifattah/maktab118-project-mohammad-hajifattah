@@ -13,10 +13,12 @@ import { FileInput } from "@/components/admin/manageProduct/inputs/fileInput";
 import { TinyMce } from "@/components/admin/manageProduct/mceEditor";
 import { errorHandler } from "@/utils/error-handler";
 import { AxiosError } from "axios";
-import { addProductService } from "@/apis/services/products.service";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { addProductService } from "@/apis/services/productsClient.service";
 export const AddProductForm: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { push } = useRouter();
   const {
     handleSubmit,
     control,
@@ -52,6 +54,9 @@ export const AddProductForm: React.FC = () => {
       setShowModal(false);
       reset();
       toast.success("محصول باموفقیت اضافه شد");
+      setTimeout(() => {
+        push("/manage-products");
+      }, 1500);
     } catch (error) {
       errorHandler(error as AxiosError);
     }

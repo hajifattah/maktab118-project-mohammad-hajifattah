@@ -1,4 +1,3 @@
-import { fetchProductsService } from "@/apis/services/products.service";
 import { AddProductForm } from "@/containers/admin/manageProduct/productForm";
 import { ProductsList } from "@/containers/admin/manageProduct/ProductsList";
 import { Suspense } from "react";

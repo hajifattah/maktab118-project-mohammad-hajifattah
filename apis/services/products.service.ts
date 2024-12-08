@@ -1,4 +1,4 @@
-import { clientAxiosInstance } from "../client.instance";
+"use server"
 import { axiosInstance } from "../instance";
 import { urls } from "../urls";
 
@@ -23,9 +23,3 @@ export const fetchProductsService: FetchProductsService = async ({
   return response.data;
 };
 
-type AddProductService = (values: FormData) => Promise<{ status: string }>;
-export const addProductService: AddProductService = async (values) => {
-  const instance = clientAxiosInstance();
-  const response = await instance.post(urls.products.addProduct, values);
-  return response.data;
-};

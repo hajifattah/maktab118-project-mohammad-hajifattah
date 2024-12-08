@@ -1,6 +1,7 @@
 import { fetchSubCatByIdService } from "@/apis/services/subCategory.service";
 import { getProductImageSorce } from "@/utils/sorce-image";
 import Image from "next/image";
+import { DeleteProduct } from "./deleteProduct";
 
 export const ProductListCard: React.FC<IProduct> = async ({
   _id,
@@ -37,9 +38,7 @@ export const ProductListCard: React.FC<IProduct> = async ({
           <button className="font-medium text-blue-500 hover:text-blue-300">
             ویرایش
           </button>
-          <button className="font-semibold text-base text-red-600 hover:text-red-400">
-            حذف
-          </button>
+          <DeleteProduct id={_id} name={name} />
         </div>
       </td>
     </tr>
