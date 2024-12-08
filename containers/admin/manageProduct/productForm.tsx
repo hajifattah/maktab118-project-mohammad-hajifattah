@@ -11,13 +11,16 @@ import { ProductInput } from "@/components/admin/manageProduct/inputs/productInp
 import { CategoryAndSubCategory } from "@/components/admin/manageProduct/inputs/categoryAndSubcategory";
 import { FileInput } from "@/components/admin/manageProduct/inputs/fileInput";
 import { TinyMce } from "@/components/admin/manageProduct/mceEditor";
+import { errorHandler } from "@/utils/error-handler";
+import { AxiosError } from "axios";
+import { addProductService } from "@/apis/services/products.service";
+import { toast } from "react-toastify";
 export const AddProductForm: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const {
     handleSubmit,
     control,
     setValue,
-    watch,
     reset,
     formState: { isValid, isDirty },
   } = useForm<IProductForm>({
@@ -31,10 +34,27 @@ export const AddProductForm: React.FC = () => {
       price: "",
       quantity: "",
       images: [],
+      brand: "",
     },
   });
-  const submitForm = (e: IProductForm) => {
-    console.log(e);
+  const submitForm = async (values: IProductForm) => {
+    const formData = new FormData();
+    formData.set("category", values.category);
+    formData.set("subcategory", values.subCategory);
+    formData.set("name", values.name);
+    formData.set("price", values.price);
+    formData.set("quantity", values.quantity);
+    formData.set("brand", values.quantity);
+    formData.set("description", values.description);
+    values.images.forEach((image) => formData.append("images", image));
+    try {
+      await addProductService(formData);
+      setShowModal(false);
+      reset();
+      toast.success("محصول باموفقیت اضافه شد");
+    } catch (error) {
+      errorHandler(error as AxiosError);
+    }
   };
   return (
     <div>
@@ -77,19 +97,34 @@ export const AddProductForm: React.FC = () => {
                       </h3>
                     </div>
                     <div className="flex flex-col gap-y-3 mt-3 text-center sm:mt-0 sm:text-start">
-                      <Controller
-                        control={control}
-                        name="name"
-                        render={({ field, fieldState }) => {
-                          return (
-                            <ProductInput
-                              label="نام محصول"
-                              {...field}
-                              error={fieldState.error?.message}
-                            />
-                          );
-                        }}
-                      />
+                      <div className="flex flex-col sm:flex-row gap-x-4 gap-y-3">
+                        <Controller
+                          control={control}
+                          name="name"
+                          render={({ field, fieldState }) => {
+                            return (
+                              <ProductInput
+                                label="نام محصول"
+                                {...field}
+                                error={fieldState.error?.message}
+                              />
+                            );
+                          }}
+                        />
+                        <Controller
+                          control={control}
+                          name="brand"
+                          render={({ field, fieldState }) => {
+                            return (
+                              <ProductInput
+                                label="برند محصول"
+                                {...field}
+                                error={fieldState.error?.message}
+                              />
+                            );
+                          }}
+                        />
+                      </div>
                       <CategoryAndSubCategory
                         setValue={setValue}
                         control={control}

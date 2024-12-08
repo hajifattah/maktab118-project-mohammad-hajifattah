@@ -3,8 +3,16 @@ import { toast } from "react-toastify";
 
 export const errorHandler = (err: AxiosError | string) => {
   if (axios.isAxiosError(err)) {
-    const message = err.response?.statusText=== "Unauthorized" ? "نام کاربری یا کلمه عبور اشتباه است" : err.response?.statusText
-    toast.error(message);
+    let message = err.response?.data as string;
+    console.log(err.response);
+    message =
+      message.includes("You are not logged in!") ||
+      message.includes("invalid token") || message.includes("TokenExpiredError")
+        ? "لطفا مجددا وارد شوید"
+        : message.includes("incorrect username or password")
+        ? "نام کاربری یا کلمه عبور صحیح نیست"
+        : message.includes("product name is already exists")? "محصولی با این نام موجود می باشد": (err.response?.statusText as string);
+    toast.error(message as string);
   } else if (typeof err === "string") {
     toast.error(err as string);
   }

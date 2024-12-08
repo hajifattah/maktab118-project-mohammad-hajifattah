@@ -24,4 +24,5 @@ interface IProduct {
     quantity : string;
     price : string;
     images : File[];
+    brand:string
   }

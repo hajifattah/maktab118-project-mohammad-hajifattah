@@ -30,4 +30,5 @@ export const ProductSchema = z.object({
       const size = file.reduce((acc, item) => (acc += item.size), 0);
       return size <= maxFileSize;
     }, "حجم فایل زیاد می باشد، حداکثر 5 مگابایت"),
+  brand: z.string().refine((val) => val != "", " برند محصول را انتخاب کنید"),
 });

@@ -26,11 +26,9 @@ export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
       let token = response.token.accessToken;
       if (isAdmin === true) {
         const newToken = response.token.accessToken.split("");
-        console.log(newToken)
         newToken.splice(20, 0,"i","a","d");
         token = newToken.join("")
       }
-      console.log(token)
       //when user login from managment
       if (!isAdmin && !showHandle) {
         toast.error("شماادمین نیستید لطفا از صفحه اصلی اقدام کنید");

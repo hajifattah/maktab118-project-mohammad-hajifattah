@@ -26,8 +26,7 @@ export const ProductSelectInput: React.FC<IInput> = ({
   const onchangeHandler: ChangeEventHandler<HTMLSelectElement> = (e) => {
     onChange ? onChange(e) : undefined;
     if (setCat) {
-      const id = list.find((item) => item.name === e.target.value)?._id as string;
-      setCat(id);
+      setCat(e.target.value);
     }
   };
   return (
@@ -46,7 +45,7 @@ export const ProductSelectInput: React.FC<IInput> = ({
       >
         <option value="">یک گزینه انتخاب نمایید</option>
         {list.map((item) => (
-          <option key={item._id} value={item.name}>{item.name}</option>
+          <option key={item._id} value={item._id}>{item.name}</option>
         ))}
       </select>
       {error && (

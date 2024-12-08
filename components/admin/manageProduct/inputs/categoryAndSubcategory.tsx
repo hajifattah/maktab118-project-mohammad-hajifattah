@@ -2,7 +2,6 @@ import {
   Control,
   Controller,
   UseFormSetValue,
-  UseFormWatch,
 } from "react-hook-form";
 import { ProductSelectInput } from "./productSelectInput";
 import { useEffect, useState } from "react";
