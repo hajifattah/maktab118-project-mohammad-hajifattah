@@ -14,11 +14,19 @@ import { TinyMce } from "@/components/admin/manageProduct/mceEditor";
 import { errorHandler } from "@/utils/error-handler";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
-import { addProductService } from "@/apis/services/productsClient.service";
-export const AddProductForm: React.FC = () => {
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  addProductService,
+  updateProductService,
+} from "@/apis/services/productsClient.service";
+export const ProductForm: React.FC<{ data?: IProduct }> = ({ data }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+
+  const search = useSearchParams();
+  const params = Object.fromEntries(search.entries());
+  const searchParams = new URLSearchParams(params);
   const { push } = useRouter();
+
   const {
     handleSubmit,
     control,
@@ -28,16 +36,6 @@ export const AddProductForm: React.FC = () => {
   } = useForm<IProductForm>({
     mode: "all",
     resolver: zodResolver(ProductSchema),
-    defaultValues: {
-      category: "",
-      subCategory: "",
-      description: "",
-      name: "",
-      price: "",
-      quantity: "",
-      images: [],
-      brand: "",
-    },
   });
   const submitForm = async (values: IProductForm) => {
     const formData = new FormData();
@@ -46,17 +44,19 @@ export const AddProductForm: React.FC = () => {
     formData.set("name", values.name);
     formData.set("price", values.price);
     formData.set("quantity", values.quantity);
-    formData.set("brand", values.quantity);
+    formData.set("brand", values.brand);
     formData.set("description", values.description);
     values.images.forEach((image) => formData.append("images", image));
     try {
-      await addProductService(formData);
+      data
+        ? await updateProductService(data._id, formData)
+        : await addProductService(formData);
+
       setShowModal(false);
       reset();
       toast.success("محصول باموفقیت اضافه شد");
-      setTimeout(() => {
-        push("/manage-products");
-      }, 1500);
+
+      push(`?${searchParams}`);
     } catch (error) {
       errorHandler(error as AxiosError);
     }
@@ -65,14 +65,18 @@ export const AddProductForm: React.FC = () => {
     <div>
       <button
         onClick={() => setShowModal(true)}
-        className="py-3 px-2 sm:px-3 rounded-t-md font-medium text-blue-500 hover:text-blue-300 hover:bg-slate-500 hover:border-b-2 "
+        className={`${
+          data
+            ? "font-medium text-blue-500 hover:text-blue-300"
+            : "py-3 px-2 sm:px-3 rounded-t-md font-medium text-blue-500 hover:text-blue-300 hover:bg-slate-500 hover:border-b-2 "
+        } `}
       >
-        افزودن کالا
+        {data ? "ویرایش " : "افزودن کالا"}
       </button>
       {/* modal */}
-      {
+      {showModal && (
         <div
-          className={`relative z-10 ${showModal ? "block" : "hidden"}`}
+          className="relative z-10"
           aria-labelledby="modal-title"
           role="dialog"
           aria-modal="true"
@@ -92,13 +96,13 @@ export const AddProductForm: React.FC = () => {
                   <div className="sm:flex sm:flex-col  sm:gap-y-5 ">
                     <div className="flex gap-x-1  items-center justify-center rounded-md bg-blue_app px-2">
                       <div className=" flex flex-shrink-0 w-14 h-14 items-center justify-center ">
-                        <GiNotebook className="size-10 " />
+                        <GiNotebook className="size-10 text-slate-200" />
                       </div>
                       <h3
                         className="text-base text-center sm:text-lg font-semibold text-slate-100"
                         id="modal-title"
                       >
-                        افزودن کالا جدید
+                        {data ? "ویرایش محصول" : "افزودن محصول جدید"}
                       </h3>
                     </div>
                     <div className="flex flex-col gap-y-3 mt-3 text-center sm:mt-0 sm:text-start">
@@ -106,6 +110,7 @@ export const AddProductForm: React.FC = () => {
                         <Controller
                           control={control}
                           name="name"
+                          defaultValue={data ? data.name : undefined}
                           render={({ field, fieldState }) => {
                             return (
                               <ProductInput
@@ -119,6 +124,7 @@ export const AddProductForm: React.FC = () => {
                         <Controller
                           control={control}
                           name="brand"
+                          defaultValue={data ? data.brand : undefined}
                           render={({ field, fieldState }) => {
                             return (
                               <ProductInput
@@ -131,6 +137,17 @@ export const AddProductForm: React.FC = () => {
                         />
                       </div>
                       <CategoryAndSubCategory
+                        twoDefault={
+                          data
+                            ? {
+                                defCategory: data?.category,
+                                defSubCategoy: data?.subcategory,
+                              }
+                            : {
+                                defCategory: undefined,
+                                defSubCategoy: undefined,
+                              }
+                        }
                         setValue={setValue}
                         control={control}
                       />
@@ -138,6 +155,9 @@ export const AddProductForm: React.FC = () => {
                         <Controller
                           control={control}
                           name="quantity"
+                          defaultValue={
+                            data ? String(data.quantity) : undefined
+                          }
                           render={({ field, fieldState }) => {
                             return (
                               <ProductInput
@@ -151,6 +171,7 @@ export const AddProductForm: React.FC = () => {
                         <Controller
                           control={control}
                           name="price"
+                          defaultValue={data ? String(data?.price) : undefined}
                           render={({ field, fieldState }) => {
                             return (
                               <ProductInput
@@ -162,7 +183,9 @@ export const AddProductForm: React.FC = () => {
                           }}
                         />
                       </div>
+
                       <Controller
+                        defaultValue={data ? data.description : undefined}
                         control={control}
                         name="description"
                         render={({ field, fieldState }) => {
@@ -175,7 +198,12 @@ export const AddProductForm: React.FC = () => {
                           );
                         }}
                       />
-                      <FileInput name="images" control={control} />
+
+                      <FileInput
+                        defaultImage={data?.images}
+                        name="images"
+                        control={control}
+                      />
                     </div>
                   </div>
                 </div>
@@ -185,13 +213,23 @@ export const AddProductForm: React.FC = () => {
                     type="submit"
                     className="disabled:bg-gray-400 inline-flex w-full justify-center rounded-md bg-blue_app px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue_app/80 sm:ml-3"
                   >
-                    افزودن کالا
+                    {data ? "ویرایش محصول" : "افزودن محصول"}
                   </button>
                   <div className="w-full sm:w-40">
                     <CancelButton
                       showMoadl={() => {
                         setShowModal(false);
-                        reset();
+                        !data &&
+                          reset({
+                            category: "",
+                            subCategory: "",
+                            description: "",
+                            name: "",
+                            price: "",
+                            quantity: "",
+                            images: [],
+                            brand: "",
+                          });
                       }}
                     />
                   </div>
@@ -200,7 +238,7 @@ export const AddProductForm: React.FC = () => {
             </div>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 };

@@ -2,17 +2,22 @@ import {
   ChangeEventHandler,
   DetailedHTMLProps,
   SelectHTMLAttributes,
+  useEffect,
 } from "react";
 
 interface IInput
-  extends DetailedHTMLProps<
-    SelectHTMLAttributes<HTMLSelectElement>,
-    HTMLSelectElement
+  extends Omit<
+    DetailedHTMLProps<
+      SelectHTMLAttributes<HTMLSelectElement>,
+      HTMLSelectElement
+    >,
+    "onChange"
   > {
   label: string;
   error?: string;
   list: ISubCategory[] | ICategory[];
   setCat?: (value: string) => void;
+  onChange: (e: string) => void;
 }
 
 export const ProductSelectInput: React.FC<IInput> = ({
@@ -21,14 +26,16 @@ export const ProductSelectInput: React.FC<IInput> = ({
   list,
   onChange,
   setCat,
+  defaultValue,
   ...props
 }) => {
   const onchangeHandler: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    onChange ? onChange(e) : undefined;
+    onChange ? onChange(e.target.value) : undefined;
     if (setCat) {
       setCat(e.target.value);
     }
   };
+  useEffect(()=>{defaultValue && onChange(defaultValue as string)},[defaultValue])
   return (
     <div className="w-full">
       <label
@@ -39,13 +46,16 @@ export const ProductSelectInput: React.FC<IInput> = ({
       </label>
       <select
         {...props}
+        defaultValue={defaultValue}
         onChange={onchangeHandler}
         id={props.name}
         className="rounded-md text-black bg-slate-100 px-2 border py-1 w-full focus:outline focus:outline-2 cursor-pointer focus:outline-blue_app/70"
       >
         <option value="">یک گزینه انتخاب نمایید</option>
         {list.map((item) => (
-          <option key={item._id} value={item._id}>{item.name}</option>
+          <option key={item._id} value={item._id}>
+            {item.name}
+          </option>
         ))}
       </select>
       {error && (

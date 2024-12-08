@@ -1,4 +1,6 @@
 "use client";
+import { convertUrlToFile } from "@/apis/services/productsClient.service";
+import { getProductImageSorce } from "@/utils/sorce-image";
 import Image from "next/image";
 import { ChangeEventHandler, useEffect } from "react";
 import { Control, useController } from "react-hook-form";
@@ -7,14 +9,15 @@ import { TiDeleteOutline } from "react-icons/ti";
 export const FileInput: React.FC<{
   name: keyof IProductForm;
   control: Control<IProductForm, any>;
-}> = ({ name, control }) => {
+  defaultImage: string[] | undefined;
+}> = ({ name, control, defaultImage }) => {
   const {
     field,
     fieldState: { error },
   } = useController({ name, control });
 
   const changeHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
-    let filesArray = [];
+    let filesArray: File[] = [];
     for (const file of e.target.files || []) {
       filesArray.push(file);
     }
@@ -29,8 +32,19 @@ export const FileInput: React.FC<{
   useEffect(() => {
     field.onChange([]);
   }, [control]);
+  useEffect(() => {
+    const setFiles = async () => {
+      if (!defaultImage) return;
+      const srcImageList = defaultImage.map((item) =>
+        getProductImageSorce(item)
+      );
+      const files = await convertUrlToFile(srcImageList);
+      field.onChange(files);
+    };
+    setFiles();
+  }, [defaultImage]);
   return (
-    <div className="border bg-blue_app rounded-md">
+    <div className="border bg-blue_app rounded-md text-slate-100">
       <input
         id="fileInput"
         onChange={changeHandle}
@@ -41,7 +55,7 @@ export const FileInput: React.FC<{
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5  gap-4 justify-center content-center p-4 ">
         <label
           htmlFor="fileInput"
-          className="`w-full rounded-md text-sm text-grayApp text-center border-2 border-dashed p-4 sm:p-6 inline-block cursor-pointer"
+          className="`w-full rounded-md text-sm text-grayApp text-center border-2 border-dashed p-4 sm:p-6 inline-block cursor-pointer "
         >
           برای آپلود عکس کلیک کنید
         </label>

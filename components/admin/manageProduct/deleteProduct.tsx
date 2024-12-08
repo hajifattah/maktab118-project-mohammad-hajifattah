@@ -3,7 +3,9 @@ import { deleteProductService } from "@/apis/services/productsClient.service";
 import { CancelButton } from "@/components/cancelButton";
 import { errorHandler } from "@/utils/error-handler";
 import { AxiosError } from "axios";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { FormEventHandler, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
@@ -13,10 +15,17 @@ export const DeleteProduct: React.FC<{ id: string; name: string }> = ({
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const deleteProduct = async () => {
+  const search = useSearchParams();
+  const params = Object.fromEntries(search.entries());
+  const searchParams = new URLSearchParams(params);
+  const { push } = useRouter();
+
+  const deleteProduct: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
     try {
       await deleteProductService(id);
       toast.success("محصول باموفقیت حذف شد");
+      push(`?${searchParams}`);
     } catch (error) {
       errorHandler(error as AxiosError);
     }
@@ -64,9 +73,7 @@ export const DeleteProduct: React.FC<{ id: string; name: string }> = ({
                   </div>
                 </div>
               </div>
-              <div
-                className="bg-sky-500 border-t-2 border-white px-4 py-4 sm:flex  sm:px-6"
-              >
+              <div className="bg-sky-500 border-t-2 border-white px-4 py-4 sm:flex  sm:px-6">
                 <button
                   type="submit"
                   className="disabled:bg-gray-400 inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3"
