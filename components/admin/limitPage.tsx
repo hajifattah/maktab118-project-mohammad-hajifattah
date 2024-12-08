@@ -1,13 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 
 export const LimitInPage: React.FC<{ params: ISearchParams }> = ({
   params,
 }) => {
   const { push } = useRouter();
   const onclickHandler: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    console.log(e.target.value);
     push(
       `?${
         params.deliveryStatus
@@ -26,6 +25,7 @@ export const LimitInPage: React.FC<{ params: ISearchParams }> = ({
   return (
     <select
       onChange={onclickHandler}
+      value={params.limit}
       name=""
       id=""
       className="bg-gray-800 h-fit text-sm py-1 px-4 rounded-md hover:cursor-pointer focus:outline-none text-gray-200"

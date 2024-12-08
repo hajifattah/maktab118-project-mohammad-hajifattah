@@ -1,8 +1,4 @@
-import {
-  Control,
-  Controller,
-  UseFormSetValue,
-} from "react-hook-form";
+import { Control, Controller, UseFormSetValue } from "react-hook-form";
 import { ProductSelectInput } from "./productSelectInput";
 import { useEffect, useState } from "react";
 import { GetSubCatAndCat } from "@/utils/fetch-cat-subCat";
@@ -10,7 +6,11 @@ import { GetSubCatAndCat } from "@/utils/fetch-cat-subCat";
 export const CategoryAndSubCategory: React.FC<{
   control: Control<IProductForm, any>;
   setValue: UseFormSetValue<IProductForm>;
-}> = ({ control, setValue }) => {
+  twoDefault: {
+    defCategory: string | undefined;
+    defSubCategoy: string | undefined;
+  };
+}> = ({ control, setValue, twoDefault: { defCategory, defSubCategoy } }) => {
   const [category, setCategory] = useState<string>("");
   const [catAndSubCat, setCatAndSubCat] = useState<{
     subCatList: ISubCategory[];
@@ -38,6 +38,7 @@ export const CategoryAndSubCategory: React.FC<{
             render={({ field, fieldState }) => {
               return (
                 <ProductSelectInput
+                  defaultValue={defCategory}
                   label="دسته اصلی"
                   setCat={setCategoryName}
                   list={catAndSubCat.catList}
@@ -53,10 +54,17 @@ export const CategoryAndSubCategory: React.FC<{
             render={({ field, fieldState }) => {
               return (
                 <ProductSelectInput
+                  defaultValue={defSubCategoy}
                   label="زیر دسته"
-                  list={catAndSubCat.subCatList.filter(
-                    (item) => item.category === category
-                  )}
+                  list={
+                    defCategory
+                      ? catAndSubCat.subCatList.filter(
+                          (item) => item.category === defCategory
+                        )
+                      : catAndSubCat.subCatList.filter(
+                          (item) => item.category === category
+                        )
+                  }
                   {...field}
                   error={fieldState.error?.message}
                 />

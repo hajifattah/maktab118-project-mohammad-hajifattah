@@ -13,7 +13,9 @@ export const urls = {
   products: {
     list: "/api/products",
     image: (title: string) => `/images/products/images/${title}`,
-    addProduct: "/api/products"
+    addProduct: "/api/products",
+    deleteProduct: (id:string)=> `/api/products/${id}`,
+    updateProduct: (id: string)=>`/api/products/${id}`
   },
   subCategory:{
     byId: (id:string)=> `/api/subcategories/${id}`,

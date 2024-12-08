@@ -52,7 +52,7 @@ export const ProductsList: React.FC<ISearchParams> = async ({
           </thead>
           <tbody>
             {productsList.data.products.map((item) => {
-              return <ProductListCard key={item._id} {...item} />;
+              return <ProductListCard key={item._id} data={item} />;
             })}
           </tbody>
         </table>

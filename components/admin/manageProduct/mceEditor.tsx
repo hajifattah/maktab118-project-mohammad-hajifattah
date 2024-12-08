@@ -1,15 +1,23 @@
-"use client"
+"use client";
 import { Editor } from "@tinymce/tinymce-react";
 
-interface IInput  {
+interface IInput {
   error?: string;
   label: string;
-  name : string;
-  value:string;
-  onChange: (input : string)=> void
+  name: string;
+  value: string;
+  defaultValue?: string;
+  onChange: (input: string) => void;
 }
 
-export const TinyMce: React.FC<IInput> = ({ error, label,name,onChange,value}) => {
+export const TinyMce: React.FC<IInput> = ({
+  error,
+  label,
+  name,
+  onChange,
+  value,
+  defaultValue,
+}) => {
   return (
     <>
       <label
@@ -24,7 +32,7 @@ export const TinyMce: React.FC<IInput> = ({ error, label,name,onChange,value}) =
         textareaName={name}
         apiKey={process.env.NEXT_PUBLIC_TINY_APIKEY}
         // onInit={(_evt, editor) => editorRef.current = editor}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        initialValue={defaultValue}
         init={{
           height: 400,
           //   menubar: false,
