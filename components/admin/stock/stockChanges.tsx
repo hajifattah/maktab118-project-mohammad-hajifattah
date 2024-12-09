@@ -144,7 +144,7 @@ export const StoreStockChanges: React.FC = () => {
                   محصولی برای آپدیت وجود ندارد
                 </div>
               </div>
-              <div className="bg-sky-500 border-t-2 border-white px-4 py-4 sm:flex  sm:px-6">
+              <div className="bg-sky-500 border-t-2 border-white px-4 py-4">
                 <button
                   onClick={() => setShowModal(false)}
                   className="disabled:bg-gray-400 inline-flex w-fit justify-center rounded-md bg-blue_app px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue_app/80 sm:ml-3"
