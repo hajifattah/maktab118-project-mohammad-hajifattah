@@ -26,3 +26,13 @@ interface IProduct {
     images : File[];
     brand:string
   }
+
+  interface IQuantityPriceForm{
+    quantity : string;
+    price: string;
+  }
+
+  interface IPairIDs{
+    pair : IQuantityPriceForm;
+    id : string
+  }

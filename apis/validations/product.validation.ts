@@ -32,3 +32,18 @@ export const ProductSchema = z.object({
     }, "حجم فایل زیاد می باشد، حداکثر 5 مگابایت"),
   brand: z.string().refine((val) => val != "", " برند محصول را انتخاب کنید"),
 });
+
+export const QuantityPriceSchema = z.object({
+  quantity: z
+    .string()
+    .refine(
+      (val) => val != "" && !isNaN(Number(val)),
+      "تعداد محصول را به عدد وارد کنید"
+    ),
+  price: z
+    .string()
+    .refine(
+      (val) => val != "" && !isNaN(Number(val)),
+      "قیمت محصول را به عدد وارد کنید"
+    ),
+});
