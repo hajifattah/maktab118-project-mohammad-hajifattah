@@ -1,11 +1,12 @@
 "use client";
 import { getProductImageSorce } from "@/utils/sorce-image";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { ProductInput } from "../manageProduct/inputs/productInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { QuantityPriceSchema } from "@/apis/validations/product.validation";
+import { PairStockContext } from "@/providers/stockPage.provider";
 
 export const StockProductCard: React.FC<IProduct> = ({
   _id,
@@ -14,11 +15,12 @@ export const StockProductCard: React.FC<IProduct> = ({
   quantity,
   images,
 }) => {
+  const {addToPairsList} = useContext(PairStockContext);
   const [isStore, setIsStore] = useState<boolean>(true);
   const {
     control,
     getValues,
-    formState: { isDirty, isValid },
+    formState: { isValid },
   } = useForm<IQuantityPriceForm>({
     mode: "all",
     resolver: zodResolver(QuantityPriceSchema),
@@ -26,8 +28,8 @@ export const StockProductCard: React.FC<IProduct> = ({
 
   const storeValues = (s: boolean) => {
     if (isStore) return setIsStore(s);
-    console.log(getValues());
-    setIsStore(true)
+    addToPairsList({ pair: getValues(), id: _id, name });
+    setIsStore(true);
   };
   return (
     <tr className=" border-b bg-gray-800 border-gray-700 hover:bg-gray-600">

@@ -18,13 +18,12 @@ export const StockProductList: React.FC<ISearchParams> = ({
     limit: limit || "5",
   };
   const [productsList, setProductsList] = useState<IProductsDto>();
-  const [pairValues, setPairValues] = useState<IQuantityPriceForm[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () =>
       setProductsList(await fetchProductsService(params));
     fetchProducts();
-  }, [page,limit,sort]);
+  }, [page, limit, sort]);
   return (
     <>
       {productsList && (
@@ -75,7 +74,12 @@ export const StockProductList: React.FC<ISearchParams> = ({
               </thead>
               <tbody>
                 {productsList.data.products.map((item) => {
-                  return <StockProductCard key={item._id} {...item} />;
+                  return (
+                    <StockProductCard
+                      key={item._id}
+                      {...item}
+                    />
+                  );
                 })}
               </tbody>
             </table>

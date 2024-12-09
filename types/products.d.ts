@@ -34,5 +34,6 @@ interface IProduct {
 
   interface IPairIDs{
     pair : IQuantityPriceForm;
-    id : string
+    id : string;
+    name:string;
   }
