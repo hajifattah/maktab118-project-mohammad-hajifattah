@@ -77,7 +77,7 @@ export const FileInput: React.FC<{
               </h2>
               <TiDeleteOutline
                 onClick={() => deleteFile(index)}
-                className="absolute top-0 right-0 cursor-pointer size-10"
+                className="absolute top-0 right-0 cursor-pointer size-10 text-slate-200"
               />
             </div>
           ))}

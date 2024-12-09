@@ -28,6 +28,24 @@ export const updateProductService: UpdateProductService = async (id, data) => {
   return response.data;
 };
 
+type UpdateProductPairsService = (
+  pairs: IPairIDs[]
+) => Promise<{ status: string }[]>;
+export const updateProductPairsService: UpdateProductPairsService = async (
+  pairs
+) => {
+  const instance = clientAxiosInstance();
+  const reqs = pairs.map((item) =>
+    instance.patch(urls.products.updateProduct(item.id), item.pair)
+  );
+  const allResponse = await Promise.all(reqs);
+  const usableResponses: { status: string }[] = [];
+  for (const item of allResponse) {
+    usableResponses.push(item.data);
+  }
+  return usableResponses;
+};
+
 export const convertUrlToFile = async (imageUrl: string[]) => {
   // create fileName
   const imagesNames = imageUrl.map((url) =>
