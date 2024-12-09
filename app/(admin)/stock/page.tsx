@@ -1,4 +1,4 @@
-import { StoreStockChanges } from "@/components/admin/stock/editStockPrice";
+import { StoreStockChanges } from "@/components/admin/stock/stockChanges";
 import { StockProductList } from "@/containers/admin/stock/stockProductList";
 import { PairStockProvider } from "@/providers/stockPage.provider";
 import { Suspense } from "react";
