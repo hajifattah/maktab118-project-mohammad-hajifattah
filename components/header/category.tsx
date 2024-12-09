@@ -6,7 +6,7 @@ import { GetSubCatAndCat } from "@/utils/fetch-cat-subCat";
 export const Category: React.FC = async () => {
   const {catList,subCatList} = await GetSubCatAndCat();
   return (
-    <div className=" group-hover:visible absolute invisible shadow-xl top-11 sm:top-[3rem] right-0 bg-white rounded-br-md text-black w-44 ">
+    <div className=" group-hover:visible absolute invisible shadow-xl top-11 sm:top-[3rem] right-0 bg-white rounded-br-md text-black w-44 z-30">
       <ul>
         {catList.map((cat, index) => {
           return (
