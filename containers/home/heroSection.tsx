@@ -39,7 +39,7 @@ export const HeroSection: React.FC = () => {
             className="rounded-md"
             fill
           />
-          <div className="absolute -rotate-90 -left-[10%] px-2 top-[40%] bg-slate-100 text-green_app hover:bg-green-200 font-semibold rounded-md  text-[2.8vw] md:text-[1.7vw] lg:-left-[8%]">
+          <div className="absolute -rotate-90 -left-[10%] px-2 top-[40%] bg-slate-100 text-green_app hover:bg-green-200 font-semibold rounded-md  text-[2.8vw] md:text-[1.7vw] lg:-left-[8%] 2xl:text-3xl">
             <button>انواع گوشت</button>
           </div>
         </div>
@@ -50,7 +50,7 @@ export const HeroSection: React.FC = () => {
             className="rounded-md"
             fill
           />
-          <div className="absolute left-[20%] top-[11vw] bg-slate-100 text-green_app hover:bg-green-200 font-semibold rounded-md px-2 text-[2.8vw] md:text-[1.7vw] md:left-[22%] md:top-[38%] lg:left-[25%]">
+          <div className="absolute left-[20%] top-[11vw] bg-slate-100 text-green_app hover:bg-green-200 font-semibold rounded-md px-2 text-[2.8vw] md:text-[1.7vw] md:left-[22%] md:top-[38%] lg:left-[25%] 2xl:text-3xl">
             <button>میوه و سبزیجات</button>
           </div>
         </div>
