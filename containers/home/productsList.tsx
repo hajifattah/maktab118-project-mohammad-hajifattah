@@ -11,11 +11,12 @@ export const HomeProductsList: React.FC<{ text: string }> = ({ text }) => {
           <CgArrowLeft className="inline-block size-4 sm:size-6 mr-1" />
         </button>
       </div>
-
-      <div className="grid xs_app:grid-cols-2 md:!grid-cols-4 xl:!grid-cols-6 border">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <ProductCard key={item} />
-        ))}
+      <div className="px-10 xs_app:px-6">
+        <div className="grid xs_app:grid-cols-2 md:!grid-cols-4 xl:!grid-cols-6 border">
+          {[1, 2, 3, 4, 5, 6].map((item) => (
+            <ProductCard key={item} />
+          ))}
+        </div>
       </div>
     </>
   );

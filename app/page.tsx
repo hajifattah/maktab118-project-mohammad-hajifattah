@@ -1,5 +1,6 @@
 import { Feature } from "@/containers/home/feature";
 import { HeroSection } from "@/containers/home/heroSection";
+import { MiddleContent } from "@/containers/home/middleContent";
 import { HomeProductsList } from "@/containers/home/productsList";
 import { MainLayout } from "@/containers/mainLayout";
 
@@ -10,6 +11,7 @@ export default function Home() {
         <HeroSection />
         <Feature />
         <HomeProductsList text="جدیدترین محصولات" />
+        <MiddleContent/>
         {/* <ProductsList /> */}
       </div>
     </MainLayout>

@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export const HeroSection: React.FC = () => {
   return (
-    <div className="flex flex-col sm:flex-row gap-x-4 w-full ">
-      <div className="relative w-full sm:w-8/12 aspect-video rounded-md grow">
+    <div className="flex flex-col md:flex-row gap-x-4 w-full ">
+      <div className="relative w-full md:w-8/12 aspect-video rounded-md grow">
         <Image
           alt="image"
           src={"/home/bannar.png"}
@@ -18,8 +18,8 @@ export const HeroSection: React.FC = () => {
             fill
           />
         </div>
-        <div className="absolute overflow-y-hidden right-0 py-3 lg:py-8 text-slate-100 px-4 w-7/12 max-w-52 md:max-w-64 lg:max-w-md ">
-          <h2 className="text-[5vw] sm:text-[3vw] md:leading-[2.8rem] md:text-[3.5vw] 2xl:text-[2.4rem] ">
+        <div className="absolute overflow-y-hidden right-0 py-3 lg:py-8 text-slate-100 px-4 w-7/12 max-w-52 sm:max-w-96 lg:max-w-md ">
+          <h2 className="text-[5vw] md:leading-[2.8rem] md:text-[3.5vw] 2xl:text-[2.4rem] ">
             محصولات <span className=" font-semibold"> تازه</span> و{" "}
             <span className=" font-semibold">ارگانیک</span>
           </h2>
@@ -31,26 +31,26 @@ export const HeroSection: React.FC = () => {
           </h2>
         </div>
       </div>
-      <div className="w-full h-[30vw] sm:h-auto sm:block sm:w-4/12 flex gap-x-4">
-        <div className="relative mt-2 sm:mt-0 w-full sm:h-[calc(50%-4px)] rounded-md ">
+      <div className="w-full h-[30vw] md:h-auto md:block md:w-4/12 flex gap-x-4">
+        <div className="relative mt-2 md:mt-0 w-full md:h-[calc(50%-4px)] rounded-md ">
           <Image
             alt="image"
             src={"/home/main3-bg.jpg"}
             className="rounded-md"
             fill
           />
-          <div className="absolute -rotate-90 -left-[10%] px-2 top-[40%] bg-slate-100 text-green_app hover:bg-green-200 font-semibold rounded-md  text-[2.8vw] sm:text-[1.7vw] lg:-left-[8%]">
+          <div className="absolute -rotate-90 -left-[10%] px-2 top-[40%] bg-slate-100 text-green_app hover:bg-green-200 font-semibold rounded-md  text-[2.8vw] md:text-[1.7vw] lg:-left-[8%]">
             <button>انواع گوشت</button>
           </div>
         </div>
-        <div className="relative mt-2 w-full sm:h-[calc(50%-4px)] rounded-md ">
+        <div className="relative mt-2 w-full md:h-[calc(50%-4px)] rounded-md ">
           <Image
             alt="image"
             src={"/home/main-veg1.jpg"}
             className="rounded-md"
             fill
           />
-          <div className="absolute left-[20%] top-[11vw] bg-slate-100 text-green_app hover:bg-green-200 font-semibold rounded-md px-2 text-[2.8vw] sm:text-[1.7vw] sm:left-[22%] sm:top-[38%] lg:left-[25%]">
+          <div className="absolute left-[20%] top-[11vw] bg-slate-100 text-green_app hover:bg-green-200 font-semibold rounded-md px-2 text-[2.8vw] md:text-[1.7vw] md:left-[22%] md:top-[38%] lg:left-[25%]">
             <button>میوه و سبزیجات</button>
           </div>
         </div>

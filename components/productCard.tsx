@@ -31,7 +31,7 @@ export const ProductCard: React.FC = () => {
       </div>
       <div className="flex items-center justify-between px-3 py-2 ">
         <div className="text-sm xs_app:max-w-[75%]">
-          <h2 className="font-semibold text-gray-800 truncate max-w-[65vw]">
+          <h2 className="font-semibold text-gray-800 truncate max-w-[35vw]">
             گل کلم خیلی تازه ارزان به شرط محصول تعدا محدود
           </h2>
           <h2 className="text-gray-500 font-semibold">موجود در انبار</h2>
