@@ -14,7 +14,6 @@ export default function Home() {
         <MiddleContent/>
         <HomeProductsList text="صبحانه" />
         <HomeProductsList text="انواع گوشت" />
-        {/* <ProductsList /> */}
       </div>
     </MainLayout>
   );

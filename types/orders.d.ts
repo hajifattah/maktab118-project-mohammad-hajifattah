@@ -28,6 +28,8 @@ interface ISearchParams {
   deliveryStatus?: "true" | "false" | "all";
   page: string | undefined;
 }
-interface INextSearchParams {
+
+interface INextPageParams<T={slug:string}> {
   searchParams: Promise<ISearchParams>;
+  params: Promise<T>;
 }
