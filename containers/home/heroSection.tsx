@@ -10,16 +10,16 @@ export const HeroSection: React.FC = () => {
           className="rounded-md "
           fill
         />
-        <div className="absolute w-[60%] h-5/6 -left-[5%] top-[4%]">
+        <div className="absolute w-[60%] h-5/6 -left-[3.4%] top-[4%]">
           <Image
             alt="image"
-            src={"/home/main1-bg.png"}
+            src={"/home/main1.png"}
             className="rounded-md absolute"
             fill
           />
         </div>
-        <div className="absolute overflow-y-hidden right-0 py-4 lg:py-8 text-slate-100 px-4 w-7/12 max-w-52 md:max-w-64 lg:max-w-md ">
-          <h2 className="text-[5vw] sm:text-[3vw] md:leading-[3rem] md:text-[3.5vw] 2xl:text-[2.4rem] xl:mt-4 ">
+        <div className="absolute overflow-y-hidden right-0 py-3 lg:py-8 text-slate-100 px-4 w-7/12 max-w-52 md:max-w-64 lg:max-w-md ">
+          <h2 className="text-[5vw] sm:text-[3vw] md:leading-[2.8rem] md:text-[3.5vw] 2xl:text-[2.4rem] ">
             محصولات <span className=" font-semibold"> تازه</span> و{" "}
             <span className=" font-semibold">ارگانیک</span>
           </h2>

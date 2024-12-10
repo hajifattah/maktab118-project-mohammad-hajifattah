@@ -26,7 +26,7 @@ export const Category: React.FC = async () => {
               <h2 className="group-hover/item:font-semibold text-black">
                 {cat.name}{" "}
               </h2>
-              <div className="group-hover/item:visible invisible grid p-2 min-h-[212px] xs_app:rounded-br-none rounded-br-md shadow-xl rounded-l-md sm:w-[calc(100vw-17rem)] w-[calc(100vw-13rem)] px-2 sm:px-4 bg-black_app absolute right-44 top-[0.2rem] text-white max-w-screen-xl z-30">
+              <div className="group-hover/item:visible invisible grid p-2 min-h-[212px] xs_app:rounded-br-none rounded-br-md shadow-xl rounded-l-md sm:w-[calc(100vw-17rem)] w-[calc(100vw-14rem)] px-2 sm:px-4 bg-black_app absolute right-44 top-[0.2rem] text-white max-w-screen-xl z-30">
                 <SubCategory catId={cat._id} subCatList={subCatList} />
               </div>
             </li>
