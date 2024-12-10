@@ -12,9 +12,8 @@ export default function Home() {
         <Feature />
         <HomeProductsList text="جدیدترین محصولات" />
         <MiddleContent/>
-        <HomeProductsList text="شکلات صبحانه" />
-        <HomeProductsList text="انواع ماهی" />
-
+        <HomeProductsList text="صبحانه" />
+        <HomeProductsList text="انواع گوشت" />
         {/* <ProductsList /> */}
       </div>
     </MainLayout>

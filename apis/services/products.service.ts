@@ -6,7 +6,9 @@ type FetchProductsService = ({
   sort,
   page,
   limit,
+  category
 }: {
+  category?: string;
   sort?: string;
   page?: number;
   limit: string;
@@ -15,10 +17,11 @@ export const fetchProductsService: FetchProductsService = async ({
   sort = "createAt",
   page = 1,
   limit,
+  category
 }) => {
   const instance = axiosInstance();
   const response = await instance.get(urls.products.list, {
-    params: { sort, page, limit },
+    params: { sort, page, limit, category },
   });
   return response.data;
 };
