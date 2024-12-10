@@ -10,12 +10,14 @@ export const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
     <div className="bg-slate-100 min-h-screen pt-1">
       <Nav />
       <NavMenu />
-      <div className="max-w-screen-2xl mx-auto px-6 sm:px-main_px">{children}</div>
-      <div className="bg-black_app h-24">
-        <div className="max-w-screen-2xl mx-auto flex justify-between p-4">
-          <FooterApps />
-          <FooterHelp />
+      <div className="max-w-screen-2xl mx-auto px-6 sm:px-main_px">
+        {children}
+      </div>
+      <div className="bg-black_app mt-8">
+        <div className="max-w-screen-2xl mx-auto flex flex-wrap gap-2 justify-between py-4 px-6 pb-5 sm:px-16">
           <FooterInfo />
+            <FooterHelp />
+            <FooterApps />
         </div>
       </div>
     </div>

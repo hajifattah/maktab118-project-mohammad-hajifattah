@@ -3,7 +3,7 @@ import { StockProductList } from "@/containers/admin/stock/stockProductList";
 import { PairStockProvider } from "@/providers/stockPage.provider";
 import { Suspense } from "react";
 
-const StockProductPage: React.FC<INextSearchParams> = async ({
+const StockProductPage: React.FC<INextPageParams> = async ({
   searchParams,
 }) => {
   const params = await searchParams;

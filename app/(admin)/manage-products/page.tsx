@@ -2,7 +2,7 @@ import { ProductForm } from "@/containers/admin/manageProduct/productForm";
 import { ProductsList } from "@/containers/admin/manageProduct/ProductsList";
 import { Suspense } from "react";
 
-const ManageProductsPage: React.FC<INextSearchParams> = async ({
+const ManageProductsPage: React.FC<INextPageParams> = async ({
   searchParams,
 }) => {
   const params = await searchParams;
