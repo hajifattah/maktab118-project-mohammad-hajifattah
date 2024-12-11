@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { axiosInstance } from "../instance";
 import { urls } from "../urls";
 
@@ -6,9 +6,10 @@ type FetchProductsService = ({
   sort,
   page,
   limit,
-  category
+  category,
 }: {
   category?: string;
+  subcategory?: string;
   sort?: string;
   page?: number;
   limit: string;
@@ -17,12 +18,12 @@ export const fetchProductsService: FetchProductsService = async ({
   sort = "-createAt",
   page = 1,
   limit,
-  category
+  category,
+  subcategory,
 }) => {
   const instance = axiosInstance();
   const response = await instance.get(urls.products.list, {
-    params: { sort, page, limit, category },
+    params: { sort, page, limit, category ,subcategory},
   });
   return response.data;
 };
-

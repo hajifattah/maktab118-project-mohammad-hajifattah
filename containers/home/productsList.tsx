@@ -18,7 +18,7 @@ export const HomeProductsList: React.FC<{ text: string }> = async ({
     <>
       <div className="flex justify-between items-center mt-4">
         <h2 className="font-semibold text-lg sm:text-2xl">{text}</h2>
-        <Link href={`/products/${category? "category/"+category.slugname : ""}`}>
+        <Link href={`/products/${category? "category/"+category._id : ""}`}>
           <button className="font-semibold text-xs sm:text-sm text-green_app">
             مشاهده همه
             <CgArrowLeft className="inline-block size-4 sm:size-6 mr-1" />

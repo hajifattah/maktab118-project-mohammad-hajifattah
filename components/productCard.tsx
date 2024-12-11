@@ -6,7 +6,8 @@ import { FaRegEye } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { MdFavoriteBorder } from "react-icons/md";
 
-export const ProductCard: React.FC<IProduct> = ({
+export const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
+  isHome = true,
   _id,
   price,
   quantity,
@@ -17,11 +18,13 @@ export const ProductCard: React.FC<IProduct> = ({
   return (
     <div
       className={`flex flex-col gap-y-2 border shadow-lg bg-slate-50 ${
-        selected ? "border-green_app" : "border-gray-300"
-      }`}
+        isHome ? "" : "rounded-md"
+      } ${selected ? "border-green_app" : "border-gray-300"}`}
     >
-      <div className="group relative bg-white p-1">
-        <div className="relative group-hover:blur-sm mx-auto w-full rounded-md aspect-square">
+      <div
+        className={`group relative bg-white p-1 ${isHome ? "" : "rounded-md"}`}
+      >
+        <div className="relative group-hover:blur-sm mx-auto w-full aspect-square">
           <Image
             alt="image"
             src={getProductImageSorce(images[0])}
@@ -29,10 +32,10 @@ export const ProductCard: React.FC<IProduct> = ({
             fill
           ></Image>
         </div>
-        <div className="absolute left-[78%] top-[4%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
+        <div className="absolute left-[78%] top-[18%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
           <FaRegEye className="size-6" />
         </div>
-        <div className="absolute left-[78%] top-[18%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
+        <div className="absolute left-[78%] top-[4%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
           <MdFavoriteBorder className="size-6" />
         </div>
       </div>

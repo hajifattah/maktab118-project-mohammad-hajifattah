@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const SubCategory: React.FC<{
   subCatList: ISubCategory[];
   catId: string;
@@ -8,9 +10,14 @@ export const SubCategory: React.FC<{
         {subCatList.map((subCat) => {
           return (
             subCat.category === catId && (
-              <li key={subCat._id} className="hover:bg-gray-200 hover:text-black rounded-sm p-1">
-                {subCat.name}
-              </li>
+              <Link href={`/products/subcategory/${subCat._id}`}>
+                <li
+                  key={subCat._id}
+                  className="hover:bg-gray-200 hover:text-black rounded-sm p-1"
+                >
+                  {subCat.name}
+                </li>
+              </Link>
             )
           );
         })}
@@ -18,5 +25,3 @@ export const SubCategory: React.FC<{
     </div>
   );
 };
-
-

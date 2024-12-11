@@ -1,7 +1,8 @@
+import { fetchProductsService } from "@/apis/services/products.service";
 import { Categories } from "@/containers/products/categories";
 import { ProductsList } from "@/containers/products/productsList";
 
-const SubCategoryPage: React.FC<INextPageParams<{ id: string }>> = async ({
+const CategoryPage: React.FC<INextPageParams<{ id: string }>> = async ({
   params,
   searchParams,
 }) => {
@@ -14,9 +15,9 @@ const SubCategoryPage: React.FC<INextPageParams<{ id: string }>> = async ({
         <h2 className="font-semibold md:text-lg py-2 border-b-2 text-center">
           محصولات براساس دسته بندی ها
         </h2>
-        <ProductsList categoryId={categoryId} isSubCat={true} params={query} />
+        <ProductsList categoryId={categoryId} params={query} />
       </div>
     </div>
   );
 };
-export default SubCategoryPage;
+export default CategoryPage;
