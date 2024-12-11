@@ -3,8 +3,9 @@ import { fetchSubCatListService } from "@/apis/services/subCategory.service";
 
 export const GetSubCatAndCat = async () => {
   const response = await fetchSubCatListService();
-  const subCatList = [...response[0], ...response[1]];
+  const subCatList = response.data.subcategories;
   const responseTwo = await fetchCategoryListService();
   const catList = responseTwo.data.categories;
+  console.log(subCatList , catList)
   return { subCatList, catList };
 };

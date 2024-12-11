@@ -10,13 +10,13 @@ export const ProductsList: React.FC<{
 }> = async ({ params, categoryId, isSubCat = false }) => {
   const paramsApi = isSubCat
     ? {
-        limit: params.limit,
+        limit: params.limit || "5",
         subcategory: categoryId,
         page: Number(params.page),
         sort: params.sort,
       }
     : {
-        limit: params.limit,
+        limit: params.limit || "5",
         category: categoryId,
         page: Number(params.page),
         sort: params.sort,
@@ -32,7 +32,11 @@ export const ProductsList: React.FC<{
       <div className="flex flex-wrap items-start xs_app:items-end gap-x-3 gap-y-2 b-2 overflow-x-auto">
         <Pagination
           totalPage={response.total_pages}
-          params={{ ...params, page: params.page || "1" }}
+          params={{
+            ...params,
+            limit: params.limit || "5",
+            page: params.page || "1",
+          }}
           inAdmin={false}
         />
         <LimitInPage

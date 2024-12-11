@@ -97,7 +97,7 @@ export const Pagination: React.FC<{
             }`}
           >
             <button
-              disabled={params.page === String(totalPage) || params.page === "1"}
+              disabled={params.page === String(totalPage) ||( !totalPage && params.page === "1")}
               className={`flex items-center justify-center px-3 h-8 leading-tight border rounded-e-lg ${
                 inAdmin
                   ? "bg-gray-800 border-gray-700 text-gray-400 hover:bg-gray-700 hover:text-white disabled:bg-gray-950 disabled:text-gray-400"
