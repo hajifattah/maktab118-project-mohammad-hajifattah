@@ -6,7 +6,7 @@ export const FooterInfo: React.FC = () => {
     <div className="w-full md:w-6/12 lg:w-3/12">
       <Link href={"/"} className="flex gap-x-1 p-1 items-end">
         <div className="relative size-9">
-          <Image src={"logo.svg"} alt="logo" fill />
+          <Image src={"/logo.svg"} alt="logo" fill />
         </div>
         <h2 className="text-green_app font-bold text-2xl">بازار روز</h2>
       </Link>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CgArrowLeft } from "react-icons/cg";
 
 export const MiddleContent: React.FC = () => {
@@ -21,10 +22,12 @@ export const MiddleContent: React.FC = () => {
             <h2 className="text-[2vw] md:text-[1.2vw]  text-white xs_app:max-w-[80%] 2xl:text-xl">
               شروع قیمت از <span className="font-semibold">27 هزارتومان</span>
             </h2>
-            <button className="font-semibold text-[3.2vw] md:text-[1.5vw] mt-1 bg-white px-2 xs_app:px-4 sm:px-5 py-1 w-fit rounded-xl text-green_app 2xl:text-2xl">
-              خرید
-              <CgArrowLeft className="inline-block size-4 md:size-5 " />
-            </button>
+            <Link href={"/products/subcategory/674dd47da3a18d1b356f18d9"}>
+              <button className="font-semibold text-[3.2vw] md:text-[1.5vw] mt-1 bg-white px-2 xs_app:px-4 sm:px-5 py-1 w-fit rounded-xl text-green_app 2xl:text-2xl">
+                خرید
+                <CgArrowLeft className="inline-block size-4 md:size-5 " />
+              </button>
+            </Link>
           </div>
         </div>
         <div className="relative  ">
@@ -41,12 +44,15 @@ export const MiddleContent: React.FC = () => {
               نوشیدنی ها
             </h2>
             <h2 className=" font-semibold max-w-[60%] text-[3.5vw] md:text-[2vw] 2xl:text-3xl">
-              آب و نوشابه و انرژی زا 
+              آب و نوشابه و انرژی زا
             </h2>
-            <button className="font-semibold text-[3.3vw] md:text-[1.5vw] mt-[2.5vw] bg-white px-2 xs_app:px-4 sm:px-5 py-1 w-fit rounded-xl text-green_app 2xl:text-2xl">
-              خرید
-              <CgArrowLeft className="inline-block size-4 md:size-5 " />
-            </button>
+
+            <Link href={"/products/category/674dd2f3a3a18d1b356f18a0"}>
+              <button className="font-semibold text-[3.3vw] md:text-[1.5vw] mt-[2.5vw] bg-white px-2 xs_app:px-4 sm:px-5 py-1 w-fit rounded-xl text-green_app 2xl:text-2xl">
+                خرید
+                <CgArrowLeft className="inline-block size-4 md:size-5 " />
+              </button>
+            </Link>
           </div>
         </div>
         <div className="relative hidden md:block">
@@ -59,17 +65,18 @@ export const MiddleContent: React.FC = () => {
             ></Image>
           </div>
           <div className="absolute sm:right-[45%] top-0 text-gray-800 p-1 sm:grid sm:gap-y-2  md:mt-3 ">
-          <h2 className="text-[2vw] md:text-[1.2vw] font-semibold xs_app:max-w-[80%] 2xl:text-xl">
+            <h2 className="text-[2vw] md:text-[1.2vw] font-semibold xs_app:max-w-[80%] 2xl:text-xl">
               100% ارگانیک
             </h2>
             <h2 className="font-semibold max-w-[93%] md:text-[2vw] 2xl:text-3xl">
-             صبحانه در کمترین زمان
+              صبحانه در کمترین زمان
             </h2>
-
-            <button className="font-semibold text-[3.3vw] md:text-[1.5vw] mt-[1.8vw] bg-white px-2 xs_app:px-4 sm:px-5 py-1 w-fit rounded-xl text-green_app 2xl:text-2xl">
-              خرید
-              <CgArrowLeft className="inline-block size-4 md:size-5 " />
-            </button>
+            <Link href={"/products/category/674dd2dfa3a18d1b356f1898"}>
+              <button className="font-semibold text-[3.3vw] md:text-[1.5vw] mt-[1.8vw] bg-white px-2 xs_app:px-4 sm:px-5 py-1 w-fit rounded-xl text-green_app 2xl:text-2xl">
+                خرید
+                <CgArrowLeft className="inline-block size-4 md:size-5 " />
+              </button>
+            </Link>
           </div>
         </div>
       </div>

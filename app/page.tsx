@@ -13,7 +13,7 @@ export default function Home() {
         <HomeProductsList text="جدیدترین محصولات" />
         <MiddleContent/>
         <HomeProductsList text="صبحانه" />
-        <HomeProductsList text="انواع گوشت" />
+        <HomeProductsList text="نوشیدنی ها" />
       </div>
     </MainLayout>
   );

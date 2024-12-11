@@ -70,27 +70,31 @@ export const StoreStockChanges: React.FC = () => {
                   </div>
                   <div className="overflow-x-auto">
                     <table className="gap-y-4 rounded-md rtl:text-right w-full bg-blue_app ">
-                      <tr className="p-2">
-                        <th className="px-6 py-3">نام محصول</th>
-                        <th className="px-6 py-3">قیمت</th>
-                        <th className="px-6 py-3">تعداد</th>
-                        <th className="px-6 py-3">عملیات</th>
-                      </tr>
-                      {pairs.map((item) => (
-                        <tr key={item.id} className="text-slate-200">
-                          <td className="px-6 py-3">{item.name}</td>
-                          <td className="px-6 py-3">{item.pair.price}</td>
-                          <td className="px-6 py-3">{item.pair.quantity}</td>
-                          <td className="font-bold px-6 py-3">
-                            <button
-                              onClick={() => removePair(item.id)}
-                              className="text-red-500 hover:text-red-300 p-2 "
-                            >
-                              حذف
-                            </button>
-                          </td>
+                      <thead>
+                        <tr className="p-2">
+                          <th className="px-6 py-3">نام محصول</th>
+                          <th className="px-6 py-3">قیمت</th>
+                          <th className="px-6 py-3">تعداد</th>
+                          <th className="px-6 py-3">عملیات</th>
                         </tr>
-                      ))}
+                      </thead>
+                      <tbody>
+                        {pairs.map((item) => (
+                          <tr key={item.id} className="text-slate-200">
+                            <td className="px-6 py-3">{item.name}</td>
+                            <td className="px-6 py-3">{item.pair.price}</td>
+                            <td className="px-6 py-3">{item.pair.quantity}</td>
+                            <td className="font-bold px-6 py-3">
+                              <button
+                                onClick={() => removePair(item.id)}
+                                className="text-red-500 hover:text-red-300 p-2 "
+                              >
+                                حذف
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
                     </table>
                   </div>
                 </div>
