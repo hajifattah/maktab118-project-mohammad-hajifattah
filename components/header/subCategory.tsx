@@ -10,9 +10,8 @@ export const SubCategory: React.FC<{
         {subCatList.map((subCat) => {
           return (
             subCat.category === catId && (
-              <Link href={`/products/subcategory/${subCat._id}`}>
+              <Link  key={subCat._id} href={`/products/subcategory/${subCat._id}`}>
                 <li
-                  key={subCat._id}
                   className="hover:bg-gray-200 hover:text-black rounded-sm p-1"
                 >
                   {subCat.name}

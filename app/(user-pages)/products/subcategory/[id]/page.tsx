@@ -1,5 +1,6 @@
 import { Categories } from "@/containers/products/categories";
 import { ProductsList } from "@/containers/products/productsList";
+import { Suspense } from "react";
 
 const SubCategoryPage: React.FC<INextPageParams<{ id: string }>> = async ({
   params,
@@ -14,7 +15,13 @@ const SubCategoryPage: React.FC<INextPageParams<{ id: string }>> = async ({
         <h2 className="font-semibold md:text-lg py-2 border-b-2 text-center">
           محصولات براساس دسته بندی ها
         </h2>
-        <ProductsList categoryId={categoryId} isSubCat={true} params={query} />
+        <Suspense fallback={<h2 className="p-6">is loading...</h2>}>
+          <ProductsList
+            categoryId={categoryId}
+            isSubCat={true}
+            params={query}
+          />
+        </Suspense>
       </div>
     </div>
   );

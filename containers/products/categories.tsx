@@ -16,8 +16,8 @@ export const Categories: React.FC<{ catOrSubCatId: string }> = async ({
         {catList.map((cat, index) => {
           return (
             <li key={index}>
-              <div className="flex flex-wrap gap-x-2 hover:cursor-pointer pt-4 min-h-[2.5rem] ">
-                <Link href={`/products/category/${cat._id}`}>
+              <Link href={`/products/category/${cat._id}`}>
+                <div className="flex flex-wrap gap-x-2 hover:cursor-pointer pt-4 min-h-[2.5rem] ">
                   <div className="relative size-5 ">
                     <Image
                       src={getCategoryImageSorce(cat.icon)}
@@ -34,26 +34,26 @@ export const Categories: React.FC<{ catOrSubCatId: string }> = async ({
                   >
                     {cat.name}{" "}
                   </h2>
-                </Link>
-              </div>
+                </div>
+              </Link>
 
               <ul className="grid sm:mr-2 text-start gap-y-1 gap-x-4">
                 {subCatList.map((subCat) => {
                   return (
                     subCat.category === cat._id && (
-                      <Link href={`/products/subcategory/${subCat._id}`}>
-                        <li
-                          key={subCat._id}
-                          className={`hover:bg-gray-200 hover:text-black rounded-sm p-1 text-xs sm:text-sm lg:text-base text-gray-500 cursor-pointer ${
-                            findSubCat && findSubCat._id === subCat._id
-                              ? "!text-black font-extrabold"
-                              : ""
-                          }`}
-                        >
+                      <li
+                        key={subCat._id}
+                        className={`hover:bg-gray-200 hover:text-black rounded-sm p-1 text-xs sm:text-sm lg:text-base text-gray-500 cursor-pointer ${
+                          findSubCat && findSubCat._id === subCat._id
+                            ? "!text-black font-extrabold"
+                            : ""
+                        }`}
+                      >
+                        <Link href={`/products/subcategory/${subCat._id}`}>
                           <FaCaretLeft className="size-5 inline-block sm:mr-1" />
                           {subCat.name}
-                        </li>
-                      </Link>
+                        </Link>
+                      </li>
                     )
                   );
                 })}

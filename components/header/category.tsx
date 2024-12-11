@@ -11,13 +11,13 @@ export const Category: React.FC = async () => {
       <ul>
         {catList.map((cat, index) => {
           return (
-            <Link href={`/products/category/${cat._id}`}>
-              <li
-                key={index}
-                className={`group/item flex gap-x-2 px-4  ${
-                  index === 4 ? "min-h-[3.5rem] py-4" : "pt-4 min-h-[2.5rem]"
-                }`}
-              >
+            <li
+              key={cat._id}
+              className={`group/item  px-4  ${
+                index === 4 ? "min-h-[3.5rem] py-4" : "pt-4 min-h-[2.5rem]"
+              }`}
+            >
+              <Link href={`/products/category/${cat._id}`} className="flex gap-x-2">
                 <div className="relative size-5 group-hover/item:size-6">
                   <Image
                     src={getCategoryImageSorce(cat.icon)}
@@ -28,11 +28,11 @@ export const Category: React.FC = async () => {
                 <h2 className="group-hover/item:font-semibold text-black">
                   {cat.name}{" "}
                 </h2>
-                <div className="group-hover/item:visible invisible grid p-2 min-h-[212px] xs_app:rounded-br-none rounded-br-md shadow-xl rounded-l-md sm:w-[calc(100vw-17rem)] w-[calc(100vw-14rem)] px-2 sm:px-4 bg-black_app absolute right-44 top-[0.2rem] text-white max-w-screen-xl z-30">
-                  <SubCategory catId={cat._id} subCatList={subCatList} />
-                </div>
-              </li>
-            </Link>
+              </Link>
+              <div className="group-hover/item:visible invisible grid p-2 min-h-[212px] xs_app:rounded-br-none rounded-br-md shadow-xl rounded-l-md sm:w-[calc(100vw-17rem)] w-[calc(100vw-14rem)] px-2 sm:px-4 bg-black_app absolute right-44 top-[0.2rem] text-white max-w-screen-xl z-30">
+                <SubCategory catId={cat._id} subCatList={subCatList} />
+              </div>
+            </li>
           );
         })}
       </ul>
