@@ -14,7 +14,7 @@ type FetchProductsService = ({
   limit: string;
 }) => Promise<IProductsDto>;
 export const fetchProductsService: FetchProductsService = async ({
-  sort = "createAt",
+  sort = "-createAt",
   page = 1,
   limit,
   category
