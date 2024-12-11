@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 export const errorHandler = (err: AxiosError | string) => {
   if (axios.isAxiosError(err)) {
     let message = err.response?.data as string;
-    console.log(err.response);
     message =
       message.includes("You are not logged in!") ||
       message.includes("invalid token") || message.includes("TokenExpiredError")

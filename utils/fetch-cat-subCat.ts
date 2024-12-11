@@ -6,6 +6,5 @@ export const GetSubCatAndCat = async () => {
   const subCatList = response.data.subcategories;
   const responseTwo = await fetchCategoryListService();
   const catList = responseTwo.data.categories;
-  console.log(subCatList , catList)
   return { subCatList, catList };
 };
