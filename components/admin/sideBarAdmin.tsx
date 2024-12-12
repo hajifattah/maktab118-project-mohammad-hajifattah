@@ -6,11 +6,13 @@ import { ExtendSideBar } from "./extendSideBar";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { deleteToken } from "@/utils/session-manager";
+import { toast } from "react-toastify";
 
 export const SideBarAdmin: React.FC = () => {
   const [isExtend, setIsExtend] = useState<boolean>(false);
   const path = usePathname();
   const exitAccount = () => {
+    toast.success("خروج موفقیت آمیز بود")
     deleteToken();
   };
   return (

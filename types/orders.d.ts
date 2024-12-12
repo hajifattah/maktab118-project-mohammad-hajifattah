@@ -19,14 +19,17 @@ interface IOrdersResDto extends IResDto {
   data: { orders: IOrder[] };
 }
 // shared pagination for stock, mangement_product and orders page
-// totalPrice, createdAt for orders page
-// createAt, name, category for products_manager page
-// createAt, name, price,quantity for products_manager page
+// totalPrice, createdAt, limit for orders page
+// createAt, name, category, limit for products_manager page
+// createAt, name, price,quantity, limit for products_manager page
 interface ISearchParams {
   sort: "price" | "totalPrice" | "createdAt" | "name" | "category" | "quantity";
+  limit: "5" | "10" | "15";
   deliveryStatus?: "true" | "false" | "all";
   page: string | undefined;
 }
-interface INextSearchParams {
-  searchParams: Promise<OrdersParams>;
+
+interface INextPageParams<T={slug:string}> {
+  searchParams: Promise<ISearchParams>;
+  params: Promise<T>;
 }

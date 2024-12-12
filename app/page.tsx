@@ -1,11 +1,19 @@
+import { Feature } from "@/containers/home/feature";
+import { HeroSection } from "@/containers/home/heroSection";
+import { MiddleContent } from "@/containers/home/middleContent";
+import { HomeProductsList } from "@/containers/home/productsList";
 import { MainLayout } from "@/containers/mainLayout";
 
 export default function Home() {
   return (
     <MainLayout>
-      <div className="min-h-[calc(100vh-13rem)]">
-        <h2 className="text-center py-2 leading-3">صفحه اصلی</h2>
-        <h2 className="text-center py-2 leading-3">لیست محصولات</h2>
+      <div className="min-h-[calc(100vh-13rem)] py-4 grid gap-y-4">
+        <HeroSection />
+        <Feature />
+        <HomeProductsList text="جدیدترین محصولات" />
+        <MiddleContent/>
+        <HomeProductsList text="صبحانه" />
+        <HomeProductsList text="نوشیدنی ها" />
       </div>
     </MainLayout>
   );
