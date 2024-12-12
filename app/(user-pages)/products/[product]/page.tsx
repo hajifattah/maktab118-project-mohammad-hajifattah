@@ -75,4 +75,5 @@ const ProductPage: React.FC<INextPageParams<{ product: string }>> = async ({
     </div>
   );
 };
+
 export default ProductPage;
