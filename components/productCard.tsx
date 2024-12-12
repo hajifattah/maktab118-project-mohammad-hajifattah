@@ -1,6 +1,7 @@
 "use client";
 import { getProductImageSorce } from "@/utils/sorce-image";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
@@ -32,9 +33,9 @@ export const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
             fill
           ></Image>
         </div>
-        <div className="absolute left-[78%] top-[18%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
+        <Link href={`/products/${_id}`} className="absolute left-[78%] top-[18%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
           <FaRegEye className="size-6" />
-        </div>
+        </Link>
         <div className="absolute left-[78%] top-[4%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
           <MdFavoriteBorder className="size-6" />
         </div>

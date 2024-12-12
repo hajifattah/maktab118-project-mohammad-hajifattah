@@ -15,7 +15,7 @@ type FetchProductsService = ({
   limit: string;
 }) => Promise<IProductsDto>;
 export const fetchProductsService: FetchProductsService = async ({
-  sort = "-createAt",
+  sort = "-createdAt",
   page = 1,
   limit,
   category,
@@ -27,3 +27,10 @@ export const fetchProductsService: FetchProductsService = async ({
   });
   return response.data;
 };
+
+type FetchSingleProductService = (pId : string)=> Promise<ISingleProductDto>
+export const fetchSingleProductService : FetchSingleProductService = async(pId)=>{
+  const instance = axiosInstance();
+  const response = await instance.get(urls.products.getById(pId));
+  return response.data;
+}

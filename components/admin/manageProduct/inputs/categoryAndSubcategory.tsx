@@ -27,6 +27,7 @@ export const CategoryAndSubCategory: React.FC<{
   };
   useEffect(() => {
     categoryAndSubCategory();
+    setCategory(defCategory || "");
   }, []);
   return (
     <>
@@ -56,15 +57,9 @@ export const CategoryAndSubCategory: React.FC<{
                 <ProductSelectInput
                   defaultValue={defSubCategoy}
                   label="زیر دسته"
-                  list={
-                    defCategory
-                      ? catAndSubCat.subCatList.filter(
-                          (item) => item.category === defCategory
-                        )
-                      : catAndSubCat.subCatList.filter(
-                          (item) => item.category === category
-                        )
-                  }
+                  list={catAndSubCat.subCatList.filter(
+                    (item) => item.category === category
+                  )}
                   {...field}
                   error={fieldState.error?.message}
                 />
