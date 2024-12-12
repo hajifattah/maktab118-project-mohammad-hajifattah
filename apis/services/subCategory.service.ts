@@ -14,16 +14,5 @@ export const fetchSubCatListService: IFetchSubCatListService = async () => {
   const response = await instance.get(urls.subCategory.list, {
     params: { limit: 50 },
   });
-  // const allResponse = await Promise.all(
-  //   [1, 2].map((page) => {
-  //     return instance.get(urls.subCategory.list, {
-  //       params: { page },
-  //     });
-  //   })
-  // );
-  // const response: ISubCategory[][] = [];
-  // for (const item of allResponse) {
-  //   response.push(item.data.data.subcategories);
-  // }
   return response.data;
 };
