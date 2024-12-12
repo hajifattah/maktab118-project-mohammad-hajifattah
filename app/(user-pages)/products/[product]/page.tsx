@@ -1,6 +1,8 @@
 import { fetchSingleProductService } from "@/apis/services/products.service";
+import { Description } from "@/components/product/description";
 import { ProductImagesList } from "@/components/product/imageList";
 import { ProductAction } from "@/components/product/productAction";
+import Link from "next/link";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 
@@ -47,25 +49,26 @@ const ProductPage: React.FC<INextPageParams<{ product: string }>> = async ({
                 <AiFillInstagram className="size-5 lg:size-6 text-gray-600 cursor-pointer" />
               </div>
             </div>
-            <div className="text-sm sm:text-base text-gray-600">
-              {/* {productInfo.description} */}
-              <div dangerouslySetInnerHTML={{__html : productInfo.description}} />
-            </div>
+            <Description info={productInfo.description} />
           </div>
           <ProductAction stockQty={productInfo.quantity} />
           <div className="flex flex-col gap-x-2 gap-y-1 py-4 border-b">
-            <h2>
-              دسته اصلی:{" "}
-              <span className="font-semibold mr-1">
-                {productInfo.category.name}
-              </span>
-            </h2>
-            <h2>
-              زیر دسته:{" "}
-              <span className="font-semibold mr-1">
-                {productInfo.subcategory.name}
-              </span>
-            </h2>
+            <Link href={`/products/category/${productInfo.category._id}`}>
+              <h2 >
+                دسته اصلی:{" "}
+                <span className="font-semibold mr-1 hover:text-gray-500">
+                  {productInfo.category.name}
+                </span>
+              </h2>
+            </Link>
+            <Link href={`/products/subcategory/${productInfo.subcategory._id}`}>
+              <h2 >
+                زیر دسته:{" "}
+                <span className="font-semibold mr-1 hover:text-gray-500">
+                  {productInfo.subcategory.name}
+                </span>
+              </h2>
+            </Link>
           </div>
         </div>
       </div>

@@ -10,13 +10,13 @@ export const ProductsList: React.FC<{
 }> = async ({ params, categoryId, isSubCat = false }) => {
   const paramsApi = isSubCat
     ? {
-        limit: params.limit || "5",
+        limit: params.limit || "10",
         subcategory: categoryId,
         page: Number(params.page),
         sort: params.sort,
       }
     : {
-        limit: params.limit || "5",
+        limit: params.limit || "10",
         category: categoryId,
         page: Number(params.page),
         sort: params.sort,
@@ -34,7 +34,7 @@ export const ProductsList: React.FC<{
           totalPage={response.total_pages}
           params={{
             ...params,
-            limit: params.limit || "5",
+            limit: params.limit || "10",
             page: params.page || "1",
           }}
           inAdmin={false}
