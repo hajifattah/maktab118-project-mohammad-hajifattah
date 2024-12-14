@@ -24,7 +24,7 @@ export const fetchProductsService: FetchProductsService = async ({
   const instance = axiosInstance();
   const response = await instance.get(urls.products.list, {
     params: {
-      sort: sort === "undefined" ? "-createdAt" : sort,
+      sort,
       page,
       limit,
       category,
