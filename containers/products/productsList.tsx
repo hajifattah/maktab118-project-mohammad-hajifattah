@@ -24,7 +24,7 @@ export const ProductsList: React.FC<{
       };
   const response = await fetchProductsService(paramsApi);
   return (
-    <div id="top" className=" min-h-[calc(100%-5.75rem)] h-[calc(100vh-6rem)] lg:h-[calc(100vh-4rem)] grid gap-y-3 content-between">
+    <div className=" min-h-[calc(100%-5.75rem)] h-[calc(100vh-6rem)] lg:h-[calc(100vh-4rem)] grid gap-y-3 content-between">
       <div className="grid sm:!grid-cols-2 lg:!grid-cols-3 2xl:!grid-cols-4 gap-6 mt-3 overflow-auto">
         {response.data.products.map((item) => (
           <ProductCard key={item._id} {...item} isHome={false} />
