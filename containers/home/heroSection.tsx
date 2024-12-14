@@ -27,7 +27,7 @@ export const HeroSection: React.FC = () => {
           <h2 className=" text-[0.8rem] md:text-[1rem] 2xl:text-[1.5rem] xl:mt-4">
             ارسال رایگان برای تمامی محصولات
           </h2>
-          <Link href={"/products"}>
+          <Link href={"/products/subcategory/all"}>
             <h2 className="font-semibold mt-1 text-[0.9rem] md:text-[1.2rem] 2xl:text-[1.8rem] text-green_app hover:bg-green-200 cursor-pointer xl:mt-4 bg-slate-100 rounded-md px-2 py-1 lg:px-4 lg:py-2 w-fit">
               برای دیدن محصولات کلیک کنید{" "}
             </h2>
