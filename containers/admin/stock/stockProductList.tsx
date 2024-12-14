@@ -14,7 +14,7 @@ export const StockProductList: React.FC<ISearchParams> = ({
 }) => {
   const params = {
     page: Number(page) || 1,
-    sort: sort || "createdAt",
+    sort: sort || "-createdAt",
     limit: limit || "5",
   };
   const [productsList, setProductsList] = useState<IProductsDto>();

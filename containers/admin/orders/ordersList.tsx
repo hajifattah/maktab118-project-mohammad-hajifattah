@@ -19,7 +19,7 @@ export const OrdersList: React.FC<ISearchParams> = async ({
         ? false
         : undefined,
     page: Number(page) || 1,
-    sort: sort || "createdAt",
+    sort: sort || "-createdAt",
     limit: limit || "5",
   };
   let response = await ordersService(params);
