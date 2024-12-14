@@ -21,13 +21,13 @@ export const ProductSchema = z.object({
     ),
   images: z
     .any()
-    .refine((file: File[]) => file.length !== 0, "حداقل یک عکس انتخاب کنید")
+    .refine((file: File[]) => file?.length !== 0, "حداقل یک عکس انتخاب کنید")
     .refine((files: File[]) => {
-      const find = files.find((item) => !imagesType.includes(item.type));
+      const find = files?.find((item) => !imagesType.includes(item.type));
       return !find;
     }, "عکس باید ازنوع jpg. یا jpeg. یا png. باشد")
     .refine((file: File[]) => {
-      const size = file.reduce((acc, item) => (acc += item.size), 0);
+      const size = file?.reduce((acc, item) => (acc += item.size), 0);
       return size <= maxFileSize;
     }, "حجم فایل زیاد می باشد، حداکثر 5 مگابایت"),
   brand: z.string().refine((val) => val != "", " برند محصول را انتخاب کنید"),

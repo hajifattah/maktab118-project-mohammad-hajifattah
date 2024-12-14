@@ -10,12 +10,16 @@ export const ProductsList: React.FC<ISearchParams> = async ({
   sort,
   limit,
 }) => {
-  const params = {
+  let params = {
     page: Number(page) || 1,
-    sort: sort || "createdAt",
+    sort: sort || "-createdAt",
     limit: limit || "5",
   };
   const productsList = await fetchProductsService(params);
+// for back to prev page if deleted product was last in page
+  const numbersInLastPage= productsList.total - (productsList.per_page * (productsList.total_pages-1))
+  const isLast = numbersInLastPage === 1 && Number(page) === productsList.total_pages ? true : false
+
   return (
     <div className="px-3 xs_app:px-6 py-4 min-h-[calc(100%-5.75rem)] h-[calc(100vh-12rem)] grid gap-y-3 content-between">
       <div className="overflow-x-auto shadow-md sm:rounded-lg ">
@@ -52,7 +56,7 @@ export const ProductsList: React.FC<ISearchParams> = async ({
           </thead>
           <tbody>
             {productsList.data.products.map((item) => {
-              return <ProductListCard key={item._id} data={item} />;
+              return <ProductListCard key={item._id} data={item}isLast={isLast}/>;
             })}
           </tbody>
         </table>

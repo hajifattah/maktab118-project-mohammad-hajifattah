@@ -4,8 +4,9 @@ import Image from "next/image";
 import { DeleteProduct } from "./deleteProduct";
 import { ProductForm } from "@/containers/admin/manageProduct/productForm";
 
-export const ProductListCard: React.FC<{ data: IProduct }> = async ({
+export const ProductListCard: React.FC<{ data: IProduct,isLast:boolean }> = async ({
   data,
+  isLast
 }) => {
   const subCatDetails = await fetchSubCatByIdService(data.subcategory);
   return (
@@ -33,7 +34,7 @@ export const ProductListCard: React.FC<{ data: IProduct }> = async ({
       <td className="px-6 py-4">
         <div className="flex gap-x-4">
           <ProductForm data={data}/>
-          <DeleteProduct id={data._id} name={data.name} />
+          <DeleteProduct id={data._id} name={data.name} isLast={isLast}/>
         </div>
       </td>
     </tr>
