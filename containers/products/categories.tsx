@@ -13,6 +13,21 @@ export const Categories: React.FC<{ catOrSubCatId: string }> = async ({
   return (
     <div className="grid bg-white mt-3 p-2 sm:p-4 w-2/5 sm:2/6 md:3/8 2xl:w-3/12 rounded-md">
       <ul>
+      <li>
+              <Link href={`/products/category/all`}>
+                <div className="flex flex-wrap gap-x-2 hover:cursor-pointer pt-4 min-h-[2.5rem] ">
+                  <h2
+                    className={` text-black hover:font-semibold text-sm sm:text-base lg:text-lg ${
+                      findSubCat === undefined && catOrSubCatId === "all"
+                        ? "font-extrabold border-b border-b-gray-700"
+                        : ""
+                    }`}
+                  >
+                    همه محصولات
+                  </h2>
+                </div>
+              </Link>
+      </li>
         {catList.map((cat, index) => {
           return (
             <li key={index}>
