@@ -59,6 +59,12 @@ export const ProductForm: React.FC<{ data?: IProduct }> = ({ data }) => {
       push(`?${searchParams}`);
     } catch (error) {
       errorHandler(error as AxiosError);
+      if (
+        ((error as AxiosError).response?.data as string).includes(
+          "jwt malformed"
+        )
+      )
+        push("/");
     }
   };
   return (
