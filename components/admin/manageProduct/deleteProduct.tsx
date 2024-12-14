@@ -9,15 +9,19 @@ import { FormEventHandler, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 
-export const DeleteProduct: React.FC<{ id: string; name: string }> = ({
-  id,
-  name,
-}) => {
+export const DeleteProduct: React.FC<{
+  id: string;
+  name: string;
+  isLast: boolean;
+}> = ({ id, name, isLast }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const search = useSearchParams();
   const params = Object.fromEntries(search.entries());
-  const searchParams = new URLSearchParams(params);
+  const searchParams = new URLSearchParams({
+    ...params,
+    page: isLast === true ? String(Number(params.page) - 1) : params.page,
+  });
   const { push } = useRouter();
 
   const deleteProduct: FormEventHandler<HTMLFormElement> = async (e) => {
