@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { PiUserLight } from "react-icons/pi";
 import { UserLogin } from "./userLogin";
 import { SubmitButton } from "@/components/submitButton";
-import { deleteToken, getToken } from "@/utils/session-manager";
+import { deleteRefToken, deleteToken, getToken } from "@/utils/session-manager";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
@@ -15,6 +15,7 @@ export const UserDetails: React.FC = () => {
   const deleteTokenHandler = () => {
     toast.success("خروج موفقیت آمیز بود")
     deleteToken();
+    deleteRefToken();
     showHandle();
     push("/")
   };

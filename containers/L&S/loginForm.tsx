@@ -4,7 +4,7 @@ import { LoginFormSchema } from "@/apis/validations/auth.validation";
 import { UserInput } from "@/components/L&S/userInput";
 import { SubmitButton } from "@/components/submitButton";
 import { errorHandler } from "@/utils/error-handler";
-import { setToken } from "@/utils/session-manager";
+import { setRefToken, setToken } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -36,6 +36,7 @@ export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
       }
       //login from nav for user or admin
       setToken(token);
+      setRefToken(response.token.refreshToken);
       toast.success("ورود موفقیت آمیز بود");
       if (isAdmin) {
         push("/orders");
