@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Vazirmatn } from 'next/font/google'
+import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import { ToastifyProvider } from "@/providers/toastify.provider";
+import { ReduxToolkitProvider } from "@/providers/redux.provider";
 
-const vazir = Vazirmatn({subsets:['arabic']})
+const vazir = Vazirmatn({ subsets: ["arabic"] });
 
 export const metadata: Metadata = {
   title: "Supermarket Next App",
@@ -17,10 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="rtl">
-      <body
-        className={`${vazir.className} antialiased`}
-      >
-        <ToastifyProvider>{children}</ToastifyProvider>
+      <body className={`${vazir.className} antialiased`}>
+        <ReduxToolkitProvider>
+          <ToastifyProvider>{children}</ToastifyProvider>
+        </ReduxToolkitProvider>
       </body>
     </html>
   );
