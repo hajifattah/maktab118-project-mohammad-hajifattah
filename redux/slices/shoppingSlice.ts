@@ -14,13 +14,13 @@ export const shoppingSlice = createSlice({
       state.list.push(action.payload);
     },
     removeOfCard: (state, action: PayloadAction<string>) => {
-      state.list.filter((item) => item.id !== action.payload);
+      state.list = state.list.filter((item) => item.id !== action.payload);
     },
     changeQuantity: (
       state,
       action: PayloadAction<{ id: string; qty: number }>
     ) => {
-      state.list.map((item) =>
+      state.list = state.list.map((item) =>
         item.id === action.payload.id
           ? {
               ...item,

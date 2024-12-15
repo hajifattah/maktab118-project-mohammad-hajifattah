@@ -5,7 +5,6 @@ import { persistReducer, persistStore } from "redux-persist";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["shopping"],
 };
 const reducer = combineReducers({
   shopping: persistReducer(persistConfig, ShoppingReducer),
