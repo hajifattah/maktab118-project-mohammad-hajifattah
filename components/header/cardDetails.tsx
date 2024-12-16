@@ -47,6 +47,7 @@ export const CardDetails: React.FC = () => {
       >
         <Link href={"/shopping-card"}>
           <button
+            onClick={() => setShow(false)}
             disabled={!shoppingList?.length}
             className="sm:text-lg w-full text-center p-2 border-b text-white font-semibold bg-black_app hover:bg-green_app disabled:bg-gray-600 rounded-md"
           >
@@ -79,9 +80,10 @@ export const CardDetails: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-y-1 text-sm font-semibold w-[45%] lg:w-[60%]">
                   <div className="flex gap-x-1 items-center">
-                    <h2 className="truncate sm:max-w-48 grow">
-                      {product.title}
-                    </h2>
+                    <Link href={`/products/${product.id}`} className="truncate sm:max-w-44 grow">
+                      {" "}
+                      <h2 className="truncate">{product.title}</h2>
+                    </Link>
                     <h2 className="text-gray-400 text-sm pt-1">
                       {product.qty}X
                     </h2>
