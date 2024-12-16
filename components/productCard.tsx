@@ -1,8 +1,11 @@
 "use client";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { findProduct } from "@/redux/selectors/findProduct";
+import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { getProductImageSorce } from "@/utils/sorce-image";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { MdFavoriteBorder } from "react-icons/md";
@@ -15,12 +18,37 @@ export const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
   name,
   images,
 }) => {
-  const [selected, setSelected] = useState<boolean>(false);
+  const [isInShopping, setIsInShopping] = useState<IShopping>();
+  const selectShopping = useAppSelector(findProduct(_id));
+
+  const dispatch = useAppDispatch();
+  const clickhandler = () => {
+    if (!!isInShopping) {
+      dispatch(ShoppingAction.removeOfCard(_id));
+    } else {
+      dispatch(
+        ShoppingAction.addToCard({
+          id: _id,
+          image: images[0],
+          maxQty: quantity,
+          price: price,
+          qty: 1,
+          title: name,
+          total: price,
+        })
+      );
+    }
+  };
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+    setIsInShopping(selectShopping);
+    }
+  }, [selectShopping]);
   return (
     <div
       className={`flex flex-col gap-y-2 border shadow-lg bg-slate-50 ${
         isHome ? "" : "rounded-md"
-      } ${selected ? "border-green_app" : "border-gray-300"}`}
+      } ${!!isInShopping ? "border-green_app" : "border-gray-300"}`}
     >
       <div
         className={`group relative bg-white p-1 ${isHome ? "" : "rounded-md"}`}
@@ -33,7 +61,10 @@ export const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
             fill
           ></Image>
         </div>
-        <Link href={`/products/${_id}`} className="absolute left-[78%] top-[18%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
+        <Link
+          href={`/products/${_id}`}
+          className="absolute left-[78%] top-[18%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20"
+        >
           <FaRegEye className="size-6" />
         </Link>
         <div className="absolute left-[78%] top-[4%] invisible text-gray-300 p-1 hover:text-slate-500 hover:cursor-pointer group-hover:visible z-20">
@@ -52,14 +83,14 @@ export const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
         </div>
         <button
           disabled={quantity <= 0}
-          onClick={() => setSelected((prev) => !prev)}
+          onClick={clickhandler}
           className={` rounded-full hover:border p-1 hover:border-green_app disabled:bg-gray-500 disabled:hover:border-none ${
-            selected && quantity !== 0
+            !!isInShopping && quantity !== 0
               ? "bg-green_app text-white"
               : "bg-gray-200 text-gray-700"
           }`}
         >
-          <HiOutlineShoppingBag className="size-8 p-1 "/>
+          <HiOutlineShoppingBag className="size-8 p-1 " />
         </button>
       </div>
     </div>
