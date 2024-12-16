@@ -27,11 +27,11 @@ export const UserDetails: React.FC = () => {
   }, [show]);
   return (
     <div className="relative z-50">
-      <PiUserLight onClick={showHandle} className="size-6 cursor-pointer" />
+      <PiUserLight onClick={showHandle} className="size-6 sm:size-7 cursor-pointer" />
       <div
         className={`${
           show ? "flex" : "hidden"
-        } bg-white shadow-xl rounded-md flex-col gap-y-2 absolute -left-5 sm:left-0 top-9 w-72 min-h-14 py-4 px-5`}
+        } bg-white shadow-xl rounded-md flex-col gap-y-2 absolute -left-5 sm:left-0 top-9 w-72 min-h-14 py-4 px-5 border`}
       >
         <div className={`${!userToken && "hidden"} flex flex-col gap-y-2`}>
           <h2 className="text-center"> شما وارد حساب خود شدید. </h2>
