@@ -19,7 +19,7 @@ export const NavMenu: React.FC = () => {
               صفحه اصلی
             </h2>
           </Link>
-          <Link href={"/products"}>
+          <Link href={"/products/category/all"}>
             <h2 className="cursor-pointer hover:font-semibold w-16 text-center">
               محصولات
             </h2>

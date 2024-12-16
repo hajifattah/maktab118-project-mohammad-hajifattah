@@ -1,4 +1,10 @@
-const ShoppingCardPage : React.FC = ()=>{
-    return <h2>shoppingCard page</h2>
-}
+import { ShoppingCardList } from "@/containers/shopping-card/shoppingCardList";
+
+const ShoppingCardPage: React.FC = () => {
+  return (
+    <>
+      <ShoppingCardList />
+    </>
+  );
+};
 export default ShoppingCardPage;
