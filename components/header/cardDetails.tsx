@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { getProductImageSorce } from "@/utils/sorce-image";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { TfiShoppingCart } from "react-icons/tfi";
@@ -44,12 +45,15 @@ export const CardDetails: React.FC = () => {
           show ? "block" : "hidden"
         } bg-white absolute left-0 top-8 w-[75vw] max-w-[20rem] sm:w-[40vw]  sm:max-w-[25rem] p-3 border rounded-md`}
       >
-        <button
-          disabled={!shoppingList?.length}
-          className="sm:text-lg w-full text-center p-2 border-b text-white font-semibold bg-black_app hover:bg-green_app disabled:bg-gray-600 rounded-md"
-        >
-          سبد خرید
-        </button>
+        <Link href={"/shopping-card"}>
+          <button
+            onClick={() => setShow(false)}
+            disabled={!shoppingList?.length}
+            className="sm:text-lg w-full text-center p-2 border-b text-white font-semibold bg-black_app hover:bg-green_app disabled:bg-gray-600 rounded-md"
+          >
+            سبد خرید
+          </button>
+        </Link>
         <div
           className={` flex shadow-xl rounded-md flex-col gap-y-2 mt-2  p-3   max-h-[calc(100vh_-_500px)] overflow-y-auto min-h-20 border`}
         >
@@ -76,9 +80,10 @@ export const CardDetails: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-y-1 text-sm font-semibold w-[45%] lg:w-[60%]">
                   <div className="flex gap-x-1 items-center">
-                    <h2 className="truncate sm:max-w-48 grow">
-                      {product.title}
-                    </h2>
+                    <Link href={`/products/${product.id}`} className="truncate sm:max-w-44 grow">
+                      {" "}
+                      <h2 className="truncate">{product.title}</h2>
+                    </Link>
                     <h2 className="text-gray-400 text-sm pt-1">
                       {product.qty}X
                     </h2>
