@@ -21,3 +21,11 @@ interface IUserInfoForm{
   address: string;
   dateOfDelivery: string;
 }
+
+interface IUserResINfo{
+  id:string;
+  firstName:string;
+  lastName: string;
+  phone: string;
+  address: string;
+}

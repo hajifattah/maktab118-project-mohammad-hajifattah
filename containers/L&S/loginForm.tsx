@@ -4,7 +4,7 @@ import { LoginFormSchema } from "@/apis/validations/auth.validation";
 import { UserInput } from "@/components/L&S/userInput";
 import { SubmitButton } from "@/components/submitButton";
 import { errorHandler } from "@/utils/error-handler";
-import { setRefToken, setToken } from "@/utils/session-manager";
+import { setRefToken, setToken, setUserInfo } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -25,10 +25,11 @@ export const LoginForm: React.FC<{
       const response = await loginService(values);
       const isAdmin = response.data.user.role === "ADMIN";
       let token = response.token.accessToken;
+      const userData = response.data.user;
       if (isAdmin === true) {
         const newToken = response.token.accessToken.split("");
-        newToken.splice(20, 0,"i","a","d");
-        token = newToken.join("")
+        newToken.splice(20, 0, "i", "a", "d");
+        token = newToken.join("");
       }
       //when user login from managment
       if (!isAdmin && !showHandle && !isUser) {
@@ -37,6 +38,13 @@ export const LoginForm: React.FC<{
       }
       //login from nav for user or admin
       setToken(token);
+      setUserInfo({
+        id: userData._id,
+        firstName: userData.firstname,
+        lastName: userData.lastname,
+        address: userData.address,
+        phone: userData.phoneNumber,
+      });
       setRefToken(response.token.refreshToken);
       toast.success("ورود موفقیت آمیز بود");
       if (isAdmin && isUser === undefined) {

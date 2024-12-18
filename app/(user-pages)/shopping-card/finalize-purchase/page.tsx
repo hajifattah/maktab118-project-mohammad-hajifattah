@@ -4,7 +4,9 @@ import { DeliveryDate } from "@/components/finalize-purchase/deliveryDate";
 import { TextareaInput } from "@/components/finalize-purchase/textareaInput";
 import { UserInput } from "@/components/L&S/userInput";
 import { TotalShoppingDetails } from "@/components/shopping-card/totalDetail";
+import { getUserInfo } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const FinalizePurchasePage: React.FC = () => {
@@ -16,7 +18,9 @@ const FinalizePurchasePage: React.FC = () => {
     mode: "all",
     resolver: zodResolver(userDetailsSchema),
   });
-
+  const userInfo = useMemo(() => {
+    return getUserInfo();
+  }, []);
   const submitform = () => {
     console.log(getValues());
   };
@@ -26,10 +30,9 @@ const FinalizePurchasePage: React.FC = () => {
         <h2 className="font-semibold border-b py-2 w-full text-center text-base md:text-xl text-black_app ">
           فرم تکمیل اطلاعات
         </h2>
-        <form
-          className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5 justify-center py-4 px-4 row-span-4"
-        >
+        <form className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5 justify-center py-4 px-4 row-span-4">
           <Controller
+            defaultValue={userInfo.firstName}
             control={control}
             name="firstName"
             render={({ field, fieldState }) => (
@@ -41,6 +44,7 @@ const FinalizePurchasePage: React.FC = () => {
             )}
           />
           <Controller
+            defaultValue={userInfo.lastName}
             control={control}
             name="lastName"
             render={({ field, fieldState }) => (
@@ -52,6 +56,7 @@ const FinalizePurchasePage: React.FC = () => {
             )}
           />
           <Controller
+            defaultValue={userInfo.phone}
             control={control}
             name="phone"
             render={({ field, fieldState }) => (
@@ -64,6 +69,7 @@ const FinalizePurchasePage: React.FC = () => {
           />
 
           <Controller
+            defaultValue={userInfo.address}
             control={control}
             name="address"
             render={({ field, fieldState }) => (
