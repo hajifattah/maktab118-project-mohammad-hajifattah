@@ -11,9 +11,10 @@ import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
-  showHandle,
-}) => {
+export const LoginForm: React.FC<{
+  showHandle?: () => void;
+  isUser?: boolean;
+}> = ({ showHandle, isUser }) => {
   const { control, handleSubmit } = useForm<ILoginReqDto>({
     mode: "all",
     resolver: zodResolver(LoginFormSchema),
@@ -30,7 +31,7 @@ export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
         token = newToken.join("")
       }
       //when user login from managment
-      if (!isAdmin && !showHandle) {
+      if (!isAdmin && !showHandle && !isUser) {
         toast.error("شماادمین نیستید لطفا از صفحه اصلی اقدام کنید");
         return push("/");
       }
@@ -38,12 +39,14 @@ export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
       setToken(token);
       setRefToken(response.token.refreshToken);
       toast.success("ورود موفقیت آمیز بود");
-      if (isAdmin) {
+      if (isAdmin && isUser === undefined) {
         push("/orders");
-      } else {
-        showHandle!();
+      } else if (isAdmin) {
+        push("/shopping-card/finalize-purchase");
+      } else if (showHandle) {
+        showHandle();
         push("/");
-      }
+      } else push("/shopping-card/finalize-purchase");
     } catch (error) {
       errorHandler(error as AxiosError);
     }
