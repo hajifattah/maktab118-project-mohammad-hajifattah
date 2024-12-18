@@ -1,5 +1,6 @@
 "use client";
 import { userDetailsSchema } from "@/apis/validations/user.validation";
+import { DeliveryDate } from "@/components/finalize-purchase/deliveryDate";
 import { TextareaInput } from "@/components/finalize-purchase/textareaInput";
 import { UserInput } from "@/components/L&S/userInput";
 import { TotalShoppingDetails } from "@/components/shopping-card/totalDetail";
@@ -26,7 +27,6 @@ const FinalizePurchasePage: React.FC = () => {
           فرم تکمیل اطلاعات
         </h2>
         <form
-          onSubmit={submitform}
           className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5 justify-center py-4 px-4 row-span-4"
         >
           <Controller
@@ -62,30 +62,20 @@ const FinalizePurchasePage: React.FC = () => {
               />
             )}
           />
+
           <Controller
             control={control}
-            name="dateOfDelivery"
+            name="address"
             render={({ field, fieldState }) => (
-              <UserInput
+              <TextareaInput
                 {...field}
-                label="زمان تحویل"
+                label="آدرس"
                 error={fieldState.error?.message}
               />
             )}
           />
-          <div className="sm:col-span-2">
-            <Controller
-              control={control}
-              name="address"
-              render={({ field, fieldState }) => (
-                <TextareaInput
-                  {...field}
-                  label="آدرس"
-                  error={fieldState.error?.message}
-                />
-              )}
-            />
-          </div>
+
+          <DeliveryDate control={control} name="dateOfDelivery" />
         </form>
       </div>
 

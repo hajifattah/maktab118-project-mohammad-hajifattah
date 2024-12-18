@@ -11,5 +11,5 @@ export const userDetailsSchema = z.object({
       (val) => /(09)[0-9]{9}/.test(val) && val.length === 11,
       "شماره وارد شده صحیح نمی باشد، مثال: 09122400000"
     ),
-    dateOfDelivery: z.string().refine(val=> val !== "" , "مقدار نمیتواند خالی باشد"),
+    dateOfDelivery: z.string().refine(val=> val !== "" , "زمان تحویل نمیتواند خالی باشد"),
 })
