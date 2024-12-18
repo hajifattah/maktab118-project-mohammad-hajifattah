@@ -11,7 +11,6 @@ const ProductPage: React.FC<INextPageParams<{ product: string }>> = async ({
 }) => {
   const productId = (await params).product;
   const productInfo = (await fetchSingleProductService(productId)).data.product;
-  console.log(productInfo.description);
   return (
     <div>
       <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-5">
@@ -51,7 +50,7 @@ const ProductPage: React.FC<INextPageParams<{ product: string }>> = async ({
             </div>
             <Description info={productInfo.description} />
           </div>
-          <ProductAction stockQty={productInfo.quantity} />
+          <ProductAction productInfo={productInfo} />
           <div className="flex flex-col gap-x-2 gap-y-1 py-4 border-b">
             <Link href={`/products/category/${productInfo.category._id}`}>
               <h2 >

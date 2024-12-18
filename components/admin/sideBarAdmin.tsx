@@ -5,7 +5,7 @@ import { PiArrowFatLineLeftFill } from "react-icons/pi";
 import { ExtendSideBar } from "./extendSideBar";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { deleteToken } from "@/utils/session-manager";
+import { deleteRefToken, deleteToken } from "@/utils/session-manager";
 import { toast } from "react-toastify";
 
 export const SideBarAdmin: React.FC = () => {
@@ -14,6 +14,7 @@ export const SideBarAdmin: React.FC = () => {
   const exitAccount = () => {
     toast.success("خروج موفقیت آمیز بود")
     deleteToken();
+    deleteRefToken();
   };
   return (
     <>

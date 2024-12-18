@@ -14,7 +14,6 @@ export const ToggleInput: React.FC<IToggleInputProps> = ({
   ...props
 }) => {
   const changeHandle = (e: boolean) => {
-    console.log(e);
     onChange && onChange(e ? "yes" : "no");
   };
   return (

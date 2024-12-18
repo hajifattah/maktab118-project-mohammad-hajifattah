@@ -20,7 +20,7 @@ export const DeleteProduct: React.FC<{
   const params = Object.fromEntries(search.entries());
   const searchParams = new URLSearchParams({
     ...params,
-    page: isLast === true ? String(Number(params.page) - 1) : params.page,
+    page: params.page === undefined ? "1" : isLast === true ? String(Number(params.page) - 1) : params.page,
   });
   const { push } = useRouter();
 

@@ -1,4 +1,12 @@
-const ShoppingCardPage : React.FC = ()=>{
-    return <h2>shoppingCard page</h2>
-}
+import { TotalShoppingDetails } from "@/components/shopping-card/totalDetail";
+import { ShoppingCardList } from "@/containers/shopping-card/shoppingCardList";
+
+const ShoppingCardPage: React.FC = () => {
+  return (
+    <div className="flex flex-col lg:flex-row gap-2">
+      <ShoppingCardList />
+      <TotalShoppingDetails/>
+    </div>
+  );
+};
 export default ShoppingCardPage;
