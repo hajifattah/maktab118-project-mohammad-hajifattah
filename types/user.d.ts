@@ -13,3 +13,11 @@ interface IUser {
 interface IUserDto {
   data: { user: IUser };
 }
+
+interface IUserInfoForm{
+  firstName:string;
+  lastName: string;
+  phone: string;
+  address: string;
+  dateOfDelivery: string;
+}
