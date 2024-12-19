@@ -35,7 +35,7 @@ export const UserInput: React.FC<IInput> = ({
             type === "text" ? "text" : showPass === true ? "text" : "password"
           }
           name={name}
-          className="outline-none"
+          className="outline-none w-full"
         />
         <FaEye
           onClick={() => setShowPass((prev) => !prev)}
