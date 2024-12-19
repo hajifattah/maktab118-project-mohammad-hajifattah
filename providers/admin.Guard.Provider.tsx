@@ -5,12 +5,11 @@ import { useEffect } from "react";
 
 export const AdminGuardProvider: React.FC<IChildren> = ({ children }) => {
   const { push } = useRouter();
+  const token = getToken();
+  const index = token?.indexOf("iad", 20);
     
   useEffect(() => {
-    const token = getToken();
-    const index = token?.indexOf("iad", 20);
-    if (index === undefined || index === -1) return push("/login");
-   return push("/orders");
-  }, []);
-  return <>{children}</>;
+    if (index === undefined || index === -1) push("/login");
+  }, [token]);
+  return index === 20 ? <>{children}</> : <></>;
 };
