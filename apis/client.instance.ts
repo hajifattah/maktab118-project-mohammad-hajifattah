@@ -15,9 +15,14 @@ export default instance;
 
 instance.interceptors.request.use((config) => {
   if (config.url !== "/api/auth/token") {
-    const token = getToken()?.split("");
-    token?.splice(20, 3);
-    config.headers.Authorization = "Bearer " + token?.join("");
+    let token = getToken();
+    const index = token?.indexOf("iad", 20);
+    if (index === 20) {
+      const newToken = token!.split("");
+      newToken.splice(20, 3);
+      token = newToken.join("");
+    }
+    config.headers.Authorization = "Bearer " + token;
   }
   return config;
 });
@@ -38,11 +43,18 @@ instance.interceptors.response.use(
       });
 
       if (response.status === 200) {
+        console.log("hii");
         const accessToken = response.data.token.accessToken;
-        const newToken = accessToken.split("");
-        newToken.splice(20, 0, "i", "a", "d");
-        const token = newToken.join("");
-        setToken(token);
+        const oldToken = getToken();
+        const index = oldToken?.indexOf("iad", 20);
+        if (index === 20) {
+          const newToken = accessToken.split("");
+          newToken.splice(20, 0, "i", "a", "d");
+          const token = newToken.join("");
+          setToken(token);
+        } else {
+          setToken(accessToken);
+        }
         error.config.headers.Authorization = "Bearer " + accessToken;
         return instance(error.config);
       } else {
@@ -56,7 +68,6 @@ instance.interceptors.response.use(
     ) {
       deleteToken();
       deleteRefToken();
-
     }
     return Promise.reject(error);
   }

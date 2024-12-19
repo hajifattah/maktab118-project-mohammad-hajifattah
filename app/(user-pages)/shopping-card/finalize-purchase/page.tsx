@@ -5,6 +5,8 @@ import { DeliveryDate } from "@/components/finalize-purchase/deliveryDate";
 import { TextareaInput } from "@/components/finalize-purchase/textareaInput";
 import { UserInput } from "@/components/L&S/userInput";
 import { TotalShoppingDetails } from "@/components/shopping-card/totalDetail";
+import { useAppDispatch } from "@/redux/hooks";
+import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { errorHandler } from "@/utils/error-handler";
 import { getUserInfo, setUserInfo } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,6 +16,7 @@ import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const FinalizePurchasePage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const {push} = useRouter();
   const {
     control,
@@ -29,6 +32,7 @@ const FinalizePurchasePage: React.FC = () => {
   const submitform = async() => {
     try {
       const data = getValues();
+      dispatch(ShoppingAction.setDeliveryDate(data.dateOfDelivery));
       await editUserService({...data,id:userInfo.id});
       // for front
       setUserInfo({...data,id:userInfo.id});
