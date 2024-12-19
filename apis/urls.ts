@@ -10,6 +10,7 @@ export const urls = {
   },
   users: {
     byId: (id: string) => `/api/users/${id}`,
+    details: (id:string)=>`/api/users/${id}`,
   },
   products: {
     list: "/api/products",

@@ -30,7 +30,7 @@ export const TotalShoppingDetails: React.FC<{
       </div>
       {activeButton ? (
         <>
-          <Link href="/payment" className="flex justify-center">
+          <div className="flex justify-center">
             <button
               onClick={submitForm}
               disabled={!activeButton.isDirty || !activeButton.isValid}
@@ -38,7 +38,7 @@ export const TotalShoppingDetails: React.FC<{
             >
               پرداخت
             </button>
-          </Link>
+          </div>
           <Link href="/shopping-card" className="flex justify-center">
             <button className="w-full bg-gray-200 border text-gray-600 font-bold mt-2 hover:bg-gray-100 px-2 py-2 rounded-md max-w-xl">
               بازگشت به سبد خرید

@@ -14,6 +14,8 @@ export const errorHandler = (err: AxiosError | string) => {
         ? "نام کاربری یا کلمه عبور صحیح نیست"
         : message.includes("product name is already exists")
         ? "محصولی با این نام موجود می باشد"
+        : message.includes("ValidationError")
+        ? "مقادیر صحیح نمی باشند"
         : (err.response?.statusText as string);
     toast.error(message as string);
   } else if (typeof err === "string") {

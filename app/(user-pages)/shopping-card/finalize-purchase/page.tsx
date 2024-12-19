@@ -1,15 +1,20 @@
 "use client";
+import { editUserService } from "@/apis/services/users.service";
 import { userDetailsSchema } from "@/apis/validations/user.validation";
 import { DeliveryDate } from "@/components/finalize-purchase/deliveryDate";
 import { TextareaInput } from "@/components/finalize-purchase/textareaInput";
 import { UserInput } from "@/components/L&S/userInput";
 import { TotalShoppingDetails } from "@/components/shopping-card/totalDetail";
-import { getUserInfo } from "@/utils/session-manager";
+import { errorHandler } from "@/utils/error-handler";
+import { getUserInfo, setUserInfo } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 const FinalizePurchasePage: React.FC = () => {
+  const {push} = useRouter();
   const {
     control,
     getValues,
@@ -21,8 +26,17 @@ const FinalizePurchasePage: React.FC = () => {
   const userInfo = useMemo(() => {
     return getUserInfo();
   }, []);
-  const submitform = () => {
-    console.log(getValues());
+  const submitform = async() => {
+    try {
+      const data = getValues();
+      await editUserService({...data,id:userInfo.id});
+      // for front
+      setUserInfo({...data,id:userInfo.id});
+      push("/payment")
+    } catch (error) {
+      errorHandler(error as AxiosError)
+
+    }
   };
   return (
     <div className="flex flex-col lg:flex-row gap-2 pt-3">
