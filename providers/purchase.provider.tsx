@@ -1,7 +1,7 @@
 "use client";
 import { getToken } from "@/utils/session-manager";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 
 export const PurchaseGuardProvider: React.FC<IChildren> = ({ children }) => {
   const { push } = useRouter();

@@ -8,7 +8,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 export const FileInput: React.FC<{
   name: keyof IProductForm;
-  control: Control<IProductForm, any>;
+  control: Control<IProductForm>;
   defaultImage: string[] | undefined;
 }> = ({ name, control, defaultImage }) => {
   const {
@@ -17,7 +17,7 @@ export const FileInput: React.FC<{
   } = useController({ name, control });
 
   const changeHandle: ChangeEventHandler<HTMLInputElement> = (e) => {
-    let filesArray: File[] = [];
+    const filesArray: File[] = [];
     for (const file of e.target.files || []) {
       filesArray.push(file);
     }

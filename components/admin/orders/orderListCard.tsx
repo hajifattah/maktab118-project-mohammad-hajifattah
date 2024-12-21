@@ -1,7 +1,6 @@
 import { fetchUserByIdService } from "@/apis/services/users.service";
 
 export const OrderListCard: React.FC<IOrder> = async ({
-  _id,
   totalPrice,
   createdAt,
   user,

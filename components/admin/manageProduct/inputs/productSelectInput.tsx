@@ -30,12 +30,12 @@ export const ProductSelectInput: React.FC<IInput> = ({
   ...props
 }) => {
   const onchangeHandler: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    onChange ? onChange(e.target.value) : undefined;
+    onChange?.(e.target.value);
     if (setCat) {
       setCat(e.target.value);
     }
   };
-  useEffect(()=>{defaultValue && onChange(defaultValue as string)},[defaultValue])
+  useEffect(()=>{onChange?.(defaultValue as string)},[defaultValue])
   return (
     <div className="w-full">
       <label
