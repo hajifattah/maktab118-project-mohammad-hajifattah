@@ -1,7 +1,7 @@
 import { fetchSingleProductService } from "@/apis/services/products.service";
 import { Description } from "@/components/product/description";
 import { ProductImagesList } from "@/components/product/imageList";
-import { ProductAction } from "@/components/product/productAction";
+import { ProductActionCSR } from "@/components/product/productAction";
 import Link from "next/link";
 import { AiFillInstagram } from "react-icons/ai";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
@@ -50,7 +50,7 @@ const ProductPage: React.FC<INextPageParams<{ product: string }>> = async ({
             </div>
             <Description info={productInfo.description} />
           </div>
-          <ProductAction productInfo={productInfo} />
+          <ProductActionCSR productInfo={productInfo} />
           <div className="flex flex-col gap-x-2 gap-y-1 py-4 border-b">
             <Link href={`/products/category/${productInfo.category._id}`}>
               <h2 >

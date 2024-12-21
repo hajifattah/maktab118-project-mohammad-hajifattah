@@ -3,14 +3,17 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { findProduct } from "@/redux/selectors/findProduct";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { getProductImageSorce } from "@/utils/sorce-image";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { MdFavoriteBorder } from "react-icons/md";
 
-export const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
+export const ProductCardCSR = dynamic(() => Promise.resolve(ProductCard), {
+  ssr: false,
+});
+const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
   isHome = true,
   _id,
   price,
@@ -18,8 +21,7 @@ export const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
   name,
   images,
 }) => {
-  const [isInShopping, setIsInShopping] = useState<IShopping>();
-  const selectShopping = useAppSelector(findProduct(_id));
+  const isInShopping = useAppSelector(findProduct(_id));
 
   const dispatch = useAppDispatch();
   const clickhandler = () => {
@@ -39,11 +41,7 @@ export const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
       );
     }
   };
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-    setIsInShopping(selectShopping);
-    }
-  }, [selectShopping]);
+
   return (
     <div
       className={`flex flex-col gap-y-2 border shadow-lg bg-slate-50 ${

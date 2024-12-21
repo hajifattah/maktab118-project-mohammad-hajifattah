@@ -4,7 +4,7 @@ import { userDetailsSchema } from "@/apis/validations/user.validation";
 import { DeliveryDate } from "@/components/finalize-purchase/deliveryDate";
 import { TextareaInput } from "@/components/finalize-purchase/textareaInput";
 import { UserInput } from "@/components/L&S/userInput";
-import { TotalShoppingDetails } from "@/components/shopping-card/totalDetail";
+import { TotalShoppingDetailsCSR } from "@/components/shopping-card/totalDetail";
 import { useAppDispatch } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { errorHandler } from "@/utils/error-handler";
@@ -102,7 +102,7 @@ const FinalizePurchasePage: React.FC = () => {
         </form>
       </div>
 
-      <TotalShoppingDetails
+      <TotalShoppingDetailsCSR
         activeButton={{ isDirty, isValid }}
         submitForm={submitform}
       />
