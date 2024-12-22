@@ -13,7 +13,7 @@ export const ManagmentButton: React.FC = () => {
   };
 
   return (
-    <button onClick={loginCheck} className="font-semibold">
+    <button onClick={loginCheck} className="font-semibold hover:text-gray-600">
       مدیریت
     </button>
   );
