@@ -9,7 +9,7 @@ export const PurchaseGuardProvider: React.FC<IChildren> = ({ children }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = getToken();
-      if (token === null) push("/login?isUser=true");
+      if (token === null) push("/login?isUser=true&isPurchase=true");
       setToken(token || undefined);
     }
   }, []);

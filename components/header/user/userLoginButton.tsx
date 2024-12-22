@@ -12,7 +12,7 @@ export const UserLoginButton: React.FC = () => {
   useEffect(() => {
     if (firstLoad) setFirstLoad(false);
     setIsToken(!!token);
-  }, [path]);
+  }, [path,token]);
   return (
     <Link
       href={"/login?isUser=true"}

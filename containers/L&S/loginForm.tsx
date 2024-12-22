@@ -14,7 +14,8 @@ import { toast } from "react-toastify";
 export const LoginForm: React.FC<{
   showHandle?: () => void;
   isUser?: boolean;
-}> = ({ showHandle, isUser }) => {
+  isPurchase?: boolean;
+}> = ({ showHandle, isUser, isPurchase }) => {
   const { control, handleSubmit } = useForm<ILoginReqDto>({
     mode: "all",
     resolver: zodResolver(LoginFormSchema),
@@ -47,14 +48,18 @@ export const LoginForm: React.FC<{
       });
       setRefToken(response.token.refreshToken);
       toast.success("ورود موفقیت آمیز بود");
-      if (isAdmin && isUser === undefined) {
-        push("/orders");
-      } else if (isAdmin) {
+      if (isAdmin && isPurchase) {
         push("/shopping-card/finalize-purchase");
+      } else if (isAdmin && isUser) {
+        push("/");
+      } else if (isAdmin && !showHandle) {
+        push("/orders");
       } else if (showHandle) {
         showHandle();
         push("/");
-      } else push("/shopping-card/finalize-purchase");
+      } else if (isPurchase) {
+        push("/shopping-card/finalize-purchase");
+      } else push("/");
     } catch (error) {
       errorHandler(error as AxiosError);
     }

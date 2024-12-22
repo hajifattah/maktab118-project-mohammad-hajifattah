@@ -2,9 +2,9 @@ import { LoginForm } from "@/containers/L&S/loginForm";
 import Image from "next/image";
 
 const LoginPage: React.FC<{
-  searchParams: Promise<{ isUser: boolean }>;
+  searchParams: Promise<{ isUser: boolean,isPurchase: boolean }>;
 }> = async ({ searchParams }) => {
-  const isUser = (await searchParams).isUser;
+  const {isUser,isPurchase} = await searchParams;
   return !isUser ? (
     <div className="grid grid-cols-2 py-3 md:h-[calc(100vh-13.25rem)] md:max-h-[1000px]">
       <div className="content-center max-h-96 md:max-h-full py-4 md:col-span-1 col-span-2 bg-white px-4 rounded-t-md md:rounded-r-xl ">
@@ -28,7 +28,7 @@ const LoginPage: React.FC<{
         <h2 className="font-semibold text-black/80 text-center text-lg mb-4">
           ورود به حساب کاربری
         </h2>
-        <LoginForm isUser={isUser} />
+        <LoginForm isUser={isUser} isPurchase={isPurchase} />
       </div>
     </div>
   );
