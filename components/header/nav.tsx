@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CardDetails } from "./cardDetails";
-import { UserDetails } from "./user/userDetails";
+import { UserDetailsCSR } from "./user/userDetails";
 import { ManagmentButton } from "./managmentBtn";
 import { UserLoginButton } from "./user/userLoginButton";
 export const Nav: React.FC = () => {
@@ -17,7 +17,7 @@ export const Nav: React.FC = () => {
         <div className="flex gap-x-2">
           <UserLoginButton/>
           <ManagmentButton/>
-          <UserDetails />
+          <UserDetailsCSR />
           <CardDetails />
         </div>
       </div>

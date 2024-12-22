@@ -1,9 +1,13 @@
 "use client";
 import { useAppSelector } from "@/redux/hooks";
 import { getTotalDetails } from "@/redux/selectors/totalDetails";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
-export const TotalShoppingDetails: React.FC<{
+export const TotalShoppingDetailsCSR = dynamic(() => Promise.resolve(TotalShoppingDetails), {
+  ssr: false,
+})
+const TotalShoppingDetails: React.FC<{
   activeButton?: {
     isDirty: boolean;
     isValid: boolean;
