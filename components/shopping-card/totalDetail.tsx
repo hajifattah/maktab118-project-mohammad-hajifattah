@@ -33,7 +33,7 @@ export const TotalShoppingDetails: React.FC<{
           <div className="flex justify-center">
             <button
               onClick={submitForm}
-              disabled={!activeButton.isDirty || !activeButton.isValid}
+              disabled={!activeButton.isDirty || !activeButton.isValid || totalPrice === 0}
               className="w-full bg-green_app text-white font-bold mt-2 hover:bg-green_app/80 px-2 py-2 rounded-md max-w-xl disabled:bg-gray-400"
             >
               پرداخت
@@ -51,7 +51,7 @@ export const TotalShoppingDetails: React.FC<{
             href="/shopping-card/finalize-purchase"
             className="flex justify-center"
           >
-            <button className="w-full bg-green_app text-white font-bold mt-2 hover:bg-green_app/80 px-2 py-2 rounded-md max-w-xl disabled:bg-gray-400">
+            <button disabled={totalPrice === 0} className="w-full bg-green_app text-white font-bold mt-2 hover:bg-green_app/80 px-2 py-2 rounded-md max-w-xl disabled:bg-gray-400">
               نهایی کردن خرید
             </button>
           </Link>
