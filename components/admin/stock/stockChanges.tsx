@@ -6,7 +6,7 @@ import { PairStockContext } from "@/providers/stockPage.provider";
 import { errorHandler } from "@/utils/error-handler";
 import { AxiosError } from "axios";
 import { FormEventHandler, useContext, useState } from "react";
-import { MdChangeCircle, MdDelete } from "react-icons/md";
+import { MdChangeCircle} from "react-icons/md";
 import { toast } from "react-toastify";
 
 export const StoreStockChanges: React.FC = () => {

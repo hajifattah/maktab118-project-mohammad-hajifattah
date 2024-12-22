@@ -4,7 +4,7 @@ import { userDetailsSchema } from "@/apis/validations/user.validation";
 import { DeliveryDate } from "@/components/finalize-purchase/deliveryDate";
 import { TextareaInput } from "@/components/finalize-purchase/textareaInput";
 import { UserInput } from "@/components/L&S/userInput";
-import { TotalShoppingDetails } from "@/components/shopping-card/totalDetail";
+import { TotalShoppingDetailsCSR } from "@/components/shopping-card/totalDetail";
 import { useAppDispatch } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { errorHandler } from "@/utils/error-handler";
@@ -17,7 +17,7 @@ import { Controller, useForm } from "react-hook-form";
 
 const FinalizePurchasePage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const {push} = useRouter();
+  const { push } = useRouter();
   const {
     control,
     getValues,
@@ -29,17 +29,16 @@ const FinalizePurchasePage: React.FC = () => {
   const userInfo = useMemo(() => {
     return getUserInfo();
   }, []);
-  const submitform = async() => {
+  const submitform = async () => {
     try {
       const data = getValues();
       dispatch(ShoppingAction.setDeliveryDate(data.dateOfDelivery));
-      await editUserService({...data,id:userInfo.id});
+      await editUserService({ ...data, id: userInfo!.id });
       // for front
-      setUserInfo({...data,id:userInfo.id});
-      push("/payment")
+      setUserInfo({ ...data, id: userInfo!.id });
+      push("/payment");
     } catch (error) {
-      errorHandler(error as AxiosError)
-
+      errorHandler(error as AxiosError);
     }
   };
   return (
@@ -50,7 +49,7 @@ const FinalizePurchasePage: React.FC = () => {
         </h2>
         <form className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5 justify-center py-4 px-4 row-span-4">
           <Controller
-            defaultValue={userInfo.firstName}
+            defaultValue={userInfo!.firstName}
             control={control}
             name="firstName"
             render={({ field, fieldState }) => (
@@ -62,7 +61,7 @@ const FinalizePurchasePage: React.FC = () => {
             )}
           />
           <Controller
-            defaultValue={userInfo.lastName}
+            defaultValue={userInfo!.lastName}
             control={control}
             name="lastName"
             render={({ field, fieldState }) => (
@@ -74,7 +73,7 @@ const FinalizePurchasePage: React.FC = () => {
             )}
           />
           <Controller
-            defaultValue={userInfo.phone}
+            defaultValue={userInfo!.phone}
             control={control}
             name="phone"
             render={({ field, fieldState }) => (
@@ -87,7 +86,7 @@ const FinalizePurchasePage: React.FC = () => {
           />
 
           <Controller
-            defaultValue={userInfo.address}
+            defaultValue={userInfo!.address}
             control={control}
             name="address"
             render={({ field, fieldState }) => (
@@ -103,7 +102,7 @@ const FinalizePurchasePage: React.FC = () => {
         </form>
       </div>
 
-      <TotalShoppingDetails
+      <TotalShoppingDetailsCSR
         activeButton={{ isDirty, isValid }}
         submitForm={submitform}
       />

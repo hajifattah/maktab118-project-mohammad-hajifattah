@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { Control, useController } from "react-hook-form";
 
 interface IDate {
-  control: Control<IUserInfoForm, any>;
+  control: Control<IUserInfoForm>;
   name: "dateOfDelivery";
 }
 export const DeliveryDate: React.FC<IDate> = ({ name, control }) => {

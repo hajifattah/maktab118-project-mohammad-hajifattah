@@ -1,5 +1,5 @@
 "use client";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { createContext, useState } from "react";
 
 type PairStockContextType = {
   pairs: IPairIDs[];
@@ -27,7 +27,7 @@ export const PairStockProvider: React.FC<{ children: React.ReactNode }> = ({
     setPairValues((prev) => prev.filter((item) => item.id !== id));
 
   const removeAll = () => setPairValues([]);
-  
+
   return (
     <PairStockContext.Provider
       value={{ pairs: pairValues, addToPairsList, removePair, removeAll }}

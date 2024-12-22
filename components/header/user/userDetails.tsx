@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { PiUserLight } from "react-icons/pi";
 import { UserLogin } from "./userLogin";
 import { SubmitButton } from "@/components/submitButton";
-import { deleteRefToken, deleteToken, deleteUserInfo, getToken, getUserInfo } from "@/utils/session-manager";
+import { deleteRefToken, deleteToken, deleteUserInfo, getUserInfo } from "@/utils/session-manager";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 
-export const UserDetails: React.FC = () => {
+export const UserDetailsCSR = dynamic(() => Promise.resolve(UserDetails), {
+  ssr: false,
+})
+  const UserDetails: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
-  const [userToken, setUserToken] = useState<string | null>(null);
   const {push} = useRouter();
   const deleteTokenHandler = () => {
     toast.success("خروج موفقیت آمیز بود")
@@ -24,9 +27,6 @@ export const UserDetails: React.FC = () => {
   const showHandle = () => {
     setShow((prev) => !prev);
   };
-  useEffect(() => {
-    setUserToken(getToken());
-  }, [show]);
   return (
     <div className="relative z-50">
       <PiUserLight onClick={showHandle} className="size-6 sm:size-7 cursor-pointer" />
@@ -35,7 +35,7 @@ export const UserDetails: React.FC = () => {
           show ? "flex" : "hidden"
         } bg-white shadow-xl rounded-md flex-col gap-y-2 absolute -left-5 sm:left-0 top-9 w-72 min-h-14 py-4 px-5 border`}
       >
-        <div className={`${!userToken && "hidden"} flex flex-col gap-y-2`}>
+        <div className={`${!userInfo && "hidden"} flex flex-col gap-y-2`}>
           <h2 className="text-center mb-2"> سلام {userInfo?.firstName}، خوش آمدید. </h2>
           <button className="border py-1 rounded-md hover:bg-slate-100">
             پروفایل
@@ -46,7 +46,7 @@ export const UserDetails: React.FC = () => {
             bgColor="bg-red-500"
           />
         </div>
-         {!userToken && <UserLogin showHandle={showHandle} />} 
+         {!userInfo && <UserLogin showHandle={showHandle} />} 
       </div>
     </div>
   );
