@@ -1,12 +1,11 @@
 import { fetchSingleProductListService } from "@/apis/services/products.service";
 import { errorHandler } from "@/utils/error-handler";
 import { getProductImageSorce } from "@/utils/sorce-image";
-import { AxiosError, isAxiosError } from "axios";
+import { AxiosError } from "axios";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export const UserOrdersItem: React.FC<IOrder> = ({
-  _id,
   createdAt,
   deliveryStatus,
   deliveryDate,
@@ -27,7 +26,6 @@ export const UserOrdersItem: React.FC<IOrder> = ({
     }
   }, []);
 
-  console.log(productsId);
   useEffect(() => {
     callback();
   }, []);
@@ -42,7 +40,7 @@ export const UserOrdersItem: React.FC<IOrder> = ({
   }, [createdAt]);
 
   return (
-    <div className="border border-gray-400 p-3 rounded-md bg-slate-200 max-w-screen-md mx-auto w-full">
+    <div className="border border-gray-400 p-4 rounded-md bg-slate-200 max-w-screen-md mx-auto w-full max-h-72">
       <h2
         className={`text-center ${
           deliveryStatus ? "text-green_app" : "text-orange-500"
@@ -66,9 +64,9 @@ export const UserOrdersItem: React.FC<IOrder> = ({
         <p>{totalPrice} تومان</p>
       </div>
       <div className="flex gap-x-4 border-t-2 border-gray-300 p-2 pt-4 mt-2 mx-auto overflow-x-auto w-[70vw] max-w-[42rem]">
-        {imageProducts.map((image) => (
+        {imageProducts.map((image,index) => (
           <div
-            key={image}
+            key={index}
             className="relative group-hover:blur-sm w-[30%] sm:w-[18%] sm:max-w-[13rem] min-w-16 md:min-w-28 lg:max-w-[5rem] xl:max-w-[13rem] aspect-square"
           >
             <Image
