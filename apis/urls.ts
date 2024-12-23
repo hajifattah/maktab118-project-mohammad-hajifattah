@@ -1,9 +1,9 @@
-import { Category } from "@/components/header/category";
 
 export const urls = {
   auth: {
     login: "/api/auth/login",
-    token: "/api/auth/token"
+    token: "/api/auth/token",
+    signup: "/api/auth/signup"
   },
   orders: {
     list: "/api/orders",

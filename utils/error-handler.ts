@@ -16,6 +16,10 @@ export const errorHandler = (err: AxiosError | string) => {
         ? "محصولی با این نام موجود می باشد"
         : message.includes("ValidationError")
         ? "مقادیر صحیح نمی باشند"
+        : message.includes("username is already taken")
+        ? "نام کاربری دیگری انتخاب کنید"
+        : message.includes("phoneNumber is already exists")
+        ? "شماره تلفن دیگری وارد کنید"
         : (err.response?.statusText as string);
     toast.error(message as string);
   } else if (typeof err === "string") {
