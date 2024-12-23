@@ -39,8 +39,13 @@ export const UserDetailsCSR = dynamic(() => Promise.resolve(UserDetails), {
         <div className={`${!userInfo && "hidden"} flex flex-col gap-y-2`}>
           <h2 className="text-center mb-2"> سلام {userInfo?.firstName}، خوش آمدید. </h2>
           <Link href={"/user-profile"} >
-            <button className="border w-full py-1 rounded-md hover:bg-slate-100">
+            <button onClick={showHandle} className="border w-full py-1 rounded-md hover:bg-slate-100">
               پروفایل
+            </button>
+          </Link>
+          <Link href={"/user-profile/orders"} >
+            <button onClick={showHandle} className="border w-full py-1 rounded-md hover:bg-slate-100">
+              سفارشات
             </button>
           </Link>
           <SubmitButton
