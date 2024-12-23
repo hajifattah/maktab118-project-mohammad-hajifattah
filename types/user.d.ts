@@ -17,6 +17,8 @@ interface IUserDto {
 interface IUserInfoForm{
   firstName:string;
   lastName: string;
+  userName: string;
+  password: string;
   phone: string;
   address: string;
   dateOfDelivery: string;
@@ -24,6 +26,7 @@ interface IUserInfoForm{
 
 interface IUserResINfo{
   id:string;
+  userName:string;
   firstName:string;
   lastName: string;
   phone: string;

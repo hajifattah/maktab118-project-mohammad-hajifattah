@@ -20,7 +20,7 @@ const LoginPage: React.FC<{
       </div>
     </div>
   ) : (
-    <div className="relative md:h-[calc(100vh-13.25rem)] h-[calc(100vh-22rem)] md:max-h-[1000px] mt-4">
+    <div className="relative md:h-[calc(100vh-13.25rem)] h-[calc(100vh-22rem)] md:max-h-[1000px] mt-6">
       <div className=" w-full h-[calc(100vh-31rem)]">
         <Image src={"/user-login.jpg"} alt="loginimage" sizes="1000px" fill />
       </div>
