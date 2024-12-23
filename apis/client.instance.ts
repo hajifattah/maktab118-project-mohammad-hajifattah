@@ -1,6 +1,7 @@
 import {
   deleteRefToken,
   deleteToken,
+  deleteUserInfo,
   getRefToken,
   getToken,
   setToken,
@@ -68,6 +69,7 @@ instance.interceptors.response.use(
     ) {
       deleteToken();
       deleteRefToken();
+      deleteUserInfo();
     }
     return Promise.reject(error);
   }

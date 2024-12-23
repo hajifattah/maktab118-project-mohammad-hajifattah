@@ -8,6 +8,7 @@ import { deleteRefToken, deleteToken, deleteUserInfo, getUserInfo } from "@/util
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 export const UserDetailsCSR = dynamic(() => Promise.resolve(UserDetails), {
   ssr: false,
@@ -37,9 +38,11 @@ export const UserDetailsCSR = dynamic(() => Promise.resolve(UserDetails), {
       >
         <div className={`${!userInfo && "hidden"} flex flex-col gap-y-2`}>
           <h2 className="text-center mb-2"> سلام {userInfo?.firstName}، خوش آمدید. </h2>
-          <button className="border py-1 rounded-md hover:bg-slate-100">
-            پروفایل
-          </button>
+          <Link href={"/user-profile"} >
+            <button className="border w-full py-1 rounded-md hover:bg-slate-100">
+              پروفایل
+            </button>
+          </Link>
           <SubmitButton
             text="خروج"
             onClick={deleteTokenHandler}

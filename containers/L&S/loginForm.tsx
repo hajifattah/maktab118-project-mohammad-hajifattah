@@ -41,6 +41,7 @@ export const LoginForm: React.FC<{
       setToken(token);
       setUserInfo({
         id: userData._id,
+        userName: userData.username,
         firstName: userData.firstname,
         lastName: userData.lastname,
         address: userData.address,

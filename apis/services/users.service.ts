@@ -9,13 +9,15 @@ export const fetchUserByIdService: ILoginService = async (id) => {
   return response.data;
 };
 
-type IEditUserService = (data: IUserResINfo) => Promise<IUserDto>;
+type IEditUserService = (data: IUserResINfo&{password? : string}) => Promise<IUserDto>;
 export const editUserService: IEditUserService = async (data) => {
   const response = await instance.patch(urls.users.details(data.id), {
     firstname: data.firstName,
     lastname: data.lastName,
     address: data.address,
     phoneNumber: data.phone,
+    username: data.userName,
+    password: data.password
   });
   return response.data;
 };
