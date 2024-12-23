@@ -1,4 +1,4 @@
-import { UserOrdersList } from "@/containers/user_orders/ordersItem";
+import { UserOrdersList } from "@/containers/user_orders/ordersList";
 
 const UserOrdersPage: React.FC = () => {
   return (

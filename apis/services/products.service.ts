@@ -42,3 +42,19 @@ export const fetchSingleProductService: FetchSingleProductService = async (
   const response = await instance.get(urls.products.getById(pId));
   return response.data;
 };
+
+type FetchSingleProductListService = (
+  pId: string[]
+) => Promise<ISingleProductDto[]>;
+export const fetchSingleProductListService: FetchSingleProductListService =
+  async (pId) => {
+    const instance = axiosInstance();
+    const req = pId.map((id) => instance.get(urls.products.getById(id)));
+    const allResponse = await Promise.all(req);
+    const usableResponses: ISingleProductDto[] = [];
+    for (const item of allResponse) {
+      usableResponses.push(item.data);
+    }
+    console.log(usableResponses);
+    return usableResponses;
+  };
