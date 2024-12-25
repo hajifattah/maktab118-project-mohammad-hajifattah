@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IShoppingState {
   list: IShopping[];
+  deliveryDate: string;
 }
 const initialState: IShoppingState = {
   list: [],
+  deliveryDate: "",
 };
 export const shoppingSlice = createSlice({
   name: "shopping",
@@ -30,8 +32,12 @@ export const shoppingSlice = createSlice({
           : item
       );
     },
+    setDeliveryDate: (state, action: PayloadAction<string>) => {
+      state.deliveryDate = action.payload;
+    },
     removeAll: (state) => {
       state.list = [];
+      state.deliveryDate = "";
     },
   },
 });

@@ -1,8 +1,7 @@
 import { fetchProductsService } from "@/apis/services/products.service";
 import { LimitInPage } from "@/components/admin/limitPage";
 import { Pagination } from "@/components/admin/orders/pagination";
-import { ProductCard } from "@/components/productCard";
-import { redirect } from "next/navigation";
+import { ProductCardCSR } from "@/components/productCard";
 
 export const ProductsList: React.FC<{
   params: ISearchParams;
@@ -27,7 +26,7 @@ export const ProductsList: React.FC<{
     <div className=" min-h-[calc(100%-5.75rem)] h-[calc(100vh-6rem)] lg:h-[calc(100vh-4rem)] grid gap-y-3 content-between">
       <div className="grid sm:!grid-cols-2 lg:!grid-cols-3 2xl:!grid-cols-4 gap-6 mt-3 overflow-auto">
         {response.data.products.map((item) => (
-          <ProductCard key={item._id} {...item} isHome={false} />
+          <ProductCardCSR key={item._id} {...item} isHome={false} />
         ))}
       </div>
       <div className="flex flex-wrap items-start xs_app:items-end gap-x-3 gap-y-2 b-2 overflow-x-auto">

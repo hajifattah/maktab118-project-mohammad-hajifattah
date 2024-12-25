@@ -4,16 +4,18 @@ import { LoginFormSchema } from "@/apis/validations/auth.validation";
 import { UserInput } from "@/components/L&S/userInput";
 import { SubmitButton } from "@/components/submitButton";
 import { errorHandler } from "@/utils/error-handler";
-import { setRefToken, setToken } from "@/utils/session-manager";
+import { setRefToken, setToken, setUserInfo } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
-  showHandle,
-}) => {
+export const LoginForm: React.FC<{
+  showHandle?: () => void;
+  isUser?: boolean;
+  isPurchase?: boolean;
+}> = ({ showHandle, isUser, isPurchase }) => {
   const { control, handleSubmit } = useForm<ILoginReqDto>({
     mode: "all",
     resolver: zodResolver(LoginFormSchema),
@@ -24,26 +26,41 @@ export const LoginForm: React.FC<{ showHandle?: () => void }> = ({
       const response = await loginService(values);
       const isAdmin = response.data.user.role === "ADMIN";
       let token = response.token.accessToken;
+      const userData = response.data.user;
       if (isAdmin === true) {
         const newToken = response.token.accessToken.split("");
-        newToken.splice(20, 0,"i","a","d");
-        token = newToken.join("")
+        newToken.splice(20, 0, "i", "a", "d");
+        token = newToken.join("");
       }
       //when user login from managment
-      if (!isAdmin && !showHandle) {
+      if (!isAdmin && !showHandle && !isUser) {
         toast.error("شماادمین نیستید لطفا از صفحه اصلی اقدام کنید");
         return push("/");
       }
       //login from nav for user or admin
       setToken(token);
+      setUserInfo({
+        id: userData._id,
+        userName: userData.username,
+        firstName: userData.firstname,
+        lastName: userData.lastname,
+        address: userData.address,
+        phone: userData.phoneNumber,
+      });
       setRefToken(response.token.refreshToken);
       toast.success("ورود موفقیت آمیز بود");
-      if (isAdmin) {
-        push("/orders");
-      } else {
-        showHandle!();
+      if (isAdmin && isPurchase) {
+        push("/shopping-card/finalize-purchase");
+      } else if (isAdmin && isUser) {
         push("/");
-      }
+      } else if (isAdmin && !showHandle) {
+        push("/orders");
+      } else if (showHandle) {
+        showHandle();
+        push("/");
+      } else if (isPurchase) {
+        push("/shopping-card/finalize-purchase");
+      } else push("/");
     } catch (error) {
       errorHandler(error as AxiosError);
     }

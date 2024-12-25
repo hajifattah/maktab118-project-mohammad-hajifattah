@@ -25,3 +25,12 @@ interface ILoginResDto {
     };
   };
 }
+
+interface ISignupReqDto  {
+  firstname:string;
+  lastname: string;
+  username: string;
+  password: string;
+  phoneNumber: string;
+  address: string;
+}

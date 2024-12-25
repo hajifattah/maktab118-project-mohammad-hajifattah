@@ -1,6 +1,6 @@
 "use client";
 
-import { LegacyRef, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export const Description: React.FC<{ info: string }> = ({ info }) => {
   const desc = useRef<HTMLDivElement>(null);

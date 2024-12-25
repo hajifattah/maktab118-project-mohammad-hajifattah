@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { ChangeEventHandler, useEffect, useState } from "react";
+import { ChangeEventHandler } from "react";
 
 export const LimitInPage: React.FC<{
   params: ISearchParams;

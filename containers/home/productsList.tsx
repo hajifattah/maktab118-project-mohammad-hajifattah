@@ -1,6 +1,6 @@
 import { fetchCategoryListService } from "@/apis/services/category.service";
 import { fetchProductsService } from "@/apis/services/products.service";
-import { ProductCard } from "@/components/productCard";
+import { ProductCardCSR } from "@/components/productCard";
 import Link from "next/link";
 import { CgArrowLeft } from "react-icons/cg";
 
@@ -28,7 +28,7 @@ export const HomeProductsList: React.FC<{ text: string }> = async ({
       <div className="px-6 ">
         <div className="grid xs_app:grid-cols-2 md:!grid-cols-4 xl:!grid-cols-6 border bg-white">
           {responseProducts.data.products.map((item) => (
-            <ProductCard key={item._id} {...item} />
+            <ProductCardCSR key={item._id} {...item} />
           ))}
         </div>
       </div>

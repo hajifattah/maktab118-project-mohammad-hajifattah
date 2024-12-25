@@ -6,10 +6,29 @@ interface IUser {
   phoneNumber: string;
   address: string;
   role: string;
-  createdAt: "2024-12-02T21:06:52.866Z";
+  createdAt: string;
   updatedAt: string;
   __v: number;
 }
 interface IUserDto {
   data: { user: IUser };
+}
+
+interface IUserInfoForm{
+  firstName:string;
+  lastName: string;
+  userName: string;
+  password: string;
+  phone: string;
+  address: string;
+  dateOfDelivery: string;
+}
+
+interface IUserResINfo{
+  id:string;
+  userName:string;
+  firstName:string;
+  lastName: string;
+  phone: string;
+  address: string;
 }

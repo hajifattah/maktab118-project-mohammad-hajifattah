@@ -1,30 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { PiUserLight } from "react-icons/pi";
 import { UserLogin } from "./userLogin";
 import { SubmitButton } from "@/components/submitButton";
-import { deleteRefToken, deleteToken, getToken } from "@/utils/session-manager";
+import { deleteRefToken, deleteToken, deleteUserInfo, getUserInfo } from "@/utils/session-manager";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
+import Link from "next/link";
 
-export const UserDetails: React.FC = () => {
+export const UserDetailsCSR = dynamic(() => Promise.resolve(UserDetails), {
+  ssr: false,
+})
+  const UserDetails: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
-  const [userToken, setUserToken] = useState<string | null>(null);
   const {push} = useRouter();
   const deleteTokenHandler = () => {
     toast.success("خروج موفقیت آمیز بود")
     deleteToken();
     deleteRefToken();
+    deleteUserInfo();
     showHandle();
     push("/")
   };
+  const userInfo = useMemo(()=>{return getUserInfo()},[show])
   const showHandle = () => {
     setShow((prev) => !prev);
   };
-  useEffect(() => {
-    setUserToken(getToken());
-  }, [show]);
   return (
     <div className="relative z-50">
       <PiUserLight onClick={showHandle} className="size-6 sm:size-7 cursor-pointer" />
@@ -33,18 +36,25 @@ export const UserDetails: React.FC = () => {
           show ? "flex" : "hidden"
         } bg-white shadow-xl rounded-md flex-col gap-y-2 absolute -left-5 sm:left-0 top-9 w-72 min-h-14 py-4 px-5 border`}
       >
-        <div className={`${!userToken && "hidden"} flex flex-col gap-y-2`}>
-          <h2 className="text-center"> شما وارد حساب خود شدید. </h2>
-          <button className="border py-1 rounded-md hover:bg-slate-100">
-            پروفایل
-          </button>
+        <div className={`${!userInfo && "hidden"} flex flex-col gap-y-2`}>
+          <h2 className="text-center mb-2"> سلام {userInfo?.firstName}، خوش آمدید. </h2>
+          <Link href={"/user-profile"} >
+            <button onClick={showHandle} className="border w-full py-1 rounded-md hover:bg-slate-100">
+              پروفایل
+            </button>
+          </Link>
+          <Link href={"/user-profile/orders"} >
+            <button onClick={showHandle} className="border w-full py-1 rounded-md hover:bg-slate-100">
+              سفارشات
+            </button>
+          </Link>
           <SubmitButton
             text="خروج"
             onClick={deleteTokenHandler}
             bgColor="bg-red-500"
           />
         </div>
-         {!userToken && <UserLogin showHandle={showHandle} />} 
+         {!userInfo && <UserLogin showHandle={showHandle} />} 
       </div>
     </div>
   );

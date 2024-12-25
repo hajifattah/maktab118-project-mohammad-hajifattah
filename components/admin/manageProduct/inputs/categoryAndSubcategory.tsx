@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { GetSubCatAndCat } from "@/utils/fetch-cat-subCat";
 
 export const CategoryAndSubCategory: React.FC<{
-  control: Control<IProductForm, any>;
+  control: Control<IProductForm>;
   setValue: UseFormSetValue<IProductForm>;
   twoDefault: {
     defCategory: string | undefined;

@@ -2,19 +2,22 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { findProduct } from "@/redux/selectors/findProduct";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import { ChangeQuantity } from "./changeQuantity";
+import dynamic from "next/dynamic";
 
-export const ProductAction: React.FC<{
+export const ProductActionCSR = dynamic(() => Promise.resolve(ProductAction), {
+  ssr: false,
+});
+const ProductAction: React.FC<{
   productInfo: ISingleProduct;
 }> = ({ productInfo }) => {
   const [quantity, setQuantity] = useState<number>(0);
-  const [isInShopping, setIsInShopping] = useState<IShopping>();
 
   const dispatch = useAppDispatch();
-  const selectShopping = useAppSelector(findProduct(productInfo._id));
+  const isInShopping = useAppSelector(findProduct(productInfo._id));
 
   const changeqty = (qty: number) => {
     if (productInfo.quantity === 0) {
@@ -32,11 +35,7 @@ export const ProductAction: React.FC<{
       setQuantity(qty);
     }
   };
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsInShopping(selectShopping);
-    }
-  }, [selectShopping]);
+
   const addOrRemove = () => {
     if (isInShopping) {
       dispatch(ShoppingAction.removeOfCard(productInfo._id));
