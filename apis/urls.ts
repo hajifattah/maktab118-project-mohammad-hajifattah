@@ -27,5 +27,12 @@ export const urls = {
   category:{
     list : `/api/categories`,
     image: (title: string) => `/images/categories/icons/${title}`,
+  },
+  shoppingCard:{
+    list: "/api/shoppingCard",
+    addItem: "/api/shoppingCard",
+    updateQty: (id: string)=>`/api/shoppingCard/${id}`,
+    deleteSingleItem: (id:string)=> `/api/shoppingCard/${id}`,
+    deleteAllItems: "/api/shoppingCard",
   }
 };

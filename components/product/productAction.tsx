@@ -7,6 +7,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import { ChangeQuantity } from "./changeQuantity";
 import dynamic from "next/dynamic";
+import { addShoppingItemService } from "@/apis/services/shoppingCard.service";
 
 export const ProductActionCSR = dynamic(() => Promise.resolve(ProductAction), {
   ssr: false,
@@ -42,17 +43,26 @@ const ProductAction: React.FC<{
       setQuantity(0);
     } else {
       if (quantity === 0) return toast.error("لطفا تعداد محصول را وارد کنید");
-      dispatch(
-        ShoppingAction.addToCard({
-          id: productInfo._id,
-          image: productInfo.images[0],
-          maxQty: productInfo.quantity,
-          price: productInfo.price,
-          qty: quantity,
-          title: productInfo.name,
-          total: quantity * productInfo.price,
-        })
-      );
+      addShoppingItemService({
+        id: productInfo._id,
+        image: productInfo.images[0],
+        maxQty: productInfo.quantity,
+        price: productInfo.price,
+        qty: quantity,
+        title: productInfo.name,
+        total: quantity * productInfo.price,
+      });
+      // dispatch(
+      //   ShoppingAction.addToCard({
+      //     id: productInfo._id,
+      //     image: productInfo.images[0],
+      //     maxQty: productInfo.quantity,
+      //     price: productInfo.price,
+      //     qty: quantity,
+      //     title: productInfo.name,
+      //     total: quantity * productInfo.price,
+      //   })
+      // );
     }
   };
 

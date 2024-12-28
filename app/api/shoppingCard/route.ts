@@ -1,5 +1,6 @@
 "use server";
 
+import { fetchSingleProductService } from "@/apis/services/products.service";
 import {
   addToShoppingCard,
   deleteAllShoppingItems,
@@ -11,12 +12,15 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  let body: IShopping;
   try {
-    const body = await request.json();
-    return Response.json(await addToShoppingCard(body));
+    body = await request.json();
+    await fetchSingleProductService(body.id);
   } catch (error) {
     return new Response((error as Error).message, { status: 400 });
   }
+  const { id, ...newBody } = body;
+  return Response.json(await addToShoppingCard(newBody));
 }
 
 export async function DELETE() {

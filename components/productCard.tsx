@@ -1,4 +1,5 @@
 "use client";
+import { addShoppingItemService } from "@/apis/services/shoppingCard.service";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { findProduct } from "@/redux/selectors/findProduct";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
@@ -24,21 +25,30 @@ const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
   const isInShopping = useAppSelector(findProduct(_id));
 
   const dispatch = useAppDispatch();
-  const clickhandler = () => {
+  const clickhandler = async() => {
     if (!!isInShopping) {
       dispatch(ShoppingAction.removeOfCard(_id));
     } else {
-      dispatch(
-        ShoppingAction.addToCard({
-          id: _id,
-          image: images[0],
-          maxQty: quantity,
-          price: price,
-          qty: 1,
-          title: name,
-          total: price,
-        })
-      );
+      addShoppingItemService({
+        id: _id,
+        image: images[0],
+        maxQty: quantity,
+        price: price,
+        qty: 1,
+        title: name,
+        total: price,
+      })
+      // dispatch(
+      //   ShoppingAction.addToCard({
+      //     id: _id,
+      //     image: images[0],
+      //     maxQty: quantity,
+      //     price: price,
+      //     qty: 1,
+      //     title: name,
+      //     total: price,
+      //   })
+      // );
     }
   };
 
