@@ -1,5 +1,5 @@
 import { fetchProductsService } from "@/apis/services/products.service";
-import { fetchAllShoppingItemsService } from "@/apis/services/shoppingCard.service";
+import { fetchAllShoppingItemsService, fetchAllShoppingItemsServiceFetch } from "@/apis/services/shoppingCard.service";
 import { LimitInPage } from "@/components/admin/limitPage";
 import { Pagination } from "@/components/admin/orders/pagination";
 import { ProductCardCSR } from "@/components/productCard";
@@ -23,12 +23,12 @@ export const ProductsList: React.FC<{
         sort: params.sort,
       };
   const response = await fetchProductsService(paramsApi);
-  const shoppingList = await fetchAllShoppingItemsService();
+  const shoppingList = await fetchAllShoppingItemsServiceFetch();
   return (
     <div className=" min-h-[calc(100%-5.75rem)] h-[calc(100vh-6rem)] lg:h-[calc(100vh-4rem)] grid gap-y-3 content-between">
       <div className="grid sm:!grid-cols-2 lg:!grid-cols-3 2xl:!grid-cols-4 gap-6 mt-3 overflow-auto">
         {response.data.products.map((item) => (
-          <ProductCardCSR key={item._id} {...item} isHome={false} inShopping={!!shoppingList.list.find(shop=>shop.productId === item._id)}/>
+          <ProductCardCSR key={item._id} {...item} isHome={false} isInShopping={!!shoppingList.list.find(shop=>shop.productId === item._id)}/>
         ))}
       </div>
       <div className="flex flex-wrap items-start xs_app:items-end gap-x-3 gap-y-2 b-2 overflow-x-auto">

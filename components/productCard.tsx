@@ -11,10 +11,11 @@ import { findProduct } from "@/redux/selectors/findProduct";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { getProductImageSorce } from "@/utils/sorce-image";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { revalidateTag } from "next/cache";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { MdFavoriteBorder } from "react-icons/md";
@@ -23,7 +24,7 @@ export const ProductCardCSR = dynamic(() => Promise.resolve(ProductCard), {
   ssr: false,
 });
 const ProductCard: React.FC<
-  IProduct & { isHome?: boolean; inShopping: boolean; }
+  IProduct & { isHome?: boolean; isInShopping: boolean; }
 > = ({
   isHome = true,
   _id,
@@ -31,9 +32,8 @@ const ProductCard: React.FC<
   quantity,
   name,
   images,
-  inShopping,
+  isInShopping,
 }) => {
-  const [isInShopping,setIsInShopping] = useState<boolean>(inShopping);
   const mutation = useMutation({
     mutationKey: ["add-shopping-item", _id],
     mutationFn: addShoppingItemService,
@@ -55,7 +55,6 @@ const ProductCard: React.FC<
       // dispatch(ShoppingAction.removeOfCard(_id));
      await mutationRemove.mutateAsync(_id)
     } else {
-      setIsInShopping(true)
       await mutation.mutateAsync({
         id: _id,
         image: images[0],
@@ -79,7 +78,6 @@ const ProductCard: React.FC<
       // );
     }
   };
-
   return (
     <div
       className={`flex flex-col gap-y-2 border shadow-lg bg-slate-50 ${
