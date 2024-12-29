@@ -16,16 +16,7 @@ export const fetchAllShoppingItemsService: FetchAllShoppingItemsService =
     const response = await shoppingInstance.get(urls.shoppingCard.list);
     return response.data;
   };
-type fetchAllShoppingItemsServiceFetch = () => Promise<{ list: IShoppingMongo[] }>;
-export const fetchAllShoppingItemsServiceFetch: fetchAllShoppingItemsServiceFetch =
-  async () => {
-    const response = await fetch(
-      `http://localhost:3000${urls.shoppingCard.list}`,
-      { method: "GET", next: { tags: ["shopping-list-server"] } }
-    );
-    const list = await response.json()
-    return list;
-  };
+
 type RemoveSigleShoppingItem = (
   productId: string
 ) => Promise<{ message: string }>;
