@@ -10,7 +10,7 @@ export const fetchShoppingList: FetchShoppingList = async () => {
 };
 
 type AddToShoppingCard = (
-  body: Omit<IShopping, "id">
+  body: Omit<IShopping, "id">&{productId:string}
 ) => Promise<IShoppingMongo>;
 export const addToShoppingCard: AddToShoppingCard = async (body) => {
   const newItem = new ShoppingModel(body);

@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     return new Response((error as Error).message, { status: 400 });
   }
   const { id, ...newBody } = body;
-  return Response.json(await addToShoppingCard(newBody));
+  return Response.json(await addToShoppingCard({...newBody,productId:id}));
 }
 
 export async function DELETE() {
