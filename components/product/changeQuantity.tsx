@@ -1,10 +1,11 @@
 "use client"
+import { IShoppingMongo } from "@/database/models/shopping-card";
 import { PiMinusCircleFill, PiPlusCircleFill } from "react-icons/pi";
 
 export const ChangeQuantity: React.FC<{
   changeqty: (qty: number) => void;
   quantity: number;
-  isInShopping?: IShopping;
+  isInShopping?: IShoppingMongo;
 }> = ({ changeqty, quantity, isInShopping }) => {
   return (
     <div className={`flex   ${isInShopping ? "lg:px-3 p-2 gap-x-2":"xl:px-3 px-1 py-2 gap-x-1 xl:gap-x-2 xl:p-2"} rounded-full  items-center border`}>
