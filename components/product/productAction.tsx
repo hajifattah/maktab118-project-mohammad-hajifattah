@@ -7,7 +7,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import { ChangeQuantity } from "./changeQuantity";
 import dynamic from "next/dynamic";
-import { addShoppingItemService, fetchAllShoppingItemsService, removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
+import { addShoppingItemService, changeQuantityShoppingItem, fetchAllShoppingItemsService, removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/providers/queryclientProvider";
 import { IShoppingMongo } from "@/database/models/shopping-card";
@@ -23,6 +23,13 @@ const ProductAction: React.FC<{
    const mutationRemove = useMutation({
       mutationKey: ["remove-shopping-item",productInfo._id],
       mutationFn: removeSigleShoppingItem,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+      },
+    });
+   const mutationQuantity = useMutation({
+      mutationKey: ["change-quantity-shopping-item",productInfo._id],
+      mutationFn: changeQuantityShoppingItem,
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
       },
@@ -49,9 +56,10 @@ const ProductAction: React.FC<{
       return toast.error("حداقل سفارش یک عدد میباشد");
     } else if (qty < 0) return;
     if (isInShopping) {
-      dispatch(
-        ShoppingAction.changeQuantity({ id: productInfo._id, qty: qty })
-      );
+      // dispatch(
+      //   ShoppingAction.changeQuantity({ id: productInfo._id, qty: qty })
+      // );
+      mutationQuantity.mutate({productId:productInfo._id,quantity:{qty}});
     } else {
       setQuantity(qty);
     }

@@ -9,7 +9,7 @@ import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { toast } from "react-toastify";
 import { IShoppingMongo } from "@/database/models/shopping-card";
 import { useMutation } from "@tanstack/react-query";
-import { removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
+import { changeQuantityShoppingItem, removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
 import { queryClient } from "@/providers/queryclientProvider";
 
 export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
@@ -22,10 +22,17 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
   title,
   total,
 }) => {
-
   const mutationRemove = useMutation({
-    mutationKey: ["remove-shopping-item",productId],
+    mutationKey: ["remove-shopping-item", productId],
     mutationFn: removeSigleShoppingItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+    },
+  });
+
+  const mutationQuantity = useMutation({
+    mutationKey: ["change-quantity-shopping-item", _id],
+    mutationFn: changeQuantityShoppingItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
     },
@@ -38,11 +45,14 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
     } else if (qty === 0) {
       return toast.error("حداقل سفارش یک عدد میباشد");
     }
-    dispatch(ShoppingAction.changeQuantity({ id: _id as unknown as string, qty: qty }));
+    // dispatch(
+    //   ShoppingAction.changeQuantity({ id: _id as unknown as string, qty: qty })
+    // );
+    mutationQuantity.mutate({productId:productId,quantity:{qty}})
   };
 
   const removeProduct = () => {
-    mutationRemove.mutate(productId)
+    mutationRemove.mutate(productId);
     // dispatch(ShoppingAction.removeOfCard(_id as unknown as string));
   };
 
@@ -73,15 +83,22 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
           <h2>حذف</h2>
         </div>
         <div className="flex justify-between items-center gap-x-3 w-full mt-1">
-          <p className="font font-semibold w-1/4 flex-auto ">{price} <span className="sm:text-sm text-gray-600">تومان</span></p>
-          <p className="font-semibold w-1/4 flex-auto">{total} <span className="sm:text-sm text-gray-600">تومان</span></p>
+          <p className="font font-semibold w-1/4 flex-auto ">
+            {price} <span className="sm:text-sm text-gray-600">تومان</span>
+          </p>
+          <p className="font-semibold w-1/4 flex-auto">
+            {total} <span className="sm:text-sm text-gray-600">تومان</span>
+          </p>
           <button onClick={removeProduct}>
             <MdDelete className="size-8" />
           </button>
         </div>
       </div>
       {/* after sm screen */}
-      <Link href={`/products/${_id}`} className="w-[18%] hidden sm:block sm:text-sm xl:text-base xl:mr-2">
+      <Link
+        href={`/products/${_id}`}
+        className="w-[18%] hidden sm:block sm:text-sm xl:text-base xl:mr-2"
+      >
         <h2 className="text-sm font-semibold hidden max-w-[14rem] truncate sm:block ">
           {title}
         </h2>

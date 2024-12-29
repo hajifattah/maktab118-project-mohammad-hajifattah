@@ -22,7 +22,7 @@ type EditQuantity = (
   quantity: number
 ) => Promise<IShoppingMongo | undefined>;
 export const updateQuantity: EditQuantity = async (id, quantity) => {
-  const item = await ShoppingModel.findById(id);
+  const item = await ShoppingModel.findOne({productId:id});
   if (!item) return;
   item.set({ qty: quantity, total: quantity * item.price });
   return await item.save();
