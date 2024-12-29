@@ -7,7 +7,6 @@ import { revalidateTag } from "next/cache";
 type AddShoppingItemService = (body: IShopping) => Promise<IShoppingMongo>;
 export const addShoppingItemService: AddShoppingItemService = async (body) => {
   const response = await shoppingInstance.post(urls.shoppingCard.addItem, body);
-      revalidateTag("shopping-list-server")
   return response.data;
 };
 type FetchAllShoppingItemsService = () => Promise<{ list: IShoppingMongo[] }>;
@@ -26,7 +25,6 @@ export const removeSigleShoppingItem: RemoveSigleShoppingItem = async (
   const response = await shoppingInstance.delete(
     urls.shoppingCard.deleteSingleItem(productId)
   );
-  revalidateTag("shopping-list-server")
   return response.data;
 };
 

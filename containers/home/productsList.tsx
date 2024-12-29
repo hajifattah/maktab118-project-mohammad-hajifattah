@@ -1,6 +1,6 @@
 import { fetchCategoryListService } from "@/apis/services/category.service";
 import { fetchProductsService } from "@/apis/services/products.service";
-import { fetchAllShoppingItemsService, fetchAllShoppingItemsServiceFetch } from "@/apis/services/shoppingCard.service";
+import { fetchAllShoppingItemsService} from "@/apis/services/shoppingCard.service";
 import { ProductCardCSR } from "@/components/productCard";
 import Link from "next/link";
 import { CgArrowLeft } from "react-icons/cg";

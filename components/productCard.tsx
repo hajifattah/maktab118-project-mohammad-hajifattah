@@ -1,22 +1,18 @@
 "use client";
 import {
   addShoppingItemService,
-  fetchAllShoppingItemsService,
   removeSigleShoppingItem,
 } from "@/apis/services/shoppingCard.service";
-import { IShoppingMongo } from "@/database/models/shopping-card";
-import { queryClient } from "@/providers/queryclientProvider";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { findProduct } from "@/redux/selectors/findProduct";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { getUserInfo } from "@/utils/session-manager";
 import { getProductImageSorce } from "@/utils/sorce-image";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { revalidateTag } from "next/cache";
+import { useMutation } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { MdFavoriteBorder } from "react-icons/md";
