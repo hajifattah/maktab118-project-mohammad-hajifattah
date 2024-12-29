@@ -2,6 +2,7 @@
 import {
   addShoppingItemService,
   fetchAllShoppingItemsService,
+  removeSigleShoppingItem,
 } from "@/apis/services/shoppingCard.service";
 import { IShoppingMongo } from "@/database/models/shopping-card";
 import { queryClient } from "@/providers/queryclientProvider";
@@ -40,11 +41,19 @@ const ProductCard: React.FC<
       queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
     },
   });
+  const mutationRemove = useMutation({
+    mutationKey: ["remove-shopping-item", _id],
+    mutationFn: removeSigleShoppingItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+    },
+  });
   // const isInShopping = useAppSelector(findProduct(_id));
   const dispatch = useAppDispatch();
   const clickhandler = async () => {
     if (!!isInShopping) {
-      dispatch(ShoppingAction.removeOfCard(_id));
+      // dispatch(ShoppingAction.removeOfCard(_id));
+     await mutationRemove.mutateAsync(_id)
     } else {
       setIsInShopping(true)
       await mutation.mutateAsync({

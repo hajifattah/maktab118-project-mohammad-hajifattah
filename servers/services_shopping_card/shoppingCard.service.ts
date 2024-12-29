@@ -32,7 +32,7 @@ type DeleteSingleShoppingItem = (id: string) => Promise<{ message: string }>;
 export const deleteSingleShoppingItem: DeleteSingleShoppingItem = async (
   id
 ) => {
-  const result = await ShoppingModel.deleteOne({ _id: id });
+  const result = await ShoppingModel.deleteOne({ productId: id });
   const msg = !!result.deletedCount ? "Delete successfully" : "Delete failed";
   return { message: msg };
 };

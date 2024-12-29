@@ -14,7 +14,7 @@ const ShoppingCardList: React.FC = () => {
   const shoppingList = data?.list
 
   return (
-    <div className="grid gap-y-2  sm:px-4 py-4 m-1 right-0 border bg-white rounded-md lg:flex-auto">
+    <div className=" gap-y-2 sm:px-4 py-4 m-1 right-0 border bg-white rounded-md lg:flex-auto">
       <div className="hidden sm:flex gap-x-2 justify-between items-center lg:max-h-[6rem] bg-black_app pr-4 py-3 font-semibold rounded-md text-white sm:text-sm xl:text-lg">
         <h2 className="w-[14%] flex-auto max-w-[13rem]">تصویر</h2>
         <h2 className="w-[14%] flex-auto ">نام محصول</h2>

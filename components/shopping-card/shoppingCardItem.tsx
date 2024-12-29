@@ -8,9 +8,13 @@ import { useAppDispatch } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { toast } from "react-toastify";
 import { IShoppingMongo } from "@/database/models/shopping-card";
+import { useMutation } from "@tanstack/react-query";
+import { removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
+import { queryClient } from "@/providers/queryclientProvider";
 
 export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
   _id,
+  productId,
   image,
   maxQty,
   price,
@@ -18,6 +22,14 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
   title,
   total,
 }) => {
+
+  const mutationRemove = useMutation({
+    mutationKey: ["remove-shopping-item",productId],
+    mutationFn: removeSigleShoppingItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+    },
+  });
   const dispatch = useAppDispatch();
 
   const changeQty = (qty: number) => {
@@ -30,7 +42,8 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
   };
 
   const removeProduct = () => {
-    dispatch(ShoppingAction.removeOfCard(_id as unknown as string));
+    mutationRemove.mutate(productId)
+    // dispatch(ShoppingAction.removeOfCard(_id as unknown as string));
   };
 
   return (

@@ -13,3 +13,9 @@ export const fetchAllShoppingItemsService: FetchAllShoppingItemsService =
     const response = await shoppingInstance.get(urls.shoppingCard.list);
     return response.data;
   };
+type RemoveSigleShoppingItem = (id:string)=> Promise<{ message: string }>
+  export const removeSigleShoppingItem : RemoveSigleShoppingItem = async(id)=>{
+    console.log(id)
+    const response = await shoppingInstance.delete(urls.shoppingCard.deleteSingleItem(id));
+    return response.data
+  }

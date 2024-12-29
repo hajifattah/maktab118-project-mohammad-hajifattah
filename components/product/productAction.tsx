@@ -7,7 +7,7 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import { ChangeQuantity } from "./changeQuantity";
 import dynamic from "next/dynamic";
-import { addShoppingItemService, fetchAllShoppingItemsService } from "@/apis/services/shoppingCard.service";
+import { addShoppingItemService, fetchAllShoppingItemsService, removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/providers/queryclientProvider";
 import { IShoppingMongo } from "@/database/models/shopping-card";
@@ -19,6 +19,14 @@ const ProductAction: React.FC<{
   productInfo: ISingleProduct;
 }> = ({ productInfo}) => {
   const [quantity, setQuantity] = useState<number>(0);
+
+   const mutationRemove = useMutation({
+      mutationKey: ["remove-shopping-item",productInfo._id],
+      mutationFn: removeSigleShoppingItem,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+      },
+    });
 
   const dispatch = useAppDispatch();
   // const isInShopping = useAppSelector(findProduct(productInfo._id));
@@ -51,7 +59,8 @@ const ProductAction: React.FC<{
 
   const addOrRemove = async() => {
     if (isInShopping) {
-      dispatch(ShoppingAction.removeOfCard(productInfo._id));
+      // dispatch(ShoppingAction.removeOfCard(productInfo._id));
+    await  mutationRemove.mutateAsync(productInfo._id)
       setQuantity(0);
     } else {
       if (quantity === 0) return toast.error("لطفا تعداد محصول را وارد کنید");

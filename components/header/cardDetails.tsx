@@ -1,11 +1,12 @@
 "use client";
 
-import { fetchAllShoppingItemsService } from "@/apis/services/shoppingCard.service";
+import { fetchAllShoppingItemsService, removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
 import { IShoppingMongo } from "@/database/models/shopping-card";
+import { queryClient } from "@/providers/queryclientProvider";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { getProductImageSorce } from "@/utils/sorce-image";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -20,8 +21,17 @@ export const CardDetails: React.FC = () => {
   const shoppingList = data?.list
   const dispatch = useAppDispatch();
 
+  const mutationRemove = useMutation({
+    mutationKey: ["remove-shopping-item"],
+    mutationFn: removeSigleShoppingItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+    },
+  });
+
   const removeProduct = (id: string) => {
-    dispatch(ShoppingAction.removeOfCard(id));
+    mutationRemove.mutateAsync(id)
+    // dispatch(ShoppingAction.removeOfCard(id));
   };
   useEffect(() => {
     if (!shoppingList?.length) setShow(false);

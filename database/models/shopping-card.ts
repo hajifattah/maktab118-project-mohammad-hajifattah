@@ -2,7 +2,7 @@ import mongoose, { ObjectId } from "mongoose";
 
 export interface IShoppingMongo extends Omit<IShopping, "id"> {
   _id: ObjectId;
-  productId: String;
+  productId: string;
 }
 
 const shoppingCardSchema = new mongoose.Schema<IShoppingMongo>({
