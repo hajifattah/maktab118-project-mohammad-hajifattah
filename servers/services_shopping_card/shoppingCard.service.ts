@@ -10,7 +10,7 @@ export const fetchShoppingList: FetchShoppingList = async () => {
 };
 
 type AddToShoppingCard = (
-  body: Omit<IShopping, "id">
+  body: Omit<IShopping, "id">&{productId:string}
 ) => Promise<IShoppingMongo>;
 export const addToShoppingCard: AddToShoppingCard = async (body) => {
   const newItem = new ShoppingModel(body);
@@ -22,7 +22,7 @@ type EditQuantity = (
   quantity: number
 ) => Promise<IShoppingMongo | undefined>;
 export const updateQuantity: EditQuantity = async (id, quantity) => {
-  const item = await ShoppingModel.findById(id);
+  const item = await ShoppingModel.findOne({productId:id});
   if (!item) return;
   item.set({ qty: quantity, total: quantity * item.price });
   return await item.save();
@@ -32,7 +32,7 @@ type DeleteSingleShoppingItem = (id: string) => Promise<{ message: string }>;
 export const deleteSingleShoppingItem: DeleteSingleShoppingItem = async (
   id
 ) => {
-  const result = await ShoppingModel.deleteOne({ _id: id });
+  const result = await ShoppingModel.deleteOne({ productId: id });
   const msg = !!result.deletedCount ? "Delete successfully" : "Delete failed";
   return { message: msg };
 };

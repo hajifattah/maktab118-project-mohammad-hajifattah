@@ -1,6 +1,9 @@
 "use client";
+import { fetchAllShoppingItemsService } from "@/apis/services/shoppingCard.service";
 import { useAppSelector } from "@/redux/hooks";
 import { getTotalDetails } from "@/redux/selectors/totalDetails";
+import { calcTotalDetails } from "@/utils/totalDetails";
+import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -14,7 +17,9 @@ const TotalShoppingDetails: React.FC<{
   };
   submitForm?: () => void;
 }> = ({ activeButton, submitForm }) => {
-  const { totalPrice, totalQty } = useAppSelector(getTotalDetails);
+  // const { totalPrice, totalQty } = useAppSelector(getTotalDetails);
+  const {data} = useQuery({queryKey:["shopping-list"],queryFn:fetchAllShoppingItemsService})
+  const {totalPrice,totalQty} = data? calcTotalDetails(data.list) : {totalPrice:0,totalQty:0}
   return (
     <div className="flex flex-col gap-y-3 border p-4 pb-6 bg-white rounded-md m-1 mb-4 lg:flex-auto lg:min-w-72 h-fit md:w-[40rem] md:mx-auto lg:w-auto lg:max-w-md">
       <h2 className="font-bold text-center mb-2">مجموع سبد خرید</h2>{" "}

@@ -7,17 +7,45 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import { ChangeQuantity } from "./changeQuantity";
 import dynamic from "next/dynamic";
+import { addShoppingItemService, changeQuantityShoppingItem, fetchAllShoppingItemsService, removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { queryClient } from "@/providers/queryclientProvider";
+import { IShoppingMongo } from "@/database/models/shopping-card";
 
 export const ProductActionCSR = dynamic(() => Promise.resolve(ProductAction), {
   ssr: false,
 });
 const ProductAction: React.FC<{
   productInfo: ISingleProduct;
-}> = ({ productInfo }) => {
+}> = ({ productInfo}) => {
   const [quantity, setQuantity] = useState<number>(0);
 
+   const mutationRemove = useMutation({
+      mutationKey: ["remove-shopping-item",productInfo._id],
+      mutationFn: removeSigleShoppingItem,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+      },
+    });
+   const mutationQuantity = useMutation({
+      mutationKey: ["change-quantity-shopping-item",productInfo._id],
+      mutationFn: changeQuantityShoppingItem,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+      },
+    });
+
   const dispatch = useAppDispatch();
-  const isInShopping = useAppSelector(findProduct(productInfo._id));
+  // const isInShopping = useAppSelector(findProduct(productInfo._id));
+  const {data} = useQuery({queryKey:["shopping-list"],queryFn:fetchAllShoppingItemsService});
+  const isInShopping = data?.list.find(item=>item.productId === productInfo._id)
+  const mutation = useMutation({
+    mutationKey: ["add-shopping-item", productInfo._id],
+    mutationFn: addShoppingItemService,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+    },
+  });
 
   const changeqty = (qty: number) => {
     if (productInfo.quantity === 0) {
@@ -28,31 +56,42 @@ const ProductAction: React.FC<{
       return toast.error("حداقل سفارش یک عدد میباشد");
     } else if (qty < 0) return;
     if (isInShopping) {
-      dispatch(
-        ShoppingAction.changeQuantity({ id: productInfo._id, qty: qty })
-      );
+      // dispatch(
+      //   ShoppingAction.changeQuantity({ id: productInfo._id, qty: qty })
+      // );
+      mutationQuantity.mutate({productId:productInfo._id,quantity:{qty}});
     } else {
       setQuantity(qty);
     }
   };
 
-  const addOrRemove = () => {
+  const addOrRemove = async() => {
     if (isInShopping) {
-      dispatch(ShoppingAction.removeOfCard(productInfo._id));
+      // dispatch(ShoppingAction.removeOfCard(productInfo._id));
+    await  mutationRemove.mutateAsync(productInfo._id)
       setQuantity(0);
     } else {
       if (quantity === 0) return toast.error("لطفا تعداد محصول را وارد کنید");
-      dispatch(
-        ShoppingAction.addToCard({
-          id: productInfo._id,
-          image: productInfo.images[0],
-          maxQty: productInfo.quantity,
-          price: productInfo.price,
-          qty: quantity,
-          title: productInfo.name,
-          total: quantity * productInfo.price,
-        })
-      );
+      await mutation.mutateAsync({
+        id: productInfo._id,
+        image: productInfo.images[0],
+        maxQty: productInfo.quantity,
+        price: productInfo.price,
+        qty: quantity,
+        title: productInfo.name,
+        total: quantity * productInfo.price,
+      });
+      // dispatch(
+      //   ShoppingAction.addToCard({
+      //     id: productInfo._id,
+      //     image: productInfo.images[0],
+      //     maxQty: productInfo.quantity,
+      //     price: productInfo.price,
+      //     qty: quantity,
+      //     title: productInfo.name,
+      //     total: quantity * productInfo.price,
+      //   })
+      // );
     }
   };
 
