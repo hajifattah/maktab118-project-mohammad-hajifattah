@@ -7,9 +7,10 @@ import { ChangeQuantity } from "../product/changeQuantity";
 import { useAppDispatch } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { toast } from "react-toastify";
+import { IShoppingMongo } from "@/database/models/shopping-card";
 
-export const ShoppingCardItem: React.FC<IShopping> = ({
-  id,
+export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
+  _id,
   image,
   maxQty,
   price,
@@ -25,11 +26,11 @@ export const ShoppingCardItem: React.FC<IShopping> = ({
     } else if (qty === 0) {
       return toast.error("حداقل سفارش یک عدد میباشد");
     }
-    dispatch(ShoppingAction.changeQuantity({ id: id, qty: qty }));
+    dispatch(ShoppingAction.changeQuantity({ id: _id as unknown as string, qty: qty }));
   };
 
   const removeProduct = () => {
-    dispatch(ShoppingAction.removeOfCard(id));
+    dispatch(ShoppingAction.removeOfCard(_id as unknown as string));
   };
 
   return (
@@ -46,7 +47,7 @@ export const ShoppingCardItem: React.FC<IShopping> = ({
       {/* start to sm screen */}
       <div className="grid sm:hidden w-full px-1">
         <div className="flex items-center justify-between ">
-          <Link href={`/products/${id}`}>
+          <Link href={`/products/${_id}`}>
             <h2 className=" font-semibold  max-w-[7.5rem] truncate">{title}</h2>
           </Link>
           <div className="min-w-[6.2rem]">
@@ -67,7 +68,7 @@ export const ShoppingCardItem: React.FC<IShopping> = ({
         </div>
       </div>
       {/* after sm screen */}
-      <Link href={`/products/${id}`} className="w-[18%] hidden sm:block sm:text-sm xl:text-base xl:mr-2">
+      <Link href={`/products/${_id}`} className="w-[18%] hidden sm:block sm:text-sm xl:text-base xl:mr-2">
         <h2 className="text-sm font-semibold hidden max-w-[14rem] truncate sm:block ">
           {title}
         </h2>
