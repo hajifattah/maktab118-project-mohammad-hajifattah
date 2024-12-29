@@ -3,6 +3,7 @@ import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import { ToastifyProvider } from "@/providers/toastify.provider";
 import { ReduxToolkitProvider } from "@/providers/redux.provider";
+import { TanstackProvider } from "@/providers/queryclientProvider";
 
 const vazir = Vazirmatn({ subsets: ["arabic"] });
 
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang="en" dir="rtl">
       <body className={`${vazir.className} antialiased`}>
         <ReduxToolkitProvider>
+          <TanstackProvider>
           <ToastifyProvider>{children}</ToastifyProvider>
+          </TanstackProvider>
         </ReduxToolkitProvider>
       </body>
     </html>

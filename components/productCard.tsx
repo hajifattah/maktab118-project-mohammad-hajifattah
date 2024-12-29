@@ -1,12 +1,18 @@
 "use client";
-import { addShoppingItemService } from "@/apis/services/shoppingCard.service";
+import {
+  addShoppingItemService,
+  fetchAllShoppingItemsService,
+} from "@/apis/services/shoppingCard.service";
+import { queryClient } from "@/providers/queryclientProvider";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { findProduct } from "@/redux/selectors/findProduct";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { getProductImageSorce } from "@/utils/sorce-image";
+import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { FaRegEye } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { MdFavoriteBorder } from "react-icons/md";
@@ -14,22 +20,26 @@ import { MdFavoriteBorder } from "react-icons/md";
 export const ProductCardCSR = dynamic(() => Promise.resolve(ProductCard), {
   ssr: false,
 });
-const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
+const ProductCard: React.FC<
+  IProduct & { isHome?: boolean; inShopping: boolean; }
+> = ({
   isHome = true,
   _id,
   price,
   quantity,
   name,
   images,
+  inShopping,
 }) => {
-  const isInShopping = useAppSelector(findProduct(_id));
-
+  const [isInShopping,setIsInShopping] = useState<boolean>(inShopping);
+  // const isInShopping = useAppSelector(findProduct(_id));
   const dispatch = useAppDispatch();
-  const clickhandler = async() => {
+  const clickhandler = async () => {
     if (!!isInShopping) {
       dispatch(ShoppingAction.removeOfCard(_id));
     } else {
-      addShoppingItemService({
+      setIsInShopping(true)
+      await addShoppingItemService({
         id: _id,
         image: images[0],
         maxQty: quantity,
@@ -37,18 +47,19 @@ const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
         qty: 1,
         title: name,
         total: price,
-      })
-      // dispatch(
-      //   ShoppingAction.addToCard({
-      //     id: _id,
-      //     image: images[0],
-      //     maxQty: quantity,
-      //     price: price,
-      //     qty: 1,
-      //     title: name,
-      //     total: price,
-      //   })
-      // );
+      });
+      dispatch(
+        ShoppingAction.addToCard({
+          id: _id,
+          image: images[0],
+          maxQty: quantity,
+          price: price,
+          qty: 1,
+          title: name,
+          total: price,
+        })
+      );
+    queryClient.invalidateQueries()
     }
   };
 
