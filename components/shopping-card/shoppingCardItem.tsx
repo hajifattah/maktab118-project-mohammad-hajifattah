@@ -7,14 +7,17 @@ import { ChangeQuantity } from "../product/changeQuantity";
 import { useAppDispatch } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { toast } from "react-toastify";
-import { IShoppingMongo } from "@/database/models/shopping-card";
 import { useMutation } from "@tanstack/react-query";
-import { changeQuantityShoppingItem, removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
+import {
+  changeQuantityShoppingItem,
+  removeSigleShoppingItem,
+} from "@/apis/services/shoppingCard.service";
 import { queryClient } from "@/providers/queryclientProvider";
+import { useMemo } from "react";
+import { getUserInfo } from "@/utils/session-manager";
 
-export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
-  _id,
-  productId,
+export const ShoppingCardItem: React.FC<IShopping> = ({
+  id,
   image,
   maxQty,
   price,
@@ -23,15 +26,12 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
   total,
 }) => {
   const mutationRemove = useMutation({
-    mutationKey: ["remove-shopping-item", productId],
+    mutationKey: ["remove-shopping-item", id],
     mutationFn: removeSigleShoppingItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
-    },
   });
 
   const mutationQuantity = useMutation({
-    mutationKey: ["change-quantity-shopping-item", _id],
+    mutationKey: ["change-quantity-shopping-item", id],
     mutationFn: changeQuantityShoppingItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
@@ -39,21 +39,25 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
   });
   const dispatch = useAppDispatch();
 
+  const userId = useMemo(() => {
+    return getUserInfo()?.id;
+  }, []);
   const changeQty = (qty: number) => {
     if (qty > maxQty) {
       return toast.error("حداکثر موجودی");
     } else if (qty === 0) {
       return toast.error("حداقل سفارش یک عدد میباشد");
     }
-    // dispatch(
-    //   ShoppingAction.changeQuantity({ id: _id as unknown as string, qty: qty })
-    // );
-    mutationQuantity.mutate({productId:productId,quantity:{qty}})
+    dispatch(
+      ShoppingAction.changeQuantity({ id: id as unknown as string, qty: qty })
+    );
+    if (userId)
+      mutationQuantity.mutate({ productId: id, quantity: { qty } });
   };
 
   const removeProduct = () => {
-    mutationRemove.mutate(productId);
-    // dispatch(ShoppingAction.removeOfCard(_id as unknown as string));
+    if (userId) mutationRemove.mutate(id);
+    dispatch(ShoppingAction.removeOfCard(id));
   };
 
   return (
@@ -70,7 +74,7 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
       {/* start to sm screen */}
       <div className="grid sm:hidden w-full px-1">
         <div className="flex items-center justify-between ">
-          <Link href={`/products/${_id}`}>
+          <Link href={`/products/${id}`}>
             <h2 className=" font-semibold  max-w-[7.5rem] truncate">{title}</h2>
           </Link>
           <div className="min-w-[6.2rem]">
@@ -96,7 +100,7 @@ export const ShoppingCardItem: React.FC<IShoppingMongo> = ({
       </div>
       {/* after sm screen */}
       <Link
-        href={`/products/${_id}`}
+        href={`/products/${id}`}
         className="w-[18%] hidden sm:block sm:text-sm xl:text-base xl:mr-2"
       >
         <h2 className="text-sm font-semibold hidden max-w-[14rem] truncate sm:block ">
