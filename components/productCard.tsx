@@ -36,16 +36,17 @@ const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
     mutationKey: ["remove-shopping-item", _id],
     mutationFn: removeSigleShoppingItem,
   });
-  const userId = useMemo(()=>{return getUserInfo()?.id;},[]);
+  const userId = getUserInfo()?.id;
   const isInShopping = useAppSelector(findProduct(_id));
   const dispatch = useAppDispatch();
   const clickhandler = async () => {
     if (!!isInShopping) {
       dispatch(ShoppingAction.removeOfCard(_id));
-      if (userId) mutationRemove.mutate(_id);
+      if (userId) mutationRemove.mutate({productId:_id,params:{userId}});
     } else {
       if(userId) mutation.mutate({
         id: _id,
+        userId,
         image: images[0],
         maxQty: quantity,
         price: price,

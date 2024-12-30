@@ -2,16 +2,18 @@ import {
   deleteSingleShoppingItem,
   updateQuantity,
 } from "@/servers/services_shopping_card/shoppingCard.service";
+import { NextRequest } from "next/server";
 
 // update quantity and totalprice
 export async function PATCH(
-  request: Request,
+  request: NextRequest,
   nextParams: INextPageParams<{ id: string }>
 ) {
   let quantity: { qty: number };
   let id = "";
-  const searchParams = await nextParams.searchParams;
-  if (!searchParams.userId)
+  const searchParams = request.nextUrl.searchParams;
+  const userId = searchParams.get("userId");
+  if (!userId)
     return new Response("enter userId Param", { status: 404 });
   try {
     quantity = await request.json();
@@ -21,22 +23,23 @@ export async function PATCH(
   }
   if (isNaN(quantity.qty))
     return new Response("تعداد صحیح نمی باشد", { status: 404 });
-  const result = await updateQuantity(id, quantity.qty, searchParams.userId);
+  const result = await updateQuantity(id, quantity.qty, userId);
   if (!result) return new Response("محصول یافت نشد", { status: 404 });
   return Response.json(result);
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   nextParams: INextPageParams<{ id: string }>
 ) {
-  const searchParams = await nextParams.searchParams;
-  if (!searchParams.userId)
+  const searchParams = request.nextUrl.searchParams;
+  const userId = searchParams.get("userId");
+  if (!userId)
     return new Response("enter userId Param", { status: 404 });
   try {
     const id = (await nextParams.params).id;
     return Response.json(
-      await deleteSingleShoppingItem(id, searchParams.userId)
+      await deleteSingleShoppingItem(id, userId)
     );
   } catch (error) {
     return new Response((error as Error).message, { status: 400 });

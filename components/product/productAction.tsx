@@ -32,9 +32,7 @@ const ProductAction: React.FC<{
     mutationFn: changeQuantityShoppingItem,
   });
 
-  const userId = useMemo(() => {
-    return getUserInfo()?.id;
-  }, []);
+  const userId = getUserInfo()?.id;
 
   const dispatch = useAppDispatch();
   const isInShopping = useAppSelector(findProduct(productInfo._id));
@@ -56,10 +54,12 @@ const ProductAction: React.FC<{
       dispatch(
         ShoppingAction.changeQuantity({ id: productInfo._id, qty: qty })
       );
-     if(userId) mutationQuantity.mutate({
-        productId: productInfo._id,
-        quantity: { qty },
-      });
+      if (userId)
+        mutationQuantity.mutate({
+          productId: productInfo._id,
+          quantity: { qty },
+          params: { userId },
+        });
     } else {
       setQuantity(qty);
     }
@@ -68,19 +68,21 @@ const ProductAction: React.FC<{
   const addOrRemove = async () => {
     if (isInShopping) {
       dispatch(ShoppingAction.removeOfCard(productInfo._id));
-      if(userId) mutationRemove.mutate(productInfo._id);
+      if (userId) mutationRemove.mutate({productId:productInfo._id,params:{userId}});
       setQuantity(0);
     } else {
       if (quantity === 0) return toast.error("لطفا تعداد محصول را وارد کنید");
-      if(userId) mutation.mutate({
-        id: productInfo._id,
-        image: productInfo.images[0],
-        maxQty: productInfo.quantity,
-        price: productInfo.price,
-        qty: quantity,
-        title: productInfo.name,
-        total: quantity * productInfo.price,
-      });
+      if (userId)
+        mutation.mutate({
+          id: productInfo._id,
+          userId,
+          image: productInfo.images[0],
+          maxQty: productInfo.quantity,
+          price: productInfo.price,
+          qty: quantity,
+          title: productInfo.name,
+          total: quantity * productInfo.price,
+        });
       dispatch(
         ShoppingAction.addToCard({
           id: productInfo._id,

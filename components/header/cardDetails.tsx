@@ -23,10 +23,10 @@ export const CardDetails: React.FC = () => {
     mutationFn: removeSigleShoppingItem,
   });
 
-  const userId = useMemo(()=>{return getUserInfo()?.id;},[]);
+  const userId = getUserInfo()?.id;
 
   const removeProduct = (id: string) => {
-   if(userId) mutationRemove.mutate(id)
+   if(userId) mutationRemove.mutate({productId:id,params:{userId}})
     dispatch(ShoppingAction.removeOfCard(id));
   };
   useEffect(() => {
