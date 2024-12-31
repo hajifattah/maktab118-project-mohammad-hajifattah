@@ -55,6 +55,5 @@ export const fetchSingleProductListService: FetchSingleProductListService =
     for (const item of allResponse) {
       usableResponses.push(item.data);
     }
-    console.log(usableResponses);
     return usableResponses;
   };

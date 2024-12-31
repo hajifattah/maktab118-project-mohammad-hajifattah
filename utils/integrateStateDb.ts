@@ -22,8 +22,6 @@ const shoppingChanges = (listDb: IShoppingMongo[], userId: string) => {
     const findItem = listState.find((item2) => item2.id === item?.productId);
     if (!findItem) {
       // exist in db but no in state
-      console.log("add to state");
-
       reduxStore.dispatch(
         ShoppingAction.addToCard({
           id: item.productId,
@@ -37,7 +35,6 @@ const shoppingChanges = (listDb: IShoppingMongo[], userId: string) => {
       );
     } else {
       // exist in db and state
-      console.log("edit db and state");
       await changeQuantityShoppingItem({
         productId: item.productId,
         params: { userId },
@@ -55,7 +52,6 @@ const shoppingChanges = (listDb: IShoppingMongo[], userId: string) => {
   listState.forEach(async (item) => {
     const findItem = listDb.find((item2) => item2.productId === item.id);
     if (!findItem) {
-      console.log("add to db");
       return await addShoppingItemService({
         id: item.id,
         userId: userId,

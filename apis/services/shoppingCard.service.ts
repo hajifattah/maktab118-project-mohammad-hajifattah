@@ -60,3 +60,14 @@ export const changeQuantityShoppingItem: ChangeQuantityShoppingItem = async ({
   );
   return response.data;
 };
+
+type RemoveShoppingListService = (
+  userId: string
+) => Promise<{ message: string }>;
+export const removeShoppingListService : RemoveShoppingListService = async (userId) => {
+  const response = await shoppingInstance.delete(
+    urls.shoppingCard.deleteAllItems,
+    { params: { userId } }
+  );
+  return response.data;
+};
