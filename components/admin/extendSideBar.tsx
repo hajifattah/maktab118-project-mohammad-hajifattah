@@ -88,8 +88,7 @@ export const ExtendSideBar: React.FC<{
               رفتن به فروشگاه
             </h2>
           </Link>
-          <Link
-            href={"/"}
+          <div
             onClick={exitAccount}
             className="group/item hover:bg-slate-600 p-2 flex flex-col sm:flex-row text-sm gap-2 items-center  cursor-pointer"
           >
@@ -97,7 +96,7 @@ export const ExtendSideBar: React.FC<{
               <Image src={"admin/exit-vector.svg"} alt="shop" fill />
             </div>
             <h2 className="group-hover/item:font-bold text-center">خروج</h2>
-          </Link>
+          </div>
         </div>
       </section>
       <section

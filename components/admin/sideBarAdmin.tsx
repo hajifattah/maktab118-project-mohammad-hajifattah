@@ -3,18 +3,25 @@ import Image from "next/image";
 import { useState } from "react";
 import { PiArrowFatLineLeftFill } from "react-icons/pi";
 import { ExtendSideBar } from "./extendSideBar";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { deleteRefToken, deleteToken } from "@/utils/session-manager";
+import { deleteRefToken, deleteToken, deleteUserInfo } from "@/utils/session-manager";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux/hooks";
+import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 
 export const SideBarAdmin: React.FC = () => {
+  const dispatch = useAppDispatch();
+    const {push} = useRouter();
   const [isExtend, setIsExtend] = useState<boolean>(false);
   const path = usePathname();
   const exitAccount = () => {
     toast.success("خروج موفقیت آمیز بود")
     deleteToken();
+    deleteUserInfo();
+    dispatch(ShoppingAction.removeAll());
     deleteRefToken();
+    push("/")
   };
   return (
     <>
@@ -84,8 +91,7 @@ export const SideBarAdmin: React.FC = () => {
           >
             <Image src={"admin/shop.svg"} alt="shop" fill className="py-2" />
           </Link>
-          <Link
-            href={"/"}
+          <div
             onClick={exitAccount}
             className="relative p-2  size-14 w-full rounded-sm hover:bg-slate-600 cursor-pointer"
           >
@@ -95,7 +101,7 @@ export const SideBarAdmin: React.FC = () => {
               fill
               className="py-2"
             />
-          </Link>
+          </div>
         </div>
       </div>
       <ExtendSideBar

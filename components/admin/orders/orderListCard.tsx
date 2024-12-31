@@ -1,4 +1,5 @@
 import { fetchUserByIdService } from "@/apis/services/users.service";
+import { CheckOrder } from "./checkOrder";
 
 export const OrderListCard: React.FC<IOrder> = async ({
   totalPrice,
@@ -15,9 +16,7 @@ export const OrderListCard: React.FC<IOrder> = async ({
       <td className="px-6 py-4">{totalPrice} تومان</td>
       <td className="px-6 py-4">{createdAt.split("T")[0]}</td>
       <td className="px-6 py-4">
-        <button className="font-medium text-blue-500 hover:text-blue-300">
-          {deliveryStatus ? "مشاهده جزئیات" : "بررسی سفارش"}
-        </button>
+      <CheckOrder mode={deliveryStatus ? "delivered":"notDelivered"}/>
       </td>
     </tr>
   );
