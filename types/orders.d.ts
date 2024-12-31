@@ -35,7 +35,7 @@ interface ISearchParams {
   limit: "5" | "10" | "15";
   deliveryStatus?: "true" | "false" | "all";
   page: string | undefined;
-  status: "succeeded" | "failed";
+  status?: "succeeded" | "failed";
 }
 
 interface INextPageParams<T = { slug: string }> {
