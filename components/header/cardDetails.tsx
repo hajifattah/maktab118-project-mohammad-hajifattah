@@ -40,7 +40,7 @@ export const CardDetails: React.FC = () => {
   }, [list]);
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-40">
       <button onClick={() => setShow((prev) => !prev)}>
         <TfiShoppingCart className="size-6 sm:size-7 cursor-pointer" />
         <div
@@ -91,7 +91,7 @@ export const CardDetails: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-y-1 text-sm font-semibold w-[45%] lg:w-[60%]">
                   <div className="flex gap-x-1 items-center">
-                    <Link href={`/products/${product.id}`} className="truncate sm:max-w-44 grow">
+                    <Link onClick={() => setShow(false)} href={`/products/${product.id}`} className="truncate sm:max-w-44 grow">
                       {" "}
                       <h2 className="truncate">{product.title}</h2>
                     </Link>

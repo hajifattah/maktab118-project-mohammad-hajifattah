@@ -5,6 +5,7 @@ import { TextareaInput } from "@/components/finalize-purchase/textareaInput";
 import { UserInput } from "@/components/L&S/userInput";
 import { SubmitButton } from "@/components/submitButton";
 import { errorHandler } from "@/utils/error-handler";
+import { integrateShoppingStateWithDb } from "@/utils/integrateStateDb";
 import { setRefToken, setToken, setUserInfo } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
@@ -33,6 +34,7 @@ export const SignupForm: React.FC = () => {
         phone: userData.phoneNumber,
       });
       setRefToken(response.token.refreshToken);
+      integrateShoppingStateWithDb({userId:userData._id})
       toast.success("ثبت نام با موفقیت انجام شد");
       push("/");
     } catch (error) {
