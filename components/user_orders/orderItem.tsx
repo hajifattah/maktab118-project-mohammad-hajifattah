@@ -35,10 +35,9 @@ export const UserOrdersItem: React.FC<IOrder> = ({
     const delivery = new Date(deliveryDate);
     return {
       created: created.toLocaleDateString("fa-IR-u-nu-latn"),
-      delivery: delivery.toLocaleDateString("fa-IR-u-nu-latn"),
+      delivery: deliveryDate.includes("1403")? deliveryDate.split("T")[0].replaceAll("-","/"): delivery.toLocaleDateString("fa-IR-u-nu-latn"),
     };
   }, [createdAt]);
-
   return (
     <div className="border border-gray-400 p-4 rounded-md bg-slate-200 max-w-screen-md mx-auto w-full max-h-72">
       <h2

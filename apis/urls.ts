@@ -7,6 +7,7 @@ export const urls = {
   },
   orders: {
     list: "/api/orders",
+    add: "/api/orders"
   },
   users: {
     byId: (id: string) => `/api/users/${id}`,
