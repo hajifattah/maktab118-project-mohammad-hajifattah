@@ -1,50 +1,46 @@
 "use client";
 
-import { fetchAllShoppingItemsService, removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
-import { IShoppingMongo } from "@/database/models/shopping-card";
-import { queryClient } from "@/providers/queryclientProvider";
+import { removeSigleShoppingItem } from "@/apis/services/shoppingCard.service";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
+import { getUserInfo } from "@/utils/session-manager";
 import { getProductImageSorce } from "@/utils/sorce-image";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { TfiShoppingCart } from "react-icons/tfi";
 
 export const CardDetails: React.FC = () => {
-  // const [shoppingList, setShoppingList] = useState<IShoppingMongo[]>();
+  const [shoppingList, setShoppingList] = useState<IShopping[]>();
   const [show, setShow] = useState<boolean>(false);
-  // const list = useAppSelector((state) => state.shopping.list);
-  const {data} = useQuery({queryKey:["shopping-list"],queryFn:fetchAllShoppingItemsService,})
-  const shoppingList = data?.list
+  const list = useAppSelector((state) => state.shopping.list);
   const dispatch = useAppDispatch();
 
   const mutationRemove = useMutation({
     mutationKey: ["remove-shopping-item"],
     mutationFn: removeSigleShoppingItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
-    },
   });
 
+  const userId = getUserInfo()?.id;
+
   const removeProduct = (id: string) => {
-    mutationRemove.mutateAsync(id)
-    // dispatch(ShoppingAction.removeOfCard(id));
+   if(userId) mutationRemove.mutate({productId:id,params:{userId}})
+    dispatch(ShoppingAction.removeOfCard(id));
   };
   useEffect(() => {
     if (!shoppingList?.length) setShow(false);
   }, [shoppingList]);
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     setShoppingList(list);
-  //   }
-  // }, [list]);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setShoppingList(list);
+    }
+  }, [list]);
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-40">
       <button onClick={() => setShow((prev) => !prev)}>
         <TfiShoppingCart className="size-6 sm:size-7 cursor-pointer" />
         <div
@@ -82,7 +78,7 @@ export const CardDetails: React.FC = () => {
           {shoppingList?.map((product) => {
             return (
               <div
-                key={product.productId as string}
+                key={product.id}
                 className="flex gap-x-2 items-center bg-gray-200 p-1 rounded-md"
               >
                 <div className="relative group-hover:blur-sm mx-auto w-[25%] min-w-[3.75rem] max-w-[5rem] aspect-square">
@@ -95,7 +91,7 @@ export const CardDetails: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-y-1 text-sm font-semibold w-[45%] lg:w-[60%]">
                   <div className="flex gap-x-1 items-center">
-                    <Link href={`/products/${product.productId as string}`} className="truncate sm:max-w-44 grow">
+                    <Link onClick={() => setShow(false)} href={`/products/${product.id}`} className="truncate sm:max-w-44 grow">
                       {" "}
                       <h2 className="truncate">{product.title}</h2>
                     </Link>
@@ -105,7 +101,7 @@ export const CardDetails: React.FC = () => {
                   </div>
                   <h2>{product.price} تومان </h2>
                 </div>
-                <button onClick={() => removeProduct(product.productId as string)}>
+                <button onClick={() => removeProduct(product.id)}>
                   <MdDelete className="size-7 lg:size-8 text-black_app" />
                 </button>
               </div>

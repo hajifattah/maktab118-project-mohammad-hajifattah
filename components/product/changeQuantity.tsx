@@ -5,7 +5,7 @@ import { PiMinusCircleFill, PiPlusCircleFill } from "react-icons/pi";
 export const ChangeQuantity: React.FC<{
   changeqty: (qty: number) => void;
   quantity: number;
-  isInShopping?: IShoppingMongo;
+  isInShopping?: IShopping;
 }> = ({ changeqty, quantity, isInShopping }) => {
   return (
     <div className={`flex   ${isInShopping ? "lg:px-3 p-2 gap-x-2":"xl:px-3 px-1 py-2 gap-x-1 xl:gap-x-2 xl:p-2"} rounded-full  items-center border`}>

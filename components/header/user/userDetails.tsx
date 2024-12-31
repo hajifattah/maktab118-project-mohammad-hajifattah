@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useAppDispatch } from "@/redux/hooks";
+import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 
 export const UserDetailsCSR = dynamic(() => Promise.resolve(UserDetails), {
   ssr: false,
@@ -16,8 +18,10 @@ export const UserDetailsCSR = dynamic(() => Promise.resolve(UserDetails), {
   const UserDetails: React.FC = () => {
   const [show, setShow] = useState<boolean>(false);
   const {push} = useRouter();
+  const dispatch = useAppDispatch();
   const deleteTokenHandler = () => {
     toast.success("خروج موفقیت آمیز بود")
+    dispatch(ShoppingAction.removeAll())
     deleteToken();
     deleteRefToken();
     deleteUserInfo();
