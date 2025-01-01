@@ -7,7 +7,7 @@ import { errorHandler } from "@/utils/error-handler";
 import { getUserInfo } from "@/utils/session-manager";
 import { AxiosError } from "axios";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 
 export const ResultStatus: React.FC<{ status: "succeeded" | "failed" }> = ({
@@ -32,17 +32,19 @@ export const ResultStatus: React.FC<{ status: "succeeded" | "failed" }> = ({
       await removeShoppingListService(userId as string);
       dispatch(ShoppingAction.removeAll());
     } catch (error) {
-      errorHandler(error as AxiosError)
+      errorHandler(error as AxiosError);
     }
   };
-  if (status === "succeeded" && shopping.list.length > 0) {
-    createOrderAndDeleteStateDb();
-  }
+
   const text =
     status === "succeeded"
       ? "با تشکر از پرداخت شما، سفارش شما ثبت شد و در زمان انتخابی تحویل شما خواهد شد همچنین می توانید از طریق صفحه سفارشات وضعیت آن را مشاهده کنید"
       : "پرداخت انجام نشد، بارفتن به صفحه نهایی کردن خرید میتوانید مجددا اقدام به پرداهت نماییید";
-
+  useEffect(() => {
+    if (status === "succeeded" && shopping.list.length > 0) {
+      createOrderAndDeleteStateDb();
+    }
+  }, [shopping]);
   return (
     <div className="flex gap-x-6 items-center ">
       {status === "succeeded" ? (

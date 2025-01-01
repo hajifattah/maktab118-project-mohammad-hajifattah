@@ -1,5 +1,4 @@
 "use client"
-import { IShoppingMongo } from "@/database/models/shopping-card";
 import { PiMinusCircleFill, PiPlusCircleFill } from "react-icons/pi";
 
 export const ChangeQuantity: React.FC<{
