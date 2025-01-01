@@ -32,10 +32,15 @@ export const UserOrdersItem: React.FC<IOrder> = ({
 
   const { created, delivery } = useMemo(() => {
     const created = new Date(createdAt);
-    const delivery = new Date(deliveryDate);
     return {
       created: created.toLocaleDateString("fa-IR-u-nu-latn"),
-      delivery: deliveryDate.includes("1403")? deliveryDate.split("T")[0].replaceAll("-","/"): delivery.toLocaleDateString("fa-IR-u-nu-latn"),
+      delivery: {
+        date: deliveryDate.split("T")[0].replaceAll("-", "/"),
+        time: deliveryDate.slice(
+          deliveryDate.indexOf("T") + 1,
+          deliveryDate.indexOf(".")
+        ),
+      },
     };
   }, [createdAt]);
   return (
@@ -55,7 +60,9 @@ export const UserOrdersItem: React.FC<IOrder> = ({
       <div className="flex justify-between">
         {" "}
         <h2 className="text-gray-500">زمان تحویل</h2>
-        <p>{delivery}</p>
+        <p>
+          {deliveryStatus ? delivery.time + "," : ""} {delivery.date}
+        </p>
       </div>
       <div className="flex justify-between">
         {" "}
@@ -63,7 +70,7 @@ export const UserOrdersItem: React.FC<IOrder> = ({
         <p>{totalPrice} تومان</p>
       </div>
       <div className="flex gap-x-4 border-t-2 border-gray-300 p-2 pt-4 mt-2 mx-auto overflow-x-auto w-[70vw] max-w-[42rem]">
-        {imageProducts.map((image,index) => (
+        {imageProducts.map((image, index) => (
           <div
             key={index}
             className="relative group-hover:blur-sm w-[30%] sm:w-[18%] sm:max-w-[13rem] min-w-16 md:min-w-28 lg:max-w-[5rem] xl:max-w-[13rem] aspect-square"

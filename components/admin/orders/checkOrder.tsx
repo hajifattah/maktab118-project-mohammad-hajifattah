@@ -4,8 +4,8 @@ import { CancelButton } from "@/components/cancelButton";
 import { OrderProductsList } from "@/containers/admin/orders/orderProducsList";
 import { errorHandler } from "@/utils/error-handler";
 import { AxiosError } from "axios";
-import { useRouter} from "next/navigation";
-import { FormEventHandler,useState } from "react";
+import { useRouter } from "next/navigation";
+import { FormEventHandler, useMemo, useState } from "react";
 import { FaCircleInfo } from "react-icons/fa6";
 
 export const CheckOrder: React.FC<{
@@ -13,7 +13,7 @@ export const CheckOrder: React.FC<{
   orderProducts: { product: string; count: number; _id: string }[];
   userDetails: IUser;
   createdAt: string;
-  deliveryDate: {org:string;new:string};
+  deliveryDate: { org: string; new: string };
   orderId: string;
 }> = ({
   mode,
@@ -25,17 +25,26 @@ export const CheckOrder: React.FC<{
 }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { push } = useRouter();
+  const delivery = useMemo(() => {
+    return {
+      date: deliveryDate.org.split("T")[0].replaceAll("-", "/"),
+      time: deliveryDate.org.slice(
+        deliveryDate.org.indexOf("T") + 1,
+        deliveryDate.org.indexOf(".")
+      ),
+    };
+  }, [deliveryDate]);
   const delivered: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const date = new Date();
     const faDate = date.toLocaleString("fa-IR-u-nu-latn");
     try {
-    await deliveryOrderService(orderId,{deliveryDate:faDate})
-   } catch (error) {
-    errorHandler(error as AxiosError)
-   }
+      await deliveryOrderService(orderId, { deliveryDate: faDate });
+    } catch (error) {
+      errorHandler(error as AxiosError);
+    }
     setShowModal(false);
-    push("/orders")
+    push("/orders");
   };
 
   return (
@@ -111,7 +120,9 @@ export const CheckOrder: React.FC<{
                             <h2 className="w-1/3 text-slate-300">
                               زمان تحویل:
                             </h2>
-                            <h2 className="font-semibold">{deliveryDate.new}</h2>
+                            <h2 className="font-semibold">
+                              {deliveryDate.new}
+                            </h2>
                           </li>
                         </ul>
                       </div>
@@ -124,7 +135,7 @@ export const CheckOrder: React.FC<{
                             تحویل شد:
                           </h2>
                           <h2 className="text-green-300 font-semibold">
-                            {deliveryDate.org}
+                            {delivery.time + " , "} {delivery.date}
                           </h2>
                         </div>
                       ) : (
