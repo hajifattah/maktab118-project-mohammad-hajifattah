@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "final-project-server-peach-mhf.vercel.app",
+        hostname: "final-project-server-mhf.vercel.app",
       },
     ],
   },

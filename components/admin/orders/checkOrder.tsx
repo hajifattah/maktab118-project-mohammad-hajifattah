@@ -1,7 +1,11 @@
 "use client";
+import { deliveryOrderService } from "@/apis/services/orders.service";
 import { CancelButton } from "@/components/cancelButton";
 import { OrderProductsList } from "@/containers/admin/orders/orderProducsList";
-import { useState } from "react";
+import { errorHandler } from "@/utils/error-handler";
+import { AxiosError } from "axios";
+import { useRouter} from "next/navigation";
+import { FormEventHandler,useState } from "react";
 import { FaCircleInfo } from "react-icons/fa6";
 
 export const CheckOrder: React.FC<{
@@ -9,9 +13,30 @@ export const CheckOrder: React.FC<{
   orderProducts: { product: string; count: number; _id: string }[];
   userDetails: IUser;
   createdAt: string;
-  deliveryDate: string;
-}> = ({ mode, orderProducts, userDetails, createdAt, deliveryDate }) => {
+  deliveryDate: {org:string;new:string};
+  orderId: string;
+}> = ({
+  mode,
+  orderProducts,
+  userDetails,
+  createdAt,
+  deliveryDate,
+  orderId,
+}) => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const { push } = useRouter();
+  const delivered: FormEventHandler<HTMLFormElement> = async (e) => {
+    e.preventDefault();
+    const date = new Date();
+    const faDate = date.toLocaleString("fa-IR-u-nu-latn");
+    try {
+    await deliveryOrderService(orderId,{deliveryDate:faDate})
+   } catch (error) {
+    errorHandler(error as AxiosError)
+   }
+    setShowModal(false);
+    push("/orders")
+  };
 
   return (
     <>
@@ -39,7 +64,10 @@ export const CheckOrder: React.FC<{
 
             <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
               <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
-                <form className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all mx-2 sm:m-20 sm:w-full sm:max-w-screen-sm">
+                <form
+                  onSubmit={delivered}
+                  className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all mx-2 sm:m-20 sm:w-full sm:max-w-screen-sm"
+                >
                   <div className="bg-sky-500 px-4 pb-4 pt-5 sm:p-6 sm:pb-4 ">
                     <div className="flex flex-col gap-y-5 ">
                       <div className="flex gap-x-1  items-center justify-center rounded-md bg-blue_app px-2 ">
@@ -83,7 +111,7 @@ export const CheckOrder: React.FC<{
                             <h2 className="w-1/3 text-slate-300">
                               زمان تحویل:
                             </h2>
-                            <h2 className="font-semibold">{deliveryDate}</h2>
+                            <h2 className="font-semibold">{deliveryDate.new}</h2>
                           </li>
                         </ul>
                       </div>
@@ -96,7 +124,7 @@ export const CheckOrder: React.FC<{
                             تحویل شد:
                           </h2>
                           <h2 className="text-green-300 font-semibold">
-                            {deliveryDate}
+                            {deliveryDate.org}
                           </h2>
                         </div>
                       ) : (

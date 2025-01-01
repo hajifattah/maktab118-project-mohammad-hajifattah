@@ -8,17 +8,13 @@ export const OrderListCard: React.FC<IOrder> = async ({
   deliveryStatus,
   products,
   deliveryDate,
+  _id,
 }) => {
   const userDtails = await fetchUserByIdService(user);
 
   const date = new Date(createdAt);
-  const createdDate = createdAt.includes("1403")
-    ? createdAt.split("T")[0].replaceAll("-", "/")
-    : date.toLocaleDateString("fa-IR-u-nu-latn");
-  const delDate = new Date(createdAt);
-  const delivery = deliveryDate.includes("1403")
-    ? deliveryDate.split("T")[0].replaceAll("-", "/")
-    : delDate.toLocaleDateString("fa-IR-u-nu-latn");
+  const createdDate = date.toLocaleDateString("fa-IR-u-nu-latn");
+  const delivery = deliveryDate.split("T")[0].replaceAll("-", "/");
 
   return (
     <tr className=" border-b bg-gray-800 border-gray-700 hover:bg-gray-600">
@@ -29,7 +25,8 @@ export const OrderListCard: React.FC<IOrder> = async ({
       <td className="px-6 py-4">{createdDate}</td>
       <td className="px-6 py-4">
         <CheckOrder
-          deliveryDate={delivery}
+          orderId={_id}
+          deliveryDate={{ org: deliveryDate, new: delivery }}
           createdAt={createdDate}
           orderProducts={products}
           userDetails={userDtails.data.user}

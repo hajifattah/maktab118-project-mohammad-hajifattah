@@ -1,5 +1,5 @@
 "use client";
-import { createOrderService } from "@/apis/services/order.service";
+import { createOrderService } from "@/apis/services/orders.service";
 import { removeShoppingListService } from "@/apis/services/shoppingCard.service";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
