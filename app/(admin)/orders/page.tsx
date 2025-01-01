@@ -7,7 +7,7 @@ const OrdersPage: React.FC<INextPageParams> = async ({ searchParams }) => {
 
   return (
     <div className="bg-blue_app h-[calc(100vh-7.75rem)] overflow-y-auto rounded-md">
-      <OrderMenu limit={params.limit} />
+      <OrderMenu limit={params.limit} delStatus={params.deliveryStatus || "all"} />
       <Suspense fallback={<h2 className="p-6">is loading...</h2>}>
         <OrdersList {...params} />
       </Suspense>
