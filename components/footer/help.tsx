@@ -20,9 +20,13 @@ export const FooterHelp: React.FC = () => {
       <div>
         <h2 className="text-white font-semibold mb-2">راهنمایی</h2>
         <div className="text-sm text-gray-200 space-y-1">
-          <h2>درباره ما</h2>
-          <h2>سوالات رایج</h2>
-          <h2>قوانین وب سایت</h2>
+          <Link href={"/about-us"}>
+            <h2>درباره ما</h2>
+          </Link>
+          <h2>
+            <button>سوالات رایج</button>
+          </h2>
+          <button>قوانین وب سایت</button>
         </div>
       </div>
     </div>

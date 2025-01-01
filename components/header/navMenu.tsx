@@ -29,9 +29,11 @@ export const NavMenu: React.FC = () => {
               درباره ما{" "}
             </h2>
           </Link>
-          <h2 className="cursor-pointer hover:font-semibold w-18 text-center">
-            تماس با ما
-          </h2>
+          <Link href={"/contact-us"}>
+            <h2 className="cursor-pointer hover:font-semibold w-18 text-center">
+              تماس با ما
+            </h2>
+          </Link>
         </div>
         <div className="flex mr-2 sm:hidden ">
           <Link href={"/"}>
