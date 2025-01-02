@@ -90,7 +90,7 @@ export const UserOrdersItem: React.FC<IOrder> = ({
             ></Image>
             <div
               className={`
-               absolute -top-2 -right-1 sm:-right-2 rounded-md text-slate-400 flex justify-center items-center shadow-md bg-white size-5 sm:size-6 pt-1 font-semibold`}
+               absolute -top-2 -right-1 sm:-right-2 rounded-md text-slate-400 flex justify-center items-center shadow-md bg-white size-6 pt-1 font-semibold`}
             >
               {products.find((item2) => item2.product === item.productId)?.count+ "X"}
             </div>
