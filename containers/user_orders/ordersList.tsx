@@ -31,7 +31,11 @@ export const UserOrdersList: React.FC<ISearchParams> = ({ limit, page }) => {
     callback();
   }, [limit, page]);
   return (
-    <div className="grid gap-y-4 sm:justify-center">
+    <div
+      className={` gap-y-4 sm:justify-center ${
+        userOrders === undefined ? "hidden" : "grid"
+      }`}
+    >
       <h2
         className={`${
           !userOrders?.data.orders.length ? "block" : "hidden"

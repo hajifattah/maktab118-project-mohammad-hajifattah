@@ -12,15 +12,22 @@ export const UserOrdersItem: React.FC<IOrder> = ({
   products,
   totalPrice,
 }) => {
-  const [imageProducts, setImageProducts] = useState<string[]>([]);
+  const [productsIdImage, setProductsIdImage] = useState<
+    { productId: string; productImage: string }[]
+  >([]);
   const productsId = useMemo(() => {
     return products.map((item) => item.product);
   }, []);
   const callback = useCallback(async () => {
     try {
       const responses = await fetchSingleProductListService(productsId);
-      const images = responses.map((item) => item.data.product.images[0]);
-      setImageProducts(images);
+      const products = responses.map((item) => {
+        return {
+          productId: item.data.product._id,
+          productImage: item.data.product.images[0],
+        };
+      });
+      setProductsIdImage(products);
     } catch (error) {
       errorHandler(error as AxiosError);
     }
@@ -70,17 +77,23 @@ export const UserOrdersItem: React.FC<IOrder> = ({
         <p>{totalPrice} تومان</p>
       </div>
       <div className="flex gap-x-4 border-t-2 border-gray-300 p-2 pt-4 mt-2 mx-auto overflow-x-auto w-[70vw] max-w-[42rem]">
-        {imageProducts.map((image, index) => (
+        {productsIdImage.map((item, index) => (
           <div
             key={index}
             className="relative group-hover:blur-sm w-[30%] sm:w-[18%] sm:max-w-[13rem] min-w-16 md:min-w-28 lg:max-w-[5rem] xl:max-w-[13rem] aspect-square"
           >
             <Image
               alt="image"
-              src={getProductImageSorce(image)}
+              src={getProductImageSorce(item.productImage)}
               className="rounded-md "
               fill
             ></Image>
+            <div
+              className={`
+               absolute -top-2 -right-1 sm:-right-2 rounded-md text-slate-400 flex justify-center items-center shadow-md bg-white size-5 sm:size-6 pt-1 font-semibold`}
+            >
+              {products.find((item2) => item2.product === item.productId)?.count+ "X"}
+            </div>
           </div>
         ))}
       </div>
