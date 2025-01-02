@@ -1,8 +1,6 @@
 "use client";
-import { fetchAllShoppingItemsService } from "@/apis/services/shoppingCard.service";
 import { ShoppingCardItem } from "@/components/shopping-card/shoppingCardItem";
 import { useAppSelector } from "@/redux/hooks";
-import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 
 export const ShoppingCardListCSR = dynamic(() => Promise.resolve(ShoppingCardList), {

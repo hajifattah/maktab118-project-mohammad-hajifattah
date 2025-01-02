@@ -13,7 +13,6 @@ import {
   removeSigleShoppingItem,
 } from "@/apis/services/shoppingCard.service";
 import { queryClient } from "@/providers/queryclientProvider";
-import { useMemo } from "react";
 import { getUserInfo } from "@/utils/session-manager";
 
 export const ShoppingCardItem: React.FC<IShopping> = ({
@@ -39,9 +38,7 @@ export const ShoppingCardItem: React.FC<IShopping> = ({
   });
   const dispatch = useAppDispatch();
 
-  const userId = useMemo(() => {
-    return getUserInfo()?.id;
-  }, []);
+  const userId = getUserInfo()?.id;
   const changeQty = (qty: number) => {
     if (qty > maxQty) {
       return toast.error("حداکثر موجودی");
@@ -51,12 +48,11 @@ export const ShoppingCardItem: React.FC<IShopping> = ({
     dispatch(
       ShoppingAction.changeQuantity({ id: id as unknown as string, qty: qty })
     );
-    if (userId)
-      mutationQuantity.mutate({ productId: id, quantity: { qty } });
+    if (userId) mutationQuantity.mutate({ productId: id, quantity: { qty },params:{userId}});
   };
 
   const removeProduct = () => {
-    if (userId) mutationRemove.mutate(id);
+    if (userId) mutationRemove.mutate({ params: { userId }, productId: id });
     dispatch(ShoppingAction.removeOfCard(id));
   };
 

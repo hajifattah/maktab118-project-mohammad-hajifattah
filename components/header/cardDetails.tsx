@@ -8,7 +8,7 @@ import { getProductImageSorce } from "@/utils/sorce-image";
 import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { TfiShoppingCart } from "react-icons/tfi";
 
