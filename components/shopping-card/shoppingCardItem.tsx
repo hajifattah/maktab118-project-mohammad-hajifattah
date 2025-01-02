@@ -7,6 +7,13 @@ import { ChangeQuantity } from "../product/changeQuantity";
 import { useAppDispatch } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
 import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import {
+  changeQuantityShoppingItem,
+  removeSigleShoppingItem,
+} from "@/apis/services/shoppingCard.service";
+import { queryClient } from "@/providers/queryclientProvider";
+import { getUserInfo } from "@/utils/session-manager";
 
 export const ShoppingCardItem: React.FC<IShopping> = ({
   id,
@@ -17,18 +24,35 @@ export const ShoppingCardItem: React.FC<IShopping> = ({
   title,
   total,
 }) => {
+  const mutationRemove = useMutation({
+    mutationKey: ["remove-shopping-item", id],
+    mutationFn: removeSigleShoppingItem,
+  });
+
+  const mutationQuantity = useMutation({
+    mutationKey: ["change-quantity-shopping-item", id],
+    mutationFn: changeQuantityShoppingItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["shopping-list"] });
+    },
+  });
   const dispatch = useAppDispatch();
 
+  const userId = getUserInfo()?.id;
   const changeQty = (qty: number) => {
     if (qty > maxQty) {
       return toast.error("حداکثر موجودی");
     } else if (qty === 0) {
       return toast.error("حداقل سفارش یک عدد میباشد");
     }
-    dispatch(ShoppingAction.changeQuantity({ id: id, qty: qty }));
+    dispatch(
+      ShoppingAction.changeQuantity({ id: id as unknown as string, qty: qty })
+    );
+    if (userId) mutationQuantity.mutate({ productId: id, quantity: { qty },params:{userId}});
   };
 
   const removeProduct = () => {
+    if (userId) mutationRemove.mutate({ params: { userId }, productId: id });
     dispatch(ShoppingAction.removeOfCard(id));
   };
 
@@ -59,15 +83,22 @@ export const ShoppingCardItem: React.FC<IShopping> = ({
           <h2>حذف</h2>
         </div>
         <div className="flex justify-between items-center gap-x-3 w-full mt-1">
-          <p className="font font-semibold w-1/4 flex-auto ">{price} <span className="sm:text-sm text-gray-600">تومان</span></p>
-          <p className="font-semibold w-1/4 flex-auto">{total} <span className="sm:text-sm text-gray-600">تومان</span></p>
+          <p className="font font-semibold w-1/4 flex-auto ">
+            {price} <span className="sm:text-sm text-gray-600">تومان</span>
+          </p>
+          <p className="font-semibold w-1/4 flex-auto">
+            {total} <span className="sm:text-sm text-gray-600">تومان</span>
+          </p>
           <button onClick={removeProduct}>
             <MdDelete className="size-8" />
           </button>
         </div>
       </div>
       {/* after sm screen */}
-      <Link href={`/products/${id}`} className="w-[18%] hidden sm:block sm:text-sm xl:text-base xl:mr-2">
+      <Link
+        href={`/products/${id}`}
+        className="w-[18%] hidden sm:block sm:text-sm xl:text-base xl:mr-2"
+      >
         <h2 className="text-sm font-semibold hidden max-w-[14rem] truncate sm:block ">
           {title}
         </h2>

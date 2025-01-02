@@ -1,8 +1,14 @@
 "use client";
+import {
+  addShoppingItemService,
+  removeSigleShoppingItem,
+} from "@/apis/services/shoppingCard.service";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { findProduct } from "@/redux/selectors/findProduct";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
+import { getUserInfo } from "@/utils/session-manager";
 import { getProductImageSorce } from "@/utils/sorce-image";
+import { useMutation } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,13 +27,33 @@ const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
   name,
   images,
 }) => {
+  const mutation = useMutation({
+    mutationKey: ["add-shopping-item", _id],
+    mutationFn: addShoppingItemService,
+  });
+  const mutationRemove = useMutation({
+    mutationKey: ["remove-shopping-item", _id],
+    mutationFn: removeSigleShoppingItem,
+  });
+  const userId = getUserInfo()?.id;
   const isInShopping = useAppSelector(findProduct(_id));
-
   const dispatch = useAppDispatch();
-  const clickhandler = () => {
+  const clickhandler = async () => {
     if (!!isInShopping) {
       dispatch(ShoppingAction.removeOfCard(_id));
+      if (userId) mutationRemove.mutate({productId:_id,params:{userId}});
     } else {
+      if(userId) mutation.mutate({
+        id: _id,
+        userId,
+        image: images[0],
+        maxQty: quantity,
+        price: price,
+        qty: 1,
+        title: name,
+        total: price,
+      });
+
       dispatch(
         ShoppingAction.addToCard({
           id: _id,
@@ -41,7 +67,6 @@ const ProductCard: React.FC<IProduct & { isHome?: boolean }> = ({
       );
     }
   };
-
   return (
     <div
       className={`flex flex-col gap-y-2 border shadow-lg bg-slate-50 ${

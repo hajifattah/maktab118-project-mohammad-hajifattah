@@ -1,4 +1,5 @@
 import { fetchProductsService } from "@/apis/services/products.service";
+import { fetchAllShoppingItemsService} from "@/apis/services/shoppingCard.service";
 import { LimitInPage } from "@/components/admin/limitPage";
 import { Pagination } from "@/components/admin/orders/pagination";
 import { ProductCardCSR } from "@/components/productCard";

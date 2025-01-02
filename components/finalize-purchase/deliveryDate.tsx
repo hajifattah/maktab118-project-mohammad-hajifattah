@@ -18,8 +18,8 @@ export const DeliveryDate: React.FC<IDate> = ({ name, control }) => {
 
   const days = useMemo(() => {
     const today = new Date();
-    const deliveryDate = new Date(today);
     return [3, 4, 5, 6, 7].map((item) => {
+      const deliveryDate = new Date(today);
       deliveryDate.setDate(today.getDate() + item);
       let date = deliveryDate.toLocaleDateString("fa-IR-u-nu-latn").split("/");
       date = date.map((item) => item.padStart(2, "0"));

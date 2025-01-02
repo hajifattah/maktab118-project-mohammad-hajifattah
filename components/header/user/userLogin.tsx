@@ -19,7 +19,7 @@ export const UserLogin: React.FC<{
         <div className="flex-grow border-t border-gray-400"></div>
       </div>
       <Link href={"/signup"}>
-      <button className="text-green_app border border-green_app px-3 hover:bg-green-100 py-2 w-full rounded-md">
+      <button onClick={showHandle} className="text-green_app border border-green_app px-3 hover:bg-green-100 py-2 w-full rounded-md">
         ثبت نام
       </button></Link>
     </>

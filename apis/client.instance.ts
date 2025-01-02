@@ -44,7 +44,6 @@ instance.interceptors.response.use(
       });
 
       if (response.status === 200) {
-        console.log("hii");
         const accessToken = response.data.token.accessToken;
         const oldToken = getToken();
         const index = oldToken?.indexOf("iad", 20);

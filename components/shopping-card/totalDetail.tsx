@@ -1,6 +1,7 @@
 "use client";
 import { useAppSelector } from "@/redux/hooks";
 import { getTotalDetails } from "@/redux/selectors/totalDetails";
+
 import dynamic from "next/dynamic";
 import Link from "next/link";
 

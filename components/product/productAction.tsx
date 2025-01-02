@@ -7,6 +7,13 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { toast } from "react-toastify";
 import { ChangeQuantity } from "./changeQuantity";
 import dynamic from "next/dynamic";
+import {
+  addShoppingItemService,
+  changeQuantityShoppingItem,
+  removeSigleShoppingItem,
+} from "@/apis/services/shoppingCard.service";
+import { useMutation } from "@tanstack/react-query";
+import { getUserInfo } from "@/utils/session-manager";
 
 export const ProductActionCSR = dynamic(() => Promise.resolve(ProductAction), {
   ssr: false,
@@ -16,8 +23,24 @@ const ProductAction: React.FC<{
 }> = ({ productInfo }) => {
   const [quantity, setQuantity] = useState<number>(0);
 
+  const mutationRemove = useMutation({
+    mutationKey: ["remove-shopping-item", productInfo._id],
+    mutationFn: removeSigleShoppingItem,
+  });
+  const mutationQuantity = useMutation({
+    mutationKey: ["change-quantity-shopping-item", productInfo._id],
+    mutationFn: changeQuantityShoppingItem,
+  });
+
+  const userId = getUserInfo()?.id;
+
   const dispatch = useAppDispatch();
   const isInShopping = useAppSelector(findProduct(productInfo._id));
+
+  const mutation = useMutation({
+    mutationKey: ["add-shopping-item", productInfo._id],
+    mutationFn: addShoppingItemService,
+  });
 
   const changeqty = (qty: number) => {
     if (productInfo.quantity === 0) {
@@ -31,17 +54,35 @@ const ProductAction: React.FC<{
       dispatch(
         ShoppingAction.changeQuantity({ id: productInfo._id, qty: qty })
       );
+      if (userId)
+        mutationQuantity.mutate({
+          productId: productInfo._id,
+          quantity: { qty },
+          params: { userId },
+        });
     } else {
       setQuantity(qty);
     }
   };
 
-  const addOrRemove = () => {
+  const addOrRemove = async () => {
     if (isInShopping) {
       dispatch(ShoppingAction.removeOfCard(productInfo._id));
+      if (userId) mutationRemove.mutate({productId:productInfo._id,params:{userId}});
       setQuantity(0);
     } else {
       if (quantity === 0) return toast.error("لطفا تعداد محصول را وارد کنید");
+      if (userId)
+        mutation.mutate({
+          id: productInfo._id,
+          userId,
+          image: productInfo.images[0],
+          maxQty: productInfo.quantity,
+          price: productInfo.price,
+          qty: quantity,
+          title: productInfo.name,
+          total: quantity * productInfo.price,
+        });
       dispatch(
         ShoppingAction.addToCard({
           id: productInfo._id,
