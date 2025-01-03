@@ -26,7 +26,7 @@ export const CardDetails: React.FC = () => {
   const userId = getUserInfo()?.id;
 
   const removeProduct = (id: string) => {
-   if(userId) mutationRemove.mutate({productId:id,params:{userId}})
+    if (userId) mutationRemove.mutate({ productId: id, params: { userId } });
     dispatch(ShoppingAction.removeOfCard(id));
   };
   useEffect(() => {
@@ -66,7 +66,9 @@ export const CardDetails: React.FC = () => {
           </button>
         </Link>
         <div
-          className={` flex shadow-xl rounded-md flex-col gap-y-2 mt-2  p-3   max-h-[calc(100vh_-_500px)] overflow-y-auto min-h-20 border`}
+          className={` flex shadow-xl rounded-md flex-col gap-y-2 mt-2  p-3   max-h-[calc(100vh_-_500px)] overflow-y-auto ${
+            !shoppingList?.length ? "min-h-20" : "min-h-28"
+          } border`}
         >
           <h2
             className={`${
@@ -91,7 +93,11 @@ export const CardDetails: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-y-1 text-sm font-semibold w-[45%] lg:w-[60%]">
                   <div className="flex gap-x-1 items-center">
-                    <Link onClick={() => setShow(false)} href={`/products/${product.id}`} className="truncate sm:max-w-44 grow">
+                    <Link
+                      onClick={() => setShow(false)}
+                      href={`/products/${product.id}`}
+                      className="truncate sm:max-w-44 grow"
+                    >
                       {" "}
                       <h2 className="truncate">{product.title}</h2>
                     </Link>

@@ -3,7 +3,7 @@ import { HeroSection } from "@/containers/home/heroSection";
 import { MiddleContent } from "@/containers/home/middleContent";
 import { HomeProductsList } from "@/containers/home/productsList";
 import { MainLayout } from "@/containers/mainLayout";
-
+export const dynamic = "auto"
 export default function Home() {
   return (
     <MainLayout>
@@ -11,10 +11,10 @@ export default function Home() {
         <HeroSection />
         <Feature />
         <HomeProductsList text="جدیدترین محصولات" />
-        <MiddleContent/>
-        <HomeProductsList text="صبحانه" />
-        <HomeProductsList text="میوه و سبزیجات" />
-        <HomeProductsList text="لبنیات" />
+          <MiddleContent />
+          <HomeProductsList text="صبحانه" />
+          <HomeProductsList text="میوه و سبزیجات" />
+          <HomeProductsList text="لبنیات" />
       </div>
     </MainLayout>
   );

@@ -27,13 +27,15 @@ export const updateProductService: UpdateProductService = async (id, data) => {
 };
 
 type UpdateProductPairsService = (
-  pairs: IPairIDs[]
+  pairs: IPairIDs[] | { id: string; body: { quantity: number } }[]
 ) => Promise<{ status: string }[]>;
 export const updateProductPairsService: UpdateProductPairsService = async (
   pairs
 ) => {
   const reqs = pairs.map((item) =>
-    instance.patch(urls.products.updateProduct(item.id), item.pair)
+    "pair" in item
+      ? instance.patch(urls.products.updateProduct(item.id), item.pair)
+      : instance.patch(urls.products.updateProduct(item.id), item.body)
   );
   const allResponse = await Promise.all(reqs);
   const usableResponses: { status: string }[] = [];
