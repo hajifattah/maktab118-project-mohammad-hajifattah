@@ -1,5 +1,6 @@
 "use client";
 import { createOrderService } from "@/apis/services/orders.service";
+import { updateProductPairsService } from "@/apis/services/productsClient.service";
 import { removeShoppingListService } from "@/apis/services/shoppingCard.service";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ShoppingAction } from "@/redux/slices/shoppingSlice";
@@ -16,19 +17,27 @@ export const ResultStatus: React.FC<{ status: "succeeded" | "failed" }> = ({
   const userId = getUserInfo()?.id;
   const shopping = useAppSelector((state) => state.shopping);
   const dispatch = useAppDispatch();
-  const order = useMemo(() => {
+  const { order, updateProducts } = useMemo(() => {
     const products = shopping.list.map((item) => {
       return { product: item.id, count: item.qty };
     });
+    const updateProducts = shopping.list.map((item) => {
+      return { id: item.id, body: { quantity: item.maxQty - item.qty } };
+    });
     return {
-      deliveryDate: shopping.deliveryDate,
-      products,
-      user: userId as string,
+      order: {
+        deliveryDate: shopping.deliveryDate,
+        products,
+        user: userId as string,
+      },
+      updateProducts,
     };
   }, [shopping]);
   const createOrderAndDeleteStateDb = async () => {
     try {
       await createOrderService(order);
+      // update quantity of buyed products
+      await updateProductPairsService(updateProducts);
       await removeShoppingListService(userId as string);
       dispatch(ShoppingAction.removeAll());
     } catch (error) {

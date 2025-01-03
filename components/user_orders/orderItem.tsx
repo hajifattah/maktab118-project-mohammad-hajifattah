@@ -3,6 +3,7 @@ import { errorHandler } from "@/utils/error-handler";
 import { getProductImageSorce } from "@/utils/sorce-image";
 import { AxiosError } from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export const UserOrdersItem: React.FC<IOrder> = ({
@@ -78,7 +79,8 @@ export const UserOrdersItem: React.FC<IOrder> = ({
       </div>
       <div className="flex gap-x-4 border-t-2 border-gray-300 p-2 pt-4 mt-2 mx-auto overflow-x-auto w-[70vw] max-w-[42rem]">
         {productsIdImage.map((item, index) => (
-          <div
+          <Link
+            href={`/products/${item.productId}`}
             key={index}
             className="relative group-hover:blur-sm w-[30%] sm:w-[18%] sm:max-w-[13rem] min-w-16 md:min-w-28 lg:max-w-[5rem] xl:max-w-[13rem] aspect-square"
           >
@@ -92,9 +94,10 @@ export const UserOrdersItem: React.FC<IOrder> = ({
               className={`
                absolute -top-2 -right-1 sm:-right-2 rounded-md text-slate-400 flex justify-center items-center shadow-md bg-white size-6 pt-1 font-semibold`}
             >
-              {products.find((item2) => item2.product === item.productId)?.count+ "X"}
+              {products.find((item2) => item2.product === item.productId)
+                ?.count + "X"}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

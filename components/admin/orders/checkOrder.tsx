@@ -7,6 +7,7 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { FormEventHandler, useMemo, useState } from "react";
 import { FaCircleInfo } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 export const CheckOrder: React.FC<{
   mode: "delivered" | "notDelivered";
@@ -40,6 +41,7 @@ export const CheckOrder: React.FC<{
     const faDate = date.toLocaleString("fa-IR-u-nu-latn");
     try {
       await deliveryOrderService(orderId, { deliveryDate: faDate });
+      toast.success("محصول تحویل داده شد.")
     } catch (error) {
       errorHandler(error as AxiosError);
     }
