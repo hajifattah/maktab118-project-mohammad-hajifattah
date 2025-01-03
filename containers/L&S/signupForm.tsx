@@ -9,6 +9,7 @@ import { integrateShoppingStateWithDb } from "@/utils/integrateStateDb";
 import { setRefToken, setToken, setUserInfo } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -34,7 +35,7 @@ export const SignupForm: React.FC = () => {
         phone: userData.phoneNumber,
       });
       setRefToken(response.token.refreshToken);
-      integrateShoppingStateWithDb({userId:userData._id})
+      integrateShoppingStateWithDb({ userId: userData._id });
       toast.success("ثبت نام با موفقیت انجام شد");
       push("/");
     } catch (error) {
@@ -98,17 +99,26 @@ export const SignupForm: React.FC = () => {
           />
         )}
       />
-      <Controller
-        control={control}
-        name="address"
-        render={({ field, fieldState }) => (
-          <TextareaInput
-            label="آدرس"
-            {...field}
-            error={fieldState.error?.message}
-          />
-        )}
-      />
+      <div>
+        <Controller
+          control={control}
+          name="address"
+          render={({ field, fieldState }) => (
+            <TextareaInput
+              label="آدرس"
+              {...field}
+              error={fieldState.error?.message}
+            />
+          )}
+        />
+        <Link
+          href={"/login?isUser=true"}
+          className="text-sm font-semibold text-gray-700 underline w-fit pl-2 py-1 h-5 hover:text-black"
+        >
+          {" "}
+          وارد شوید
+        </Link>
+      </div>
       <SubmitButton text="ثبت نام" bgColor="bg-green_app" />
     </form>
   );

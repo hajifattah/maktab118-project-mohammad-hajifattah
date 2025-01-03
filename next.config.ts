@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "final-project-server-mhf.vercel.app",
+        protocol: "http",
+        hostname: "localhost",
       },
     ],
   },

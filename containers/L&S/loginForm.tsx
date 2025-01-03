@@ -8,6 +8,7 @@ import { integrateShoppingStateWithDb } from "@/utils/integrateStateDb";
 import { setRefToken, setToken, setUserInfo } from "@/utils/session-manager";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -95,6 +96,7 @@ export const LoginForm: React.FC<{
           />
         )}
       />
+      <Link href={"/signup"} className="text-sm font-semibold text-gray-700 underline w-fit pl-2 py-1 h-5 hover:text-black">ثبت نام کنید</Link>
       <SubmitButton text="ورود" bgColor="bg-green_app" />
     </form>
   );
